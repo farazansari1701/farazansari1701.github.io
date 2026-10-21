@@ -1,28 +1,9 @@
 (() => {
   'use strict';
-  const id = 'G-0S2BYMQSKW';
   const banner = document.getElementById('blog-cookie');
   const getConsent = () => { try { return localStorage.getItem('fa-consent'); } catch { return null; } };
   const saveConsent = value => { try { localStorage.setItem('fa-consent', value); } catch {} };
-  let loaded = false;
-  function applyConsent(value) {
-    window['ga-disable-' + id] = value !== 'granted';
-    if (value !== 'granted') {
-      if (loaded) window.gtag('consent', 'update', {analytics_storage:'denied'});
-      return;
-    }
-    if (loaded) { window.gtag('consent', 'update', {analytics_storage:'granted'}); return; }
-    loaded = true;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function() { window.dataLayer.push(arguments); };
-    window.gtag('consent', 'default', {analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
-    window.gtag('js', new Date());
-    window.gtag('config', id);
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
-    document.head.appendChild(script);
-  }
+  const applyConsent = value => window.farazAnalytics?.applyConsent(value);
   const consent = getConsent();
   applyConsent(consent);
   if (banner) banner.hidden = consent === 'granted' || consent === 'denied';
@@ -33,7 +14,6 @@
   document.getElementById('cookie-settings')?.addEventListener('click', () => {
     if (banner) { banner.hidden = false; banner.querySelector('button')?.focus(); }
   });
-  window.addEventListener('storage', event => { if (event.key === 'fa-consent') applyConsent(event.newValue); });
   const copy = document.getElementById('copy-link');
   if (copy && navigator.clipboard?.writeText) {
     copy.hidden = false;

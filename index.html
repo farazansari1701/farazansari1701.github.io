@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="/assets/analytics.min.js?v=593045c6b646" data-container="GTM-57BRSKXB"></script><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Faraz Ansari | Digital Marketing &amp; SEO Specialist</title>
 <link rel="canonical" href="https://farazansari1701.com/">
 <meta name="description" content="Digital Marketing &amp; SEO Specialist | Marketing Automation | AI-Driven Growth Strategies | B2B/B2C Campaign Expert | HubSpot &amp; CRM Optimization">
@@ -1484,7 +1484,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 <meta property="og:url" content="https://farazansari1701.com/">
 <script src="/assets/measurement.min.js?v=d8ffee37248c" defer></script>
 </head>
-<body>
+<body><noscript data-analytics-consent><p>Analytics and Google Tag Manager are disabled without JavaScript.</p></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="reg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 1.5v21M1.5 12h21" stroke="currentColor" stroke-width="1.6"/></symbol>
   <symbol id="plane-sym" viewBox="0 0 100 60"><path d="M98 30 4 4l24 26L4 56Z" fill="currentColor"/><path d="M98 30H28" stroke="var(--cyan)" stroke-width="2.5"/><path d="M98 30 28 30 4 4" fill="none" stroke="var(--bg,#fff)" stroke-width="1.2" opacity=".5"/></symbol>
@@ -2310,7 +2310,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie choice">
-  <p>This site uses Google Analytics to count visits. Allow analytics cookies? Analytics loads only after you choose Allow. You can change your choice in Cookie settings.</p>
+  <p>This site uses Google Analytics through Google tags and Tag Manager to count visits. Allow analytics cookies? Analytics loads only after you choose Allow. You can change your choice in Cookie settings.</p>
   <div class="c-btns"><button class="yes" type="button" id="ck-yes">Allow</button><button type="button" id="ck-no">Decline</button></div>
 </div>
 <canvas id="ink" aria-hidden="true"></canvas>
@@ -2626,24 +2626,15 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   }
 
   /* ---- cookie banner + GA4 ---- */
-  function loadGA(){
-    if (!CONFIG.gaId || store.get('fa-consent') !== 'granted' || window.__ga) return; window.__ga = true;
-    window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
-    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
-    if (store.get('fa-consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
-    gtag('js', new Date()); gtag('config', CONFIG.gaId, { anonymize_ip: true });
-    const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(CONFIG.gaId);
-    document.head.appendChild(s);
-  }
-  window.addEventListener('storage', event => { if(event.key !== 'fa-consent') return; window['ga-disable-' + CONFIG.gaId] = event.newValue !== 'granted'; if(event.newValue === 'granted') loadGA(); if(window.gtag) gtag('consent', 'update', {analytics_storage:event.newValue === 'granted' ? 'granted' : 'denied'}); });
+  function loadGA(){ window.farazAnalytics?.applyConsent(store.get('fa-consent')); }
   loadGA();
   const ck = $('#cookie');
   function initCookie(){
     const c = store.get('fa-consent');
     if (!c && ck) ck.classList.add('show');
   }
-  $('#ck-yes') && $('#ck-yes').addEventListener('click', () => { store.set('fa-consent', 'granted'); window['ga-disable-' + CONFIG.gaId] = false; ck.classList.remove('show'); loadGA(); if(window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' }); });
-  $('#ck-no') && $('#ck-no').addEventListener('click', () => { store.set('fa-consent', 'denied'); window['ga-disable-' + CONFIG.gaId] = true; ck.classList.remove('show'); if(window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' }); });
+  $('#ck-yes') && $('#ck-yes').addEventListener('click', () => { store.set('fa-consent', 'granted'); window['ga-disable-' + CONFIG.gaId] = false; ck.classList.remove('show'); loadGA();  });
+  $('#ck-no') && $('#ck-no').addEventListener('click', () => { store.set('fa-consent', 'denied'); window['ga-disable-' + CONFIG.gaId] = true; ck.classList.remove('show'); loadGA(); });
   $('#cookie-reset') && $('#cookie-reset').addEventListener('click', () => ck && ck.classList.add('show'));
 
   /* ---- marquee leans with scroll speed ---- */

@@ -27,6 +27,9 @@ titles=[];results=[]
 for p in htmls:
     text=p.read_text();path='/' if p.parent==ROOT else '/'+str(p.relative_to(ROOT).parent)+'/'
     parsed=pages[path]
+    assert text.count('data-container="GTM-57BRSKXB"')==1,path+' GTM bootstrap duplicate/missing'
+    assert text.index('/assets/analytics.min.js')<text.index('</head>'),path+' analytics must initialise in head'
+    assert 'googletagmanager.com/ns.html' not in text,path+' unconditional noscript bypasses consent'
     canonical=[a['href'] for tag,a in parsed.tags if tag=='link' and a.get('rel')=='canonical']
     assert canonical==[BASE+path],(path,canonical)
     assert len([x for x in parsed.tags if x[0]=='h1'])==1,path+' H1 count'

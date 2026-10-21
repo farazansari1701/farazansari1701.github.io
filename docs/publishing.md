@@ -22,3 +22,12 @@ Retain the last verified commit in private deployment history. If a release intr
 ## Measurement
 
 `contact_click` measures email, phone or booking intent. `outbound_profile_click` records the destination hostname. `file_download` records public document paths. `cv_download` applies when a CV or resume file is actually available and clicked. `article_read` requires analytics consent, 60 seconds of visible-page time and at least 75% article depth. None establishes a confirmed enquiry, qualified lead or sale. Verify delivery in GA4 after the account is connected.
+
+
+## Google Tag Manager and consent
+
+The shared `assets/analytics.js` bootstrap installs container `GTM-57BRSKXB` using basic consent mode. The build adds its versioned minified script high in the head of the portfolio, every blog page (including future articles), and the 404 pages. Both Google script loaders stay blocked until the existing `fa-consent` choice is `granted`. Advertising consent remains denied. Cookie settings and cross-tab changes update analytics consent.
+
+The site continues to own the single GA4 configuration for `G-0S2BYMQSKW` and its interaction events. The container's public version had no Google Analytics tag when installed on 21 October 2026. Do not add a second GA4 configuration or duplicate event tags in GTM; migrate the existing site configuration atomically if GTM is to take ownership. Future GTM tags must respect consent, including any third-party tags without built-in consent checks.
+
+An unconditional GTM noscript iframe would load without a way to read the JavaScript consent preference, so the no-JavaScript fallback intentionally makes no tracking request. This preserves the site's opt-in behaviour.
