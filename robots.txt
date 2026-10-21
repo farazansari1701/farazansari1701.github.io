@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://farazansari1701.com/sitemap.xml
