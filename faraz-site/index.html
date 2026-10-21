@@ -1456,6 +1456,18 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 @media (max-width:600px){ .socials-top{ display:none; } }
 @media (max-width:600px){ .foot-row .socials-foot{ order:-1; flex:0 0 100%; margin-left:-10px; margin-bottom:-6px; } }
 .foot-row{ align-items:center; }
+
+/* ===== Round 12: phones only (<=760px). Desktop and tablet rules above are untouched. ===== */
+@media (max-width:760px){
+  /* About me: one full-width column, photo then text, no empty strip on the right */
+  .opener.op-about{ grid-template-columns:minmax(0,1fr); column-gap:0; row-gap:24px; }
+  .opener.op-about .op-img{ grid-column:1; width:100%; max-width:none; height:auto; min-height:0; aspect-ratio:4 / 5; max-height:min(120vw,540px); align-self:auto; }
+  .opener.op-about .op-img img{ object-position:50% 14%; }
+  .opener.op-about .about-me{ grid-column:1; width:100%; max-width:none; }
+  /* blue separator before "Promoted at OKI Europe…", same line style as the one above "For me, it's not just…" */
+  #work > .opener.op-about + .col.lead{ padding-top:20px; }
+  #work > .opener.op-about + .col.lead::before{ content:""; position:absolute; top:0; left:calc(-1 * var(--indent)); right:0; height:2px; background:var(--cyan); }
+}
 </style>
 </head>
 <body>
@@ -1579,7 +1591,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
       <p>I believe growth comes from stepping outside your comfort zone, challenging conventional thinking, and never losing the curiosity to learn something new.</p>
       <p class="am-lead">For me, it’s not just about building a career. It’s about creating something meaningful along the way.</p>
     </div></div>
-  <p class="col lead glide">Promoted at OKI Europe into integrated campaign ownership and regional delivery. Combines paid media, SEO and HubSpot automation with commercial judgement, audience research and stakeholder coordination. Uses AI tools to improve marketing workflows.</p>
+  <p class="col lead glide">Promoted at OKI Europe into integrated campaign ownership and regional delivery. Combines paid media, SEO and <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> automation with commercial judgement, audience research and stakeholder coordination. Uses AI tools to improve marketing workflows.</p>
 
   <div class="now" id="role-oki-senior">
     <div class="now-role glide">
@@ -1589,20 +1601,20 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
       <p class="now-where">London Area, United Kingdom. Full-time, Hybrid</p>
       <ul class="pts">
         <li>Lead integrated Google Ads, Meta, email and web campaigns across EMEA</li>
-        <li>Own 31 localised HubSpot campaign records for MyOKI</li>
+        <li>Own 31 localised <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> campaign records for MyOKI</li>
         <li>Led B433/B513 product-launch communications through targeted email and automated follow-ups</li>
         <li>Support OKI warranty-service visibility through SEO, email and digital campaigns</li>
-        <li>Introduced AirOps and Alta AI for SEO, AEO and prospecting, and JustCall calling workflows</li>
+        <li>Introduced <a class="xl" href="https://www.airops.com/" target="_blank" rel="noopener">AirOps</a> and <a class="xl" href="https://www.altahq.com/" target="_blank" rel="noopener">Alta AI</a> for SEO, AEO and prospecting, and JustCall calling workflows</li>
       </ul>
       <p class="about">OKI Europe is an OKI group company that has been leading the world in customer-led innovation for over 130 years. Employing more than 18,000 individuals in 120 countries worldwide, we bring together the support of a global organisation with the approach of a local business.</p>
       <details><summary>Full description</summary><ul>
         <li>Lead integrated Google Ads, Meta, email and web campaigns across EMEA, aligning audience research, channel planning and regional marketing and sales priorities.</li>
         <li>Managed Meta lead generation delivering 2,470 platform leads at £19.78 cost per lead, 4% lower year on year (Jan-Sep 2026).</li>
         <li>Optimised paid social as Meta account reach rose 45% and link clicks increased 3% with 27% lower spend (Jan-Sep 2026 versus 2025).</li>
-        <li>Supported SEO and content optimisation as HubSpot organic-search new contacts increased 33% to 1,764 from 1,322 (Jan-Sep 2026 versus 2025).</li>
-        <li>Own 31 localised HubSpot campaign records for <a class="xl" href="https://en.okieurope.com/_hcms/mem/login?redirect_url=https%3A%2F%2Fen.okieurope.com%2F" target="_blank" rel="noopener">MyOKI</a>, coordinating segmentation, assets and delivery to European end-customer and reseller audiences.</li>
+        <li>Supported SEO and content optimisation as <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> organic-search new contacts increased 33% to 1,764 from 1,322 (Jan-Sep 2026 versus 2025).</li>
+        <li>Own 31 localised <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> campaign records for <a class="xl" href="https://en.okieurope.com/_hcms/mem/login?redirect_url=https%3A%2F%2Fen.okieurope.com%2F" target="_blank" rel="noopener">MyOKI</a>, coordinating segmentation, assets and delivery to European end-customer and reseller audiences.</li>
         <li>Led B433/B513 product-launch communications through targeted email and automated follow-ups. Support OKI warranty-service visibility through SEO, email and digital campaigns.</li>
-        <li>Introduced AirOps and Alta AI for SEO, AEO and prospecting, and JustCall calling workflows to support lead engagement, qualification and sales handover.</li>
+        <li>Introduced <a class="xl" href="https://www.airops.com/" target="_blank" rel="noopener">AirOps</a> and <a class="xl" href="https://www.altahq.com/" target="_blank" rel="noopener">Alta AI</a> for SEO, AEO and prospecting, and JustCall calling workflows to support lead engagement, qualification and sales handover.</li>
       </ul></details>
       
     </div>
@@ -1618,7 +1630,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
         <span class="b-meta"><span class="b-org">OKI Europe Ltd</span><span class="num">Oct 2022 - Sep 2025 · 3 yrs</span><span class="b-promo">Promoted to Senior, Oct 2025</span></span>
         <span class="b-plus" aria-hidden="true"></span>
       </button>
-      <div class="band-body" id="role-oki-dme-body"><div><div class="band-inner"><div><p class="b-site">Company site: <a class="xl" href="https://www.oki.com/eu" target="_blank" rel="noopener">oki.com/eu</a></p><ul class="pts"><li>Utilized HubSpot to create marketing and communications automations</li><li>Conducted SEO audits and ongoing optimization</li><li>Optimized landing pages&#x27; content, structure, and design</li><li>Managed lead enrichment and the sales funnel using HubSpot CRM</li></ul><details><summary>Full description</summary><ul><li>Utilized HubSpot to create marketing and communications automations, maximizing online digital marketing opportunities.</li><li>Identified new potential customers by studying demographics, behaviors, and needs through surveys and focus groups.</li><li>Planned, executed, and optimized digital marketing multi-channel campaigns for B2B and B2C clients in EMEA markets, leading to improved campaign performance and sales.</li><li>Set up email marketing system to collect signups data and ensure 100% deliverability, successfully targeting the audience.</li><li>Improved outbound marketing by utilizing emails, push notifications, and A/B testing, leading to more effective user engagement.</li><li>Converted UX design into a functioning website with integrated CMS and CRM, meeting client specifications and improving user experience.</li><li>Maintained the website by performing regular updates and troubleshooting, ensuring smooth running of key functions.</li><li>Optimized landing pages&#x27; content, structure, and design, achieving better CTR and conversion rates.</li><li>Managed lead enrichment and the sales funnel using HubSpot CRM, streamlining the sales process and improving conversion rates.</li><li>Created and managed the company’s profile through social media channels, enhancing the company’s online presence and engagement.</li><li>Conducted SEO audits and ongoing optimization, leading to higher search engine rankings and increased organic traffic.</li><li>Marketing enhancements and automations using AI which helped reduce the average time for the sales team to contact the customer.</li></ul></details></div></div></div></div>
+      <div class="band-body" id="role-oki-dme-body"><div><div class="band-inner"><div><p class="b-site">Company site: <a class="xl" href="https://www.oki.com/eu" target="_blank" rel="noopener">oki.com/eu</a></p><ul class="pts"><li>Utilized <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> to create marketing and communications automations</li><li>Conducted SEO audits and ongoing optimization</li><li>Optimized landing pages&#x27; content, structure, and design</li><li>Managed lead enrichment and the sales funnel using <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> CRM</li></ul><details><summary>Full description</summary><ul><li>Utilized <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> to create marketing and communications automations, maximizing online digital marketing opportunities.</li><li>Identified new potential customers by studying demographics, behaviors, and needs through surveys and focus groups.</li><li>Planned, executed, and optimized digital marketing multi-channel campaigns for B2B and B2C clients in EMEA markets, leading to improved campaign performance and sales.</li><li>Set up email marketing system to collect signups data and ensure 100% deliverability, successfully targeting the audience.</li><li>Improved outbound marketing by utilizing emails, push notifications, and A/B testing, leading to more effective user engagement.</li><li>Converted UX design into a functioning website with integrated CMS and CRM, meeting client specifications and improving user experience.</li><li>Maintained the website by performing regular updates and troubleshooting, ensuring smooth running of key functions.</li><li>Optimized landing pages&#x27; content, structure, and design, achieving better CTR and conversion rates.</li><li>Managed lead enrichment and the sales funnel using <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> CRM, streamlining the sales process and improving conversion rates.</li><li>Created and managed the company’s profile through social media channels, enhancing the company’s online presence and engagement.</li><li>Conducted SEO audits and ongoing optimization, leading to higher search engine rankings and increased organic traffic.</li><li>Marketing enhancements and automations using AI which helped reduce the average time for the sales team to contact the customer.</li></ul></details></div></div></div></div>
     </article>
     <article class="band" id="role-xf-dme" data-img="" data-fc-org="X-Forces Enterprise" data-fc-n="+20%" data-fc-l="website traffic, Soldiering On Awards" data-fc-bg="var(--yellow)">
       <button class="band-head" type="button" aria-expanded="false" aria-controls="role-xf-dme-body">
@@ -1746,7 +1758,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
         <button class="flip-hit" type="button" aria-pressed="false" aria-label="Flip the MyOKI card"></button>
       </div>
       <div class="p-actions"><button class="linkbtn" type="button" data-open-project="myoki">Read more</button></div>
-      <div class="detail-src" id="detail-myoki"><h2>MyOKI localised campaigns</h2><p class="src">Senior Digital Marketing Executive, OKI Europe Ltd, Oct 2025 - Present</p><img class="pd-img" data-pf="myoki" alt="MyOKI portal artwork: follow your warranty, manage your devices, recycle your original OKI toners"><div class="ig-wrap"><div class="ig" data-ig="https://www.instagram.com/reel/DdRvTxWkcpj/embed/" data-title="MyOKI portal reel"><div class="ig-load">Loading the post from Instagram&hellip;</div></div></div><a class="ig-link xl" href="https://www.instagram.com/reel/DdRvTxWkcpj/" target="_blank" rel="noopener">Open on Instagram</a> &nbsp; <a class="ig-link xl" href="https://en.okieurope.com/_hcms/mem/login?redirect_url=https%3A%2F%2Fen.okieurope.com%2F" target="_blank" rel="noopener">MyOKI portal login</a><p class="full">Own 31 localised HubSpot campaign records for <a class="xl" href="https://en.okieurope.com/_hcms/mem/login?redirect_url=https%3A%2F%2Fen.okieurope.com%2F" target="_blank" rel="noopener">MyOKI</a>, coordinating segmentation, assets and delivery to European end-customer and reseller audiences.</p></div>
+      <div class="detail-src" id="detail-myoki"><h2>MyOKI localised campaigns</h2><p class="src">Senior Digital Marketing Executive, OKI Europe Ltd, Oct 2025 - Present</p><img class="pd-img" data-pf="myoki" alt="MyOKI portal artwork: follow your warranty, manage your devices, recycle your original OKI toners"><div class="ig-wrap"><div class="ig" data-ig="https://www.instagram.com/reel/DdRvTxWkcpj/embed/" data-title="MyOKI portal reel"><div class="ig-load">Loading the post from Instagram&hellip;</div></div></div><a class="ig-link xl" href="https://www.instagram.com/reel/DdRvTxWkcpj/" target="_blank" rel="noopener">Open on Instagram</a> &nbsp; <a class="ig-link xl" href="https://en.okieurope.com/_hcms/mem/login?redirect_url=https%3A%2F%2Fen.okieurope.com%2F" target="_blank" rel="noopener">MyOKI portal login</a><p class="full">Own 31 localised <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> campaign records for <a class="xl" href="https://en.okieurope.com/_hcms/mem/login?redirect_url=https%3A%2F%2Fen.okieurope.com%2F" target="_blank" rel="noopener">MyOKI</a>, coordinating segmentation, assets and delivery to European end-customer and reseller audiences.</p></div>
     </article>
 
     <article class="proj glide">
@@ -1827,7 +1839,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   <div class="sphere-wrap">
     <div class="sphere-copy glide">
       <h3 class="sub">Tools &amp; platforms</h3>
-      <p>The platforms behind the numbers above, from HubSpot and Google Ads to the AI tools brought into the team at OKI.</p>
+      <p>The platforms behind the numbers above, from <a class="xl" href="https://www.hubspot.com/" target="_blank" rel="noopener">HubSpot</a> and Google Ads to the AI tools brought into the team at OKI.</p>
       <p class="hint">Drag to spin</p>
     </div>
     <div class="sphere" aria-hidden="true"><span class="" style="--fs:clamp(14px,1.25vw,18px)">AEO</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Hotjar</span><span class="core" style="--fs:clamp(19px,1.9vw,27px)">HubSpot</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Zoho CRM</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Zoho Analytics</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">AirOps</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Alta AI</span><span class="core" style="--fs:clamp(19px,1.9vw,27px)">Google Ads</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">JustCall</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">LinkedIn Advertising</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Facebook Ads Manager</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">WordPress</span><span class="core" style="--fs:clamp(19px,1.9vw,27px)">Meta Ads</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">SEO Audits</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Email Marketing</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Lead Generation</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">A/B Testing</span><span class="core" style="--fs:clamp(19px,1.9vw,27px)">SEO</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Landing Pages</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">PPC</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">CRO</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Claude Code</span><span class="core" style="--fs:clamp(19px,1.9vw,27px)">Marketing Automation</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Generative AI</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Web Analytics</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Social Media Advertising</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Instagram</span><span class="core" style="--fs:clamp(19px,1.9vw,27px)">Google Analytics</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Microsoft Excel</span><span class="" style="--fs:clamp(14px,1.25vw,18px)">Product Launch</span></div>
@@ -2139,7 +2151,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
     <article class="glide">
       <figure class="slot vslot logo"><img src="assets/logo-ccrs.webp" alt="CCRS logo: a butterfly inside orange, blue and green arcs, with the letters CCRS" loading="lazy"></figure>
       <span class="when num">Nov 2010 - Mar 2011</span>
-      <h3><a class="xl" href="https://www.ccrsindia.in/" target="_blank" rel="noopener">Cancer Control Society</a></h3>
+      <h3><a class="xl" href="https://www.ccrsindia.in/" target="_blank" rel="noopener">Cancer Control &amp; Research Society (CCRS)</a></h3>
       <span class="cause">Fundraising Volunteer, Health</span>
       <p>Worked with an NGO to organize fund raising camps and awareness talks and intensive training for chosen leaders among local women as Basti Sevika, with the cooperation of doctors from IRCH/AIIMS.</p>
     </article>
@@ -2282,7 +2294,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookie choice">
-  <p>This site uses Google Analytics cookies to count visits. Allow analytics cookies?</p>
+  <p>This site uses Google Analytics to count visits. Allow analytics cookies? If you decline, only anonymous measurement without cookies is used.</p>
   <div class="c-btns"><button class="yes" type="button" id="ck-yes">Allow</button><button type="button" id="ck-no">Decline</button></div>
 </div>
 <canvas id="ink" aria-hidden="true"></canvas>
@@ -2299,7 +2311,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
     email: 'contact@farazansari1701.com',
     bookingUrl: 'https://calendly.com/farazansari1701/30min',     // e.g. your Calendly or Cal.com link
     linkedin: 'https://www.linkedin.com/in/farazansari1701/',
-    gaId: '',           // GA4 measurement ID, e.g. 'G-XXXXXXX'
+    gaId: 'G-0S2BYMQSKW',           // GA4 measurement ID, e.g. 'G-XXXXXXX'
     secretWord: 'print' // typing this anywhere prints the About sheet
   };
 
@@ -2601,18 +2613,21 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   /* ---- cookie banner + GA4 ---- */
   function loadGA(){
     if (!CONFIG.gaId || window.__ga) return; window.__ga = true;
+    window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+    if (store.get('fa-consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
+    gtag('js', new Date()); gtag('config', CONFIG.gaId, { anonymize_ip: true });
     const s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(CONFIG.gaId);
     document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); };
-    gtag('js', new Date()); gtag('config', CONFIG.gaId, { anonymize_ip: true });
   }
+  loadGA();
   const ck = $('#cookie');
   function initCookie(){
     const c = store.get('fa-consent');
-    if (c === 'granted') loadGA(); else if (!c && ck) ck.classList.add('show');
+    if (!c && ck) ck.classList.add('show');
   }
-  $('#ck-yes') && $('#ck-yes').addEventListener('click', () => { store.set('fa-consent', 'granted'); ck.classList.remove('show'); loadGA(); });
-  $('#ck-no') && $('#ck-no').addEventListener('click', () => { store.set('fa-consent', 'denied'); ck.classList.remove('show'); });
+  $('#ck-yes') && $('#ck-yes').addEventListener('click', () => { store.set('fa-consent', 'granted'); ck.classList.remove('show'); loadGA(); gtag('consent', 'update', { analytics_storage: 'granted' }); });
+  $('#ck-no') && $('#ck-no').addEventListener('click', () => { store.set('fa-consent', 'denied'); ck.classList.remove('show'); gtag('consent', 'update', { analytics_storage: 'denied' }); });
   $('#cookie-reset') && $('#cookie-reset').addEventListener('click', () => ck && ck.classList.add('show'));
 
   /* ---- marquee leans with scroll speed ---- */
