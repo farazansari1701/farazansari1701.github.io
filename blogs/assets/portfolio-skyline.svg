@@ -48,7 +48,9 @@
 .foot-row .socials a{ padding:0; display:grid; }
 .socials-foot{ margin-left:-10px; }
 @media (max-width:600px){.foot-row .socials-foot{ order:-1; flex:0 0 100%; margin-left:-10px; margin-bottom:-6px; }}
-.foot-row{ align-items:center; }</style>
+.foot-row{ align-items:center; }
+@media(max-width:1024px){.foot.stretch{clip-path:none!important}
+.foot .foot-row{flex-wrap:wrap;gap:14px 22px}}</style>
   <defs>
     <linearGradient id="sk-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
     <mask id="sk-mask"><rect x="0" y="360" width="2600" height="90" fill="url(#sk-fade)"/></mask>

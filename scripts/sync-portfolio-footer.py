@@ -31,6 +31,8 @@ def rules(css):
   pos=end
  return '\n'.join(out)
 css='\n'.join(rules(x) for x in re.findall(r'<style[^>]*>([\s\S]*?)</style>',home))
+responsive=ROOT/'assets/portfolio-responsive.css'
+if responsive.exists():css+='\n'+rules(responsive.read_text())
 base='''/* Generated from the main portfolio footer by scripts/sync-portfolio-footer.py. */
 .foot{--paper:#F6F6F3;--ink:#1A1A1A;--cyan:#00AEEF;--magenta:#EC008C;--yellow:#FFE500;--gutter:clamp(20px,5vw,72px);--ease:cubic-bezier(.2,.7,.1,1);--font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;--bg:var(--ink);--fg:var(--paper);background:var(--bg);color:var(--fg);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .foot{--paper:#141414;--ink:#EDEDE9}}

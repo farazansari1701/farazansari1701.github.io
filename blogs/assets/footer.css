@@ -54,4 +54,6 @@
 .socials-foot{ margin-left:-10px; }
 @media (max-width:600px){.foot-row .socials-foot{ order:-1; flex:0 0 100%; margin-left:-10px; margin-bottom:-6px; }}
 .foot-row{ align-items:center; }
+@media(max-width:1024px){.foot.stretch{clip-path:none!important}
+.foot .foot-row{flex-wrap:wrap;gap:14px 22px}}
 @media print{.foot{display:none!important}}

@@ -33,3 +33,11 @@ Consent defaults are set synchronously before GTM. Analytics and advertising sto
 GTM owns the Google tag. Do not reintroduce a standalone gtag.js loader or a second GA4 config, and do not add a second automatic page-view tag. Existing consent-gated interaction events use the same data layer. Future GTM tags must respect consent, including third-party tags without built-in checks. The noscript iframe cannot read the JavaScript consent preference; do not add noscript image trackers that collect analytics or marketing data without an appropriate consent mechanism.
 
 The installation checker previously missed the delayed external GTM bootstrap. The standard inline snippet now exposes and starts the container independently of the analytics choice. Validate the inline bootstrap, one container load, denied/granted/withdrawn states, and one page view in `npm run check:blogs`. Verify received events with Tag Assistant and GA4 when browser/reporting access is available; static and isolated execution checks do not prove event delivery.
+
+## Portfolio responsive layer and CV
+
+`assets/portfolio-responsive.css` and `.js` provide progressive mobile disclosures at the existing 760px breakpoint. Without JavaScript all text and cards remain available. Desktop shows the complete original content; phones initially show four core skills and four featured certificates. Keep all cards and text in the original HTML. The build generates versioned minified assets for both portfolio entry points and copies the applicable footer rules to every blog page.
+
+The section menu has a bounded internal scroll area and a keyboard focus loop. Mobile/tablet flight animation plays the existing boarding-pass and flight sequence once on viewport entry, without the desktop pin. Desktop retains its pinned scroll timeline. Touch rotation uses pointer capture and yields vertical gestures to page scrolling; reduced motion keeps manual rotation available without automatic spinning.
+
+The Contact section links to the owner-supplied, unmodified `assets/Faraz-Ansari-CV.pdf`. Keep both the same-origin download link and the open-in-new-tab fallback. Its click is eligible for the existing consent-gated `cv_download` event; that is a click intent, not proof of a completed download. A future CV replacement must use the owner's approved file.

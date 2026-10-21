@@ -31,6 +31,18 @@ for(const file of [path.join(root,'index.html'),path.join(root,'faraz-site/index
 }
 console.log('Minified blog assets with versioned URLs',versions);
 
+// Keep the small portfolio-only responsive layer separate from desktop styles.
+for(const ext of ['css','js']){
+ const source='portfolio-responsive.'+ext,name='portfolio-responsive.min.'+ext;
+ const output=esbuild.transformSync(fs.readFileSync(path.join(root,'assets',source),'utf8'),{loader:ext,minify:true,target:ext==='js'?'es2020':undefined,legalComments:'none',charset:'utf8'}).code;
+ fs.writeFileSync(path.join(root,'assets',name),output);
+ const url='/assets/'+name+'?v='+crypto.createHash('sha256').update(output).digest('hex').slice(0,12);
+ for(const file of ['index.html','faraz-site/index.html']){
+  const target=path.join(root,file),pattern=new RegExp('/assets/portfolio-responsive(?:\\.min)?\\.'+ext+'(?:\\?[^"\\s<>]*)?','g');
+  fs.writeFileSync(target,fs.readFileSync(target,'utf8').replace(pattern,url));
+ }
+}
+
 const analytics=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/analytics.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
 fs.writeFileSync(path.join(root,'assets/analytics.min.js'),analytics);
 const analyticsUrl='/assets/analytics.min.js?v='+crypto.createHash('sha256').update(analytics).digest('hex').slice(0,12);

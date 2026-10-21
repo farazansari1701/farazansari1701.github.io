@@ -1491,6 +1491,8 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   #work > .opener.op-about + .col.lead::before{ content:""; position:absolute; top:0; left:calc(-1 * var(--indent)); right:0; height:2px; background:var(--cyan); }
 }
 </style>
+<link rel="stylesheet" href="/assets/portfolio-responsive.min.css?v=ffe399bb6685">
+<script src="/assets/portfolio-responsive.min.js?v=38b243cb81ac" defer></script>
 <link rel="alternate" type="application/rss+xml" title="Faraz Ansari — Field notes" href="/blogs/feed.xml">
 <meta property="og:title" content="Faraz Ansari | Digital Marketing &amp; SEO Specialist">
 <meta property="og:description" content="Digital Marketing &amp; SEO Specialist | Marketing Automation | AI-Driven Growth Strategies | B2B/B2C Campaign Expert | HubSpot &amp; CRM Optimization">
@@ -1535,8 +1537,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav class="menu" id="menu" data-lenis-prevent aria-label="Sections">
   <button class="menu-close" id="menu-close" type="button">Close</button>
-  <ol><li><a href="#work">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="/blogs/">Blogs</a></li><li><a href="#skills">Skills</a></li><li><a href="#study">Education, UK</a></li><li><a href="#flight">The move</a></li><li><a href="#india">Education, India</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#recommendations">Recommendations</a></li><li><a href="#volunteering">Volunteering</a></li><li><a href="#services">Services</a><a href="#contact">Contact</a></li></ol>
+  <div class="menu-scroll" data-lenis-prevent>
+  <ol><li><a href="#work">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="/blogs/">Blogs</a></li><li><a href="#skills">Skills</a></li><li><a href="#study">Education, UK</a></li><li><a href="#flight">The move</a></li><li><a href="#india">Education, India</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#recommendations">Recommendations</a></li><li><a href="#volunteering">Volunteering</a></li><li><a href="#services">Services</a></li><li><a href="#contact">Contact</a></li></ol>
   <nav class="socials socials-menu" aria-label="Social profiles"><a href="https://www.linkedin.com/in/farazansari1701/" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a><a href="https://www.instagram.com/farazansari1701/" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a><a href="https://www.facebook.com/farazansari1701" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on Facebook (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.6 21.5v-8.3h2.8l.45-3.3H13.6V7.8c0-.95.27-1.6 1.62-1.6h1.72V3.25c-.3-.04-1.33-.13-2.52-.13-2.5 0-4.2 1.52-4.2 4.32v2.46H7.4v3.3h2.82v8.3h3.38z"/></svg></a></nav>
+  </div>
 </nav>
 
 <main id="main">
@@ -2255,6 +2259,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="o-l">Book a call</span><span class="o-s">The phone</span>
     </a>
   </div>
+  <div class="cv-download">
+    <a class="docbtn" href="/assets/Faraz-Ansari-CV.pdf" download="Faraz-Ansari-CV.pdf">Download CV <span aria-hidden="true">↓</span></a>
+    <a class="xl cv-open" href="/assets/Faraz-Ansari-CV.pdf" target="_blank" rel="noopener">Open CV (PDF)<span class="sr-only"> in a new tab</span></a>
+  </div>
   <div class="plain">
     <a id="plain-email" href="#contact">Email</a>
     <a href="https://www.linkedin.com/in/farazansari1701/" target="_blank" rel="noopener">LinkedIn</a>
@@ -2421,19 +2429,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function setMenu(open){
     if (!menu) return;
     menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.documentElement.classList.toggle('menu-open', open);
+    if (open) $('.menu-scroll', menu).scrollTop = 0;
     if (open) { lenis && lenis.stop(); setTimeout(() => { const a = $('a', menu); a && a.focus(); }, 80); }
     else { lenis && lenis.start(); menuBtn.focus(); }
     tick(900, .06);
   }
   menuBtn && menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
   $('#menu-close') && $('#menu-close').addEventListener('click', () => setMenu(false));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu && menu.classList.contains('open')) setMenu(false); });
+  document.addEventListener('keydown', e => {
+    if (!menu || !menu.classList.contains('open')) return;
+    if (e.key === 'Escape') setMenu(false);
+    if (e.key === 'Tab') {
+      const items = $$('a[href],button:not([disabled])', menu), first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !menu.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !menu.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+    }
+  });
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const id = a.getAttribute('href'); if (id.length < 2 || a.classList.contains('skip') || a.closest('.desk') || a.id.startsWith('plain-')) return;
     const t = document.querySelector(id); if (!t) return;
     e.preventDefault();
     const wasMenu = menu && menu.classList.contains('open');
-    if (wasMenu) { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); lenis && lenis.start(); }
+    if (wasMenu) setMenu(false);
     setTimeout(() => scrollToEl(t), wasMenu ? 350 : 0);
   }));
 
@@ -2720,10 +2738,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // The flight: boarding pass folds into a plane and flies to the UK
   const stage = $('#flight-stage'), plane = $('#plane'), line = $('#route-line');
   if (stage && plane && line) {
+    const flightForViewport = mobile => {
     const len = line.getTotalLength ? line.getTotalLength() : 600;
     G.set(line, { strokeDasharray: len, strokeDashoffset: len });
     G.set('.landed > *', { opacity: 0, y: 30 });
-    const tl = G.timeline({ scrollTrigger: { trigger: stage, start: 'top top', end: () => '+=' + (innerWidth < 760 ? 150 : 230) + '%', invalidateOnRefresh: true, pin: true, scrub: 1, anticipatePin: 1, refreshPriority: 2 } });
+    const tl = G.timeline({ scrollTrigger: mobile
+      ? { trigger: stage, start: 'top 75%', once: true }
+      : { trigger: stage, start: 'top top', end: () => '+=' + (innerWidth < 760 ? 150 : 230) + '%', invalidateOnRefresh: true, pin: true, scrub: 1, anticipatePin: 1, refreshPriority: 2 } });
     ST.sort();
     tl.to('.pass-top', { rotateX: -178, duration: 1, ease: 'power2.inOut' })
       .to('#pass', { scale: .3, rotate: -14, opacity: 0, duration: .8, ease: 'power2.in' }, '>-0.15')
@@ -2735,6 +2756,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     tl.to(line, { strokeDashoffset: 0, duration: 2, ease: 'power1.inOut' }, '<')
       .to('.landed > *', { opacity: 1, y: 0, stagger: .15, duration: .6 }, '>-0.3');
+    return () => { tl.scrollTrigger?.kill(); tl.kill(); };
+    };
+    mm.add('(min-width: 1025px)', () => flightForViewport(false));
+    mm.add('(max-width: 1024px)', () => flightForViewport(true));
   }
 
   // fonts change measurements; refresh once they are in
@@ -2857,16 +2882,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(en => en.isIntersecting ? start() : stop())).observe(sp);
       else start();
       document.addEventListener('visibilitychange', () => document.hidden ? stop() : (sp.getBoundingClientRect().top < innerHeight && start()));
-      const clamp = v => Math.max(-.14, Math.min(.14, v));
-      sp.addEventListener('pointerdown', e => { drag = true; lx = e.clientX; ly = e.clientY; sp.classList.add('drag'); if (e.pointerType === 'mouse') sp.setPointerCapture(e.pointerId); });
-      sp.addEventListener('pointermove', e => {
-        if (!drag) return;
-        const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
-        vy = clamp(dx * .0062); vx = clamp(-dy * .0062);
-      });
-      const end = () => { drag = false; sp.classList.remove('drag'); };
-      sp.addEventListener('pointerup', end); sp.addEventListener('pointercancel', end); sp.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') end(); });
     }
+    const clamp = v => Math.max(-.14, Math.min(.14, v));
+    let pointer = null, sx = 0, sy = 0, horizontal = false;
+    function end() {
+      const id = pointer; pointer = null; drag = false; horizontal = false;
+      sp.classList.remove('drag');
+      if (id !== null && sp.hasPointerCapture?.(id)) sp.releasePointerCapture(id);
+    }
+    sp.addEventListener('pointerdown', e => {
+      if (pointer !== null || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      pointer = e.pointerId; sx = lx = e.clientX; sy = ly = e.clientY;
+      horizontal = e.pointerType === 'mouse'; drag = true;
+      sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId);
+    });
+    sp.addEventListener('pointermove', e => {
+      if (pointer !== e.pointerId) return;
+      if (!horizontal) {
+        const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 6) return;
+        if (Math.abs(dy) > Math.abs(dx)) { end(); return; }
+        horizontal = true;
+      }
+      const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
+      vy = clamp(dx * .0062); vx = clamp(-dy * .0062);
+      if (reduce) { rotate(vy, vx); render(); }
+    });
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => sp.addEventListener(type, e => { if (pointer === e.pointerId) end(); }));
+    sp.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !sp.hasPointerCapture?.(e.pointerId)) end(); });
   }
 
   /* ---- recommendations: the line draws itself, quotes arrive as it reaches them ---- */
