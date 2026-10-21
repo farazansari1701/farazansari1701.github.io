@@ -35,5 +35,5 @@ base='''/* Generated from the main portfolio footer by scripts/sync-portfolio-fo
 :root[data-theme="dark"] .foot{--paper:#141414;--ink:#EDEDE9}
 .foot :where(p){margin:1em 0}.foot a{color:inherit}.foot button{font:inherit;color:inherit}.foot img,.foot svg{max-width:100%}
 '''
-(ROOT/'blog/assets/footer.css').write_text(base+css+'\n@media print{.foot{display:none!important}}\n')
+(ROOT/'blogs/assets/footer.css').write_text(base+css+'\n@media print{.foot{display:none!important}}\n')
 print('Synced footer markup and styles from index.html')
