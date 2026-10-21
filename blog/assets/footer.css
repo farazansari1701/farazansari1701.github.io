@@ -1,0 +1,42 @@
+/* Shared blog footer: artwork and links from the portfolio. */
+.blog-footer{--fg:var(--ink);--bg:var(--paper);position:relative;padding:0 var(--gutter) calc(env(safe-area-inset-bottom,0px) + 28px);overflow:hidden;min-height:100svh;display:flex;flex-direction:column;background:var(--paper);color:var(--ink)}
+.blog-footer>.pano{margin-bottom:auto}
+.blog-footer .wordmark{margin:clamp(50px,10vw,160px) 0 0;font-size:clamp(42px,12.7vw,250px);line-height:.9;font-weight:880;text-transform:uppercase;letter-spacing:-.035em;font-variation-settings:"wdth" 100;white-space:nowrap}
+.blog-footer .foot-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 26px;margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;line-height:1.6}
+.blog-footer .foot-row button{background:none;border:0;padding:10px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font:inherit;color:inherit}
+.blog-footer .foot-row>a{padding:10px 0;text-underline-offset:3px}
+.blog-footer .socials{display:flex;align-items:center;margin-left:-10px}
+.blog-footer .socials a{display:grid;place-items:center;width:40px;height:44px;color:inherit}
+.blog-footer .socials svg{width:19px;height:19px;display:block}
+.blog-footer .socials a:hover{color:#007c96}
+.pano{ margin-bottom:auto; }
+.pano{ position:relative; margin:clamp(24px,5vw,60px) calc(var(--gutter) * -1) 0; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; }
+.pano::-webkit-scrollbar{ display:none; }
+.pano.panning{ overflow:hidden; }
+.pano .sky3{ margin:0; display:block; width:max(100%, 1800px); max-width:none; height:auto; overflow:visible; }
+.sky3 .sk-far{ fill:color-mix(in srgb,var(--fg) 11%,var(--bg)); }
+.sky3 .sk-mid{ fill:color-mix(in srgb,var(--fg) 26%,var(--bg)); }
+.sky3 .sk-fr, .sky3 .sk-boat{ fill:var(--fg); }
+.sky3 .sk-cut{ fill:var(--bg); }
+.sky3 .sk-cuts{ fill:none; stroke:var(--bg); stroke-width:1.4; stroke-linecap:round; }
+.sky3 .sk-umb{ fill:color-mix(in srgb,var(--fg) 40%,var(--bg)); }
+.sky3 .sk-chain{ fill:none; stroke:var(--fg); stroke-width:4; stroke-linecap:round; }
+.sky3 .sk-hang, .sky3 .sk-lattice{ fill:none; stroke:var(--fg); stroke-width:1.2; }
+.sky3 .sk-rim{ fill:none; stroke:var(--fg); stroke-width:4; } .sky3 .sk-rim2{ fill:none; stroke:var(--fg); stroke-width:1.2; }
+.sky3 .sk-spoke{ stroke:var(--fg); stroke-width:.8; opacity:.75; }
+.sky3 .sk-acc{ fill:var(--cyan); } .sky3 .sk-gold{ fill:var(--yellow); }
+.sky3 .sk-face{ fill:var(--fg); } .sky3 .sk-hand{ stroke:var(--bg); stroke-width:1.6; stroke-linecap:round; }
+.sky3 .sk-sun{ fill:var(--yellow); }
+.sky3 .sk-refl{ opacity:.6; }
+.sky3 .sk-bank{ stroke:var(--fg); stroke-width:2; }
+.sky3 .sk-ripple{ stroke:var(--bg); stroke-width:3; opacity:.9; }
+.sky3 .sk-kite{ fill:var(--yellow); animation:kite 5s ease-in-out infinite alternate; transform-box:fill-box; }
+.sky3 .sk-kstr{ fill:none; stroke:color-mix(in srgb,var(--fg) 30%,transparent); stroke-width:1; }
+.sky3 .sk-trail{ fill:none; stroke:var(--fg); stroke-width:2; stroke-dasharray:6 9; opacity:.45; }
+.sky3 .sk-plane{ fill:var(--fg); }
+@keyframes kite{ to{ transform:translate(6px,-5px) rotate(5deg); } }
+
+
+@media(max-width:680px){.blog-footer{min-height:75svh}.blog-footer .wordmark{font-size:12.2vw;margin-top:70px}.blog-footer .foot-row{font-size:12px;gap:10px 20px}.blog-footer .socials{order:-1;flex:0 0 100%}.blog-footer .pano .sky3{width:1200px}}
+@media(prefers-reduced-motion:reduce){.blog-footer .sk-kite{animation:none}}
+@media print{.blog-footer{display:none!important}}
