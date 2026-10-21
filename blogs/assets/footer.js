@@ -22,8 +22,19 @@
     if(exists())return Promise.resolve();
     return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=reject;document.head.appendChild(script);});
   }
+  async function loadArtwork(){
+    const placeholder=$('[data-footer-art]');
+    if(!placeholder)return;
+    const response=await fetch(placeholder.dataset.footerArt,{credentials:'same-origin'});
+    if(!response.ok)throw new Error('Footer artwork unavailable');
+    const parsed=new DOMParser().parseFromString(await response.text(),'image/svg+xml');
+    if(parsed.querySelector('parsererror')||parsed.documentElement.localName!=='svg')throw new Error('Invalid footer artwork');
+    parsed.querySelectorAll('style').forEach(style=>style.remove());
+    placeholder.replaceWith(document.importNode(parsed.documentElement,true));
+  }
   async function animate(){
     try{
+      await loadArtwork();
       await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',()=>window.gsap);
       await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',()=>window.ScrollTrigger);
       await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js',()=>window.MotionPathPlugin);

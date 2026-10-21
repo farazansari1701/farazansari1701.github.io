@@ -1,5 +1,51 @@
 [
   {
+    "slug": "b2b-lead-quality-cost-per-lead",
+    "title": "B2B lead quality: looking beyond cost per lead",
+    "seoTitle": "B2B lead quality and cost per lead | Faraz Ansari",
+    "description": "Assess B2B lead quality alongside cost per lead. Faraz Ansari shares a practical framework for audience fit, qualification, CRM ownership and campaign reviews.",
+    "deck": "A practical framework for connecting acquisition costs with audience fit, qualification and the next useful conversation.",
+    "publishedAt": "2026-10-21T17:45:06+01:00",
+    "modifiedAt": "2026-10-21T17:45:06+01:00",
+    "category": "Performance marketing",
+    "categoryUrl": "/blogs/",
+    "keywords": [
+      "B2B lead quality",
+      "cost per lead",
+      "lead qualification",
+      "HubSpot lifecycle stages",
+      "B2B lead generation"
+    ],
+    "heroPrefix": "lead-quality",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Conceptual illustration of contact cards examined through a magnifying glass and connected to conversation cards",
+    "heroCaption": "Look beyond the response. Understand the next conversation.",
+    "context": "Educational framework informed by publicly documented campaign and CRM responsibilities. No campaign-specific uplift is claimed.",
+    "sources": [
+      {
+        "name": "Faraz Ansari: public role history and responsibilities",
+        "url": "/#work",
+        "context": "Professional context, OKI Europe, October 2022–present. No private campaign records used."
+      },
+      {
+        "name": "HubSpot: Use contact and company lifecycle stages",
+        "url": "https://knowledge.hubspot.com/records/use-lifecycle-stages",
+        "context": "Product definitions. Accessed 21 October 2026."
+      },
+      {
+        "name": "Google Ads: Offline conversion imports FAQs",
+        "url": "https://support.google.com/google-ads/answer/10029210?hl=en-GB",
+        "context": "Qualified and converted lead measurement. Accessed 21 October 2026."
+      }
+    ],
+    "url": "/blogs/b2b-lead-quality-cost-per-lead/",
+    "date": "2026-10-21",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1012
+  },
+  {
     "title": "B2B marketing automation: HubSpot lessons from OKI",
     "url": "/blogs/hubspot-marketing-automation-lessons-oki/",
     "date": "2026-10-21",

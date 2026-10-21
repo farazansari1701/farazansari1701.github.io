@@ -1,10 +1,12 @@
 """Copy the portfolio footer and its CSS into the shared blog footer assets."""
 from pathlib import Path
 import re
+import hashlib
+import html
 ROOT=Path(__file__).resolve().parents[1]
 home=(ROOT/'index.html').read_text()
 footer=re.search(r'<footer\b[^>]*>[\s\S]*?</footer>',home).group()
-(ROOT/'templates/blog-footer.html').write_text(footer+'\n')
+# The SVG is emitted once as a reusable asset below.
 # Preserve the cascade and media queries of the portfolio's footer rules.
 def relevant(selector):
  return bool(re.search(r'\.(?:foot(?:-row)?|wordmark|pano|sky3|socials(?:-foot)?)\b',selector)) and not bool(re.search(r'\.(?:socials-top|socials-menu)',selector))
@@ -36,4 +38,18 @@ base='''/* Generated from the main portfolio footer by scripts/sync-portfolio-fo
 .foot :where(p){margin:1em 0}.foot a{color:inherit}.foot button{font:inherit;color:inherit}.foot img,.foot svg{max-width:100%}
 '''
 (ROOT/'blogs/assets/footer.css').write_text(base+css+'\n@media print{.foot{display:none!important}}\n')
-print('Synced footer markup and styles from index.html')
+# Share the same artwork across blog pages instead of repeating ~36 KB of SVG.
+svg = re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>', footer).group()
+svg = svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', 1)
+palette = ':root{--paper:#F6F6F3;--ink:#1A1A1A;--cyan:#00AEEF;--magenta:#EC008C;--yellow:#FFE500;--bg:var(--ink);--fg:var(--paper)}@media(prefers-color-scheme:dark){:root{--paper:#141414;--ink:#EDEDE9}}'
+asset = svg.replace('><defs>', '><defs>', 1)
+position = asset.index('>') + 1
+asset = asset[:position] + '<style>' + palette + css + '</style>' + asset[position:]
+(ROOT/'blogs/assets/portfolio-skyline.svg').write_text(asset)
+version = hashlib.sha256(asset.encode()).hexdigest()[:12]
+url = '/blogs/assets/portfolio-skyline.svg?v=' + version
+label = re.search(r'aria-label="([^"]+)"', svg).group(1)
+placeholder = '<svg class="skyline sky3" viewBox="0 0 2600 450" preserveAspectRatio="xMidYMax meet" role="img" aria-label="' + label + '" data-footer-art="' + url + '"><image href="' + url + '" width="2600" height="450"/></svg>'
+footer = re.sub(r'<svg class="skyline sky3"[\s\S]*?</svg>', lambda match: placeholder, footer, count=1)
+(ROOT/'templates/blog-footer.html').write_text(footer+'\n')
+print('Synced portfolio footer, shared SVG artwork and styles')

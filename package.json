@@ -1,0 +1,6 @@
+{
+  "name": "faraz-portfolio",
+  "private": true,
+  "scripts": {"build:blogs": "python3 scripts/build-posts.py && python3 scripts/update-blog-footer.py && node scripts/build-blog-assets.cjs", "check:blogs": "python3 scripts/validate-blogs.py"},
+  "devDependencies": {"esbuild": "0.28.2"}
+}

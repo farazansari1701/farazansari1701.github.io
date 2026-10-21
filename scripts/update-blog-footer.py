@@ -16,6 +16,8 @@ for page in sorted((ROOT / 'blogs').rglob('*.html')):
         source = re.sub(pattern, lambda match: footer, source, count=1)
     else:
         source = source.replace('</body>', footer + '\n</body>')
+    source = re.sub(r'/blogs/assets/footer(?:\.min)?\.css(?:\?[^"\s<>]*)?', '/blogs/assets/footer.css?v=portfolio-20261021', source)
+    source = re.sub(r'/blogs/assets/footer(?:\.min)?\.js(?:\?[^"\s<>]*)?', '/blogs/assets/footer.js?v=portfolio-20261021', source)
     if '/blogs/assets/footer.css' not in source:
         source = source.replace('</head>', '<link rel="stylesheet" href="/blogs/assets/footer.css?v=20261021">\n</head>')
     source = re.sub(r'/blogs/assets/footer.css(?:\?[^"\s]*)?', '/blogs/assets/footer.css?v=portfolio-20261021', source)
