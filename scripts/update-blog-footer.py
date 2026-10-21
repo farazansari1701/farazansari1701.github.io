@@ -3,7 +3,9 @@ Run from any directory: python3 scripts/update-blog-footer.py
 """
 from pathlib import Path
 import re
+import runpy
 ROOT = Path(__file__).resolve().parents[1]
+runpy.run_path(str(ROOT / 'scripts/sync-portfolio-footer.py'))
 footer = (ROOT / 'templates/blog-footer.html').read_text().strip()
 for page in sorted((ROOT / 'blog').rglob('*.html')):
     if '_includes' in page.parts:
@@ -16,5 +18,8 @@ for page in sorted((ROOT / 'blog').rglob('*.html')):
         source = source.replace('</body>', footer + '\n</body>')
     if '/blog/assets/footer.css' not in source:
         source = source.replace('</head>', '<link rel="stylesheet" href="/blog/assets/footer.css?v=20261021">\n</head>')
+    source = re.sub(r'/blog/assets/footer.css(?:\?[^"\s]*)?', '/blog/assets/footer.css?v=portfolio-20261021', source)
+    if '/blog/assets/footer.js' not in source:
+        source = source.replace('</body>', '<script src="/blog/assets/footer.js?v=portfolio-20261021" defer></script></body>')
     page.write_text(source)
     print(page.relative_to(ROOT))
