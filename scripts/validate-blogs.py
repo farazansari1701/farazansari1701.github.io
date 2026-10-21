@@ -29,7 +29,10 @@ for p in htmls:
     parsed=pages[path]
     assert text.count('data-container="GTM-57BRSKXB"')==1,path+' GTM bootstrap duplicate/missing'
     assert text.index('/assets/analytics.min.js')<text.index('</head>'),path+' analytics must initialise in head'
-    assert 'googletagmanager.com/ns.html' not in text,path+' unconditional noscript bypasses consent'
+    assert text.count('<!-- Google Tag Manager -->')==1,path+' standard GTM snippet missing/duplicate'
+    assert text.count('googletagmanager.com/ns.html?id=GTM-57BRSKXB')==1,path+' noscript missing/duplicate'
+    assert text.index("gtag('consent', 'default'")<text.index('<!-- Google Tag Manager -->')<text.index('</head>'),path+' consent/head order'
+    assert re.search(r'<body[^>]*>\s*<!-- Google Tag Manager \(noscript\) -->',text),path+' noscript placement' 
     canonical=[a['href'] for tag,a in parsed.tags if tag=='link' and a.get('rel')=='canonical']
     assert canonical==[BASE+path],(path,canonical)
     assert len([x for x in parsed.tags if x[0]=='h1'])==1,path+' H1 count'

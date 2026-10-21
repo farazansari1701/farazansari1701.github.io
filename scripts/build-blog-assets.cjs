@@ -34,11 +34,17 @@ console.log('Minified blog assets with versioned URLs',versions);
 const analytics=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/analytics.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
 fs.writeFileSync(path.join(root,'assets/analytics.min.js'),analytics);
 const analyticsUrl='/assets/analytics.min.js?v='+crypto.createHash('sha256').update(analytics).digest('hex').slice(0,12);
+const tagHead=fs.readFileSync(path.join(root,'templates/tag-manager-head.html'),'utf8').trim();
+const tagBody=fs.readFileSync(path.join(root,'templates/tag-manager-body.html'),'utf8').trim();
 for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),path.join(root,'faraz-site/index.html'),path.join(root,'faraz-site/404.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blogs'))]){
  let html=fs.readFileSync(file,'utf8').replace(/<script src="\/assets\/analytics\.min\.js(?:\?[^"\s<>]*)?" data-container="GTM-57BRSKXB"><\/script>\s*/g,'');
- html=html.replace(/(<meta charset="utf-8">)\s*/i,'$1\n<script src="'+analyticsUrl+'" data-container="GTM-57BRSKXB"></script>');
+ html=html.replace(/<!-- Google consent defaults -->.*?<!-- End Google Tag Manager -->\s*/gs,'');
+ html=html.replace(/(<meta charset="utf-8">)\s*/i,'$1\n'+tagHead+'\n<script src="'+analyticsUrl+'" data-container="GTM-57BRSKXB"></script>');
  html=html.replace(/<noscript data-analytics-consent>.*?<\/noscript>/gs,'');
- html=html.replace(/(<body[^>]*>)/i,'$1<noscript data-analytics-consent><p>Analytics and Google Tag Manager are disabled without JavaScript.</p></noscript>');
+ html=html.replace(/<!-- Google Tag Manager \(noscript\) -->.*?<!-- End Google Tag Manager \(noscript\) -->\s*/gs,'');
+ html=html.replace(/(<body[^>]*>)\s*/i,'$1\n'+tagBody+'\n');
  html=html.replace('Allow Google Analytics on these blog pages?','Allow Google Analytics through Google tags and Tag Manager on these blog pages?');
+ html=html.replace('Analytics loads only after you choose Allow.','Tag Manager loads when the page opens. Analytics is enabled only after you choose Allow.');
+ html=html.replace('Analytics loads only if you choose Allow analytics.','Tag Manager loads when the page opens. Analytics is enabled only if you choose Allow analytics.');
  fs.writeFileSync(file,html);
 }
