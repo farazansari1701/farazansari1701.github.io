@@ -1491,7 +1491,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   #work > .opener.op-about + .col.lead::before{ content:""; position:absolute; top:0; left:calc(-1 * var(--indent)); right:0; height:2px; background:var(--cyan); }
 }
 </style>
-<link rel="stylesheet" href="/assets/portfolio-responsive.min.css?v=ffe399bb6685">
+<link rel="stylesheet" href="/assets/portfolio-responsive.min.css?v=d0835cb47463">
 <script src="/assets/portfolio-responsive.min.js?v=38b243cb81ac" defer></script>
 <link rel="alternate" type="application/rss+xml" title="Faraz Ansari — Field notes" href="/blogs/feed.xml">
 <meta property="og:title" content="Faraz Ansari | Digital Marketing &amp; SEO Specialist">
@@ -1705,28 +1705,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <h3 class="sub glide">Career at a glance</h3>
   <p class="swipe-hint">Swipe the chart sideways</p>
-  <div class="lanes-wrap" data-lenis-prevent-touch>
-    <div class="lanes" id="lanes" aria-label="Career timeline, select a role to open it">
-      <div class="axis" aria-hidden="true">
-        <span style="left:0%">2020</span><span style="left:14.29%">2021</span><span style="left:28.57%">2022</span><span style="left:42.86%">2023</span><span style="left:57.14%">2024</span><span style="left:71.43%">2025</span><span style="left:85.71%">2026</span>
+  <div class="lanes-wrap">
+    <div class="lanes" id="lanes" aria-label="Career timeline, earliest start first. Select a bar for role details.">
+      <div class="axis" aria-hidden="true"><span style="left:0.00%">2020</span><span style="left:14.29%">2021</span><span style="left:28.57%">2022</span><span style="left:42.86%">2023</span><span style="left:57.14%">2024</span><span style="left:71.43%">2025</span><span style="left:85.71%">2026</span></div>
+      <div class="lane" data-start="2020-02">
+        <span class="lane-name"><strong>Advertising Lab</strong><small>Marketing Intern</small><span class="lane-dates num">Feb 2020 – Mar 2020</span></span>
+        <div class="lane-bar"><button class="seg alt" type="button" data-role="role-adlab" style="--start:1.19%;--span:2.38%" aria-label="Marketing Intern, Advertising Lab, Feb 2020 – Mar 2020. Open role details."></button></div>
       </div>
-      <div class="lane"><span class="lane-name">Advertising Lab</span><div class="lane-bar">
-        <button class="seg alt" type="button" data-role="role-adlab" style="left:1.19%;width:2.38%" aria-label="Marketing Intern, Advertising Lab, Feb 2020 to Mar 2020"></button>
-      </div></div>
-      <div class="lane"><span class="lane-name">X-Forces Enterprise</span><div class="lane-bar">
-        <button class="seg alt" type="button" data-role="role-xf-intern" style="left:7.14%;width:7.14%" aria-label="Marketing Intern, Jul 2020 to Dec 2020">Intern</button>
-        <button class="seg alt" type="button" data-role="role-xf-dma-pt" style="left:14.29%;width:7.14%" aria-label="Digital Marketing Assistant, part-time, Jan 2021 to Jun 2021">Assistant</button>
-        <button class="seg" type="button" data-role="role-xf-dma" style="left:21.43%;width:7.14%" aria-label="Digital Marketing Assistant, full-time, Jul 2021 to Dec 2021">Assistant</button>
-        <button class="seg" type="button" data-role="role-xf-dme" style="left:28.57%;width:14.29%" aria-label="Digital Marketing Executive, Jan 2022 to Dec 2022">Executive</button>
-      </div></div>
-      <div class="lane"><span class="lane-name">X-Emergency Services</span><div class="lane-bar">
-        <button class="seg alt" type="button" data-role="role-xes" style="left:23.81%;width:19.05%" aria-label="Digital Marketing Executive, X-Emergency Services, Sep 2021 to Dec 2022">Executive</button>
-      </div></div>
-      <div class="lane"><span class="lane-name">OKI Europe Ltd</span><div class="lane-bar">
-        <button class="seg" type="button" data-role="role-oki-dme" style="left:39.29%;width:42.86%" aria-label="Digital Marketing Executive, OKI Europe Ltd, Oct 2022 to Sep 2025">Digital Marketing Executive</button>
-        <button class="seg" type="button" data-role="role-oki-senior" style="left:82.14%;width:15.48%" aria-label="Senior Digital Marketing Executive, OKI Europe Ltd, Oct 2025 to present">Senior</button>
-      </div></div>
-      <div class="now-mark" style="left:calc(180px + (100% - 180px) * .9762)" aria-hidden="true"></div>
+      <div class="lane" data-start="2020-07">
+        <span class="lane-name"><strong>X-Forces Enterprise</strong><small>Marketing Intern</small><span class="lane-dates num">Jul 2020 – Dec 2020</span></span>
+        <div class="lane-bar"><button class="seg alt" type="button" data-role="role-xf-intern" style="--start:7.14%;--span:7.14%" aria-label="Marketing Intern, X-Forces Enterprise, Jul 2020 – Dec 2020. Open role details."></button></div>
+      </div>
+      <div class="lane" data-start="2021-01">
+        <span class="lane-name"><strong>X-Forces Enterprise</strong><small>Digital Marketing Assistant · part-time</small><span class="lane-dates num">Jan 2021 – Jun 2021</span></span>
+        <div class="lane-bar"><button class="seg alt" type="button" data-role="role-xf-dma-pt" style="--start:14.29%;--span:7.14%" aria-label="Digital Marketing Assistant · part-time, X-Forces Enterprise, Jan 2021 – Jun 2021. Open role details."></button></div>
+      </div>
+      <div class="lane" data-start="2021-07">
+        <span class="lane-name"><strong>X-Forces Enterprise</strong><small>Digital Marketing Assistant · full-time</small><span class="lane-dates num">Jul 2021 – Dec 2021</span></span>
+        <div class="lane-bar"><button class="seg " type="button" data-role="role-xf-dma" style="--start:21.43%;--span:7.14%" aria-label="Digital Marketing Assistant · full-time, X-Forces Enterprise, Jul 2021 – Dec 2021. Open role details."></button></div>
+      </div>
+      <div class="lane" data-start="2021-09">
+        <span class="lane-name"><strong>X-Emergency Services</strong><small>Digital Marketing Executive</small><span class="lane-dates num">Sep 2021 – Dec 2022</span></span>
+        <div class="lane-bar"><button class="seg alt" type="button" data-role="role-xes" style="--start:23.81%;--span:19.05%" aria-label="Digital Marketing Executive, X-Emergency Services, Sep 2021 – Dec 2022. Open role details."></button></div>
+      </div>
+      <div class="lane" data-start="2022-01">
+        <span class="lane-name"><strong>X-Forces Enterprise</strong><small>Digital Marketing Executive</small><span class="lane-dates num">Jan 2022 – Dec 2022</span></span>
+        <div class="lane-bar"><button class="seg " type="button" data-role="role-xf-dme" style="--start:28.57%;--span:14.29%" aria-label="Digital Marketing Executive, X-Forces Enterprise, Jan 2022 – Dec 2022. Open role details."></button></div>
+      </div>
+      <div class="lane" data-start="2022-10">
+        <span class="lane-name"><strong>OKI Europe Ltd</strong><small>Digital Marketing Executive</small><span class="lane-dates num">Oct 2022 – Sep 2025</span></span>
+        <div class="lane-bar"><button class="seg " type="button" data-role="role-oki-dme" style="--start:39.29%;--span:42.86%" aria-label="Digital Marketing Executive, OKI Europe Ltd, Oct 2022 – Sep 2025. Open role details."></button></div>
+      </div>
+      <div class="lane" data-start="2025-10">
+        <span class="lane-name"><strong>OKI Europe Ltd</strong><small>Senior Digital Marketing Executive</small><span class="lane-dates num">Oct 2025 – present</span></span>
+        <div class="lane-bar"><button class="seg " type="button" data-role="role-oki-senior" style="--start:82.14%;--span:15.48%" aria-label="Senior Digital Marketing Executive, OKI Europe Ltd, Oct 2025 – present. Open role details."></button></div>
+      </div>
+      <div class="now-mark" aria-hidden="true"></div>
     </div>
   </div>
 
@@ -2738,13 +2752,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // The flight: boarding pass folds into a plane and flies to the UK
   const stage = $('#flight-stage'), plane = $('#plane'), line = $('#route-line');
   if (stage && plane && line) {
-    const flightForViewport = mobile => {
     const len = line.getTotalLength ? line.getTotalLength() : 600;
     G.set(line, { strokeDasharray: len, strokeDashoffset: len });
     G.set('.landed > *', { opacity: 0, y: 30 });
-    const tl = G.timeline({ scrollTrigger: mobile
-      ? { trigger: stage, start: 'top 75%', once: true }
-      : { trigger: stage, start: 'top top', end: () => '+=' + (innerWidth < 760 ? 150 : 230) + '%', invalidateOnRefresh: true, pin: true, scrub: 1, anticipatePin: 1, refreshPriority: 2 } });
+    const tl = G.timeline({ scrollTrigger: { trigger: stage, start: 'top top', end: () => '+=' + (innerWidth < 760 ? 150 : 230) + '%', invalidateOnRefresh: true, pin: true, scrub: 1, anticipatePin: 1, refreshPriority: 2 } });
     ST.sort();
     tl.to('.pass-top', { rotateX: -178, duration: 1, ease: 'power2.inOut' })
       .to('#pass', { scale: .3, rotate: -14, opacity: 0, duration: .8, ease: 'power2.in' }, '>-0.15')
@@ -2756,10 +2767,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     tl.to(line, { strokeDashoffset: 0, duration: 2, ease: 'power1.inOut' }, '<')
       .to('.landed > *', { opacity: 1, y: 0, stagger: .15, duration: .6 }, '>-0.3');
-    return () => { tl.scrollTrigger?.kill(); tl.kill(); };
-    };
-    mm.add('(min-width: 1025px)', () => flightForViewport(false));
-    mm.add('(max-width: 1024px)', () => flightForViewport(true));
   }
 
   // fonts change measurements; refresh once they are in
@@ -2869,26 +2876,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const f = words[bi];
       if (f !== front) { front && front.classList.remove('front'); f && f.classList.add('front'); front = f; }
     }
-    function frame(){
-      if (!running) return;
-      if (!drag) { vy += (baseY - vy) * .03; vx += (baseX - vx) * .03; }
-      rotate(vy, vx); render();
-      requestAnimationFrame(frame);
+    let raf = 0, lastFrame = 0, visible = false;
+    function frame(time){
+      raf = 0;
+      if (!running || !visible || document.hidden) return;
+      const step = lastFrame ? Math.min(3, Math.max(.1, (time - lastFrame) / (1000 / 60))) : 1;
+      lastFrame = time;
+      if (!drag) {
+        const ease = 1 - Math.pow(.97, step);
+        vy += (baseY - vy) * ease; vx += (baseX - vx) * ease;
+        rotate(vy * step, vx * step); render();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function start(){
+      if (reduce || !visible || document.hidden || running) return;
+      running = true; lastFrame = 0; raf = requestAnimationFrame(frame);
+    }
+    function stop(){
+      running = false; if (raf) cancelAnimationFrame(raf); raf = 0; lastFrame = 0;
+    }
+    function visibility(on){
+      visible = on;
+      if (on) { size(); render(); start(); } else stop();
     }
     render();
-    if (!reduce) {
-      const start = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
-      const stop = () => { running = false; };
-      if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(en => en.isIntersecting ? start() : stop())).observe(sp);
-      else start();
-      document.addEventListener('visibilitychange', () => document.hidden ? stop() : (sp.getBoundingClientRect().top < innerHeight && start()));
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => es.forEach(en => visibility(en.isIntersecting)), {threshold:0}).observe(sp);
+    } else {
+      const check = () => { const r = sp.getBoundingClientRect(); visibility(r.bottom > 0 && r.top < innerHeight); };
+      addEventListener('scroll', check, {passive:true}); addEventListener('resize', check); check();
     }
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
     const clamp = v => Math.max(-.14, Math.min(.14, v));
     let pointer = null, sx = 0, sy = 0, horizontal = false;
     function end() {
       const id = pointer; pointer = null; drag = false; horizontal = false;
       sp.classList.remove('drag');
       if (id !== null && sp.hasPointerCapture?.(id)) sp.releasePointerCapture(id);
+      start();
     }
     sp.addEventListener('pointerdown', e => {
       if (pointer !== null || (e.pointerType === 'mouse' && e.button !== 0)) return;
@@ -2906,10 +2932,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
       const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
       vy = clamp(dx * .0062); vx = clamp(-dy * .0062);
-      if (reduce) { rotate(vy, vx); render(); }
+      rotate(vy, vx); render();
     });
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => sp.addEventListener(type, e => { if (pointer === e.pointerId) end(); }));
     sp.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !sp.hasPointerCapture?.(e.pointerId)) end(); });
+    addEventListener('blur', end);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) end(); });
   }
 
   /* ---- recommendations: the line draws itself, quotes arrive as it reaches them ---- */

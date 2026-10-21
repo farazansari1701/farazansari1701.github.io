@@ -79,7 +79,7 @@ for source in sorted((ROOT/'blogs/content').glob('*.json')):
 posts.sort(key=lambda p:p.get('publishedAt',p['date']),reverse=True)
 (ROOT/'blogs/posts.json').write_text(json.dumps(posts,ensure_ascii=False,indent=2)+'\n')
 for rel in ['blogs/index.html','blogs/about/index.html']:
-    path=ROOT/rel;s=path.read_text();block='\n'.join(card(p) for p in posts)
+    path=ROOT/rel;s=path.read_text();block='<div class="post-list">'+'\n'.join(card(p) for p in posts)+'</div>'
     mark=r'<!-- managed-post-cards:start -->[\s\S]*?<!-- managed-post-cards:end -->'
     if re.search(mark,s):s=re.sub(mark,lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s)
     else:s=re.sub(r'<article class="post-card">[\s\S]*?</article>',lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s,count=1)

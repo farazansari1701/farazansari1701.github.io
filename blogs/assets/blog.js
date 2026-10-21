@@ -47,4 +47,33 @@
     }, {rootMargin:'-90px 0px -60% 0px',threshold:0});
     links.forEach(link => { const target = document.getElementById(link.hash.slice(1)); if (target) observer.observe(target); });
   }
+
+  // One reveal per archive card. The document remains a normal readable list.
+  const cards = [...document.querySelectorAll('.post-list .post-card')];
+  const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  if (cards.length && motion && !motion.matches && 'IntersectionObserver' in window) {
+    let revealObserver;
+    const reveal = card => {
+      card.dataset.reveal = 'visible';
+      revealObserver?.unobserve(card);
+    };
+    const showAll = () => {
+      revealObserver?.disconnect(); cards.forEach(reveal);
+    };
+    try {
+      revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) reveal(entry.target); });
+      }, {rootMargin:'0px 0px -24px 0px',threshold:.08});
+      cards.forEach((card, index) => {
+        card.style.setProperty('--reveal-delay', Math.min(index % 3, 2) * 80 + 'ms');
+        card.dataset.reveal = 'pending';
+        card.addEventListener('focusin', () => reveal(card));
+        revealObserver.observe(card);
+      });
+      if (motion.addEventListener) motion.addEventListener('change', event => { if (event.matches) showAll(); });
+      else motion.addListener(event => { if (event.matches) showAll(); });
+      // BFCache restores should not leave a previously visible card concealed.
+      window.addEventListener('pageshow', event => { if (event.persisted) showAll(); });
+    } catch { showAll(); }
+  }
 })();
