@@ -78,16 +78,21 @@ for source in sorted((ROOT/'blogs/content').glob('*.json')):
 
 posts.sort(key=lambda p:p.get('publishedAt',p['date']),reverse=True)
 (ROOT/'blogs/posts.json').write_text(json.dumps(posts,ensure_ascii=False,indent=2)+'\n')
-for rel in ['blogs/index.html','blogs/about/index.html']:
-    path=ROOT/rel;s=path.read_text();block='<div class="post-list">'+'\n'.join(card(p) for p in posts)+'</div>'
+archives={'blogs/index.html':posts,'blogs/about/index.html':posts,
+          'blogs/topics/marketing-automation/index.html':[p for p in posts if p['category']=='Marketing automation']}
+for rel,archive_posts in archives.items():
+    path=ROOT/rel;s=path.read_text();block='<div class="post-list">'+'\n'.join(card(p) for p in archive_posts)+'</div>'
     mark=r'<!-- managed-post-cards:start -->[\s\S]*?<!-- managed-post-cards:end -->'
     if re.search(mark,s):s=re.sub(mark,lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s)
     else:s=re.sub(r'<article class="post-card">[\s\S]*?</article>',lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s,count=1)
-    s=s.replace('01 article',f'{len(posts):02} articles').replace('<span>Latest article</span><span>01</span>',f'<span>Published articles</span><span>{len(posts):02}</span>')
+    count=len(archive_posts)
+    s=re.sub(r'(<div class="section-rule"><span>[^<]+</span><span>)\d+(?: articles?)?(</span>)',
+             lambda m:m[1]+f'{count:02}'+('' if rel=='blogs/about/index.html' else (' article' if count==1 else ' articles'))+m[2],s)
+    s=s.replace('<span>Latest article</span>', '<span>Published articles</span>')
     # Synchronise the collection's machine-readable list with the visible archive.
     def schema_update(m):
         d=json.loads(m.group(1))
-        if d.get('@type')=='CollectionPage':d['mainEntity']={'@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'url':BASE+p['url'],'name':p['title']} for i,p in enumerate(posts)]}
+        if d.get('@type')=='CollectionPage':d['mainEntity']={'@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'url':BASE+p['url'],'name':p['title']} for i,p in enumerate(archive_posts)]}
         return '<script type="application/ld+json">'+json.dumps(d,ensure_ascii=False)+'</script>'
     s=re.sub(r'<script type="application/ld\+json">([\s\S]*?)</script>',schema_update,s)
     path.write_text(s)
@@ -96,7 +101,13 @@ ns='http://www.sitemaps.org/schemas/sitemap/0.9';ET.register_namespace('',ns)
 tree=ET.parse(ROOT/'sitemap.xml');seen={x.text for x in tree.findall('.//{'+ns+'}loc')}
 for p in posts:
     if BASE+p['url'] not in seen:
-        node=ET.SubElement(tree.getroot(),'{'+ns+'}url');ET.SubElement(node,'{'+ns+'}loc').text=BASE+p['url'];ET.SubElement(node,'{'+ns+'}lastmod').text=p['date']
+        node=ET.SubElement(tree.getroot(),'{'+ns+'}url');ET.SubElement(node,'{'+ns+'}loc').text=BASE+p['url']
+    else:
+        node=next(x for x in tree.getroot() if x.find('{'+ns+'}loc').text==BASE+p['url'])
+    if 'modifiedAt' in p:
+        lastmod=node.find('{'+ns+'}lastmod')
+        if lastmod is None:lastmod=ET.SubElement(node,'{'+ns+'}lastmod')
+        lastmod.text=p['modifiedAt'][:10]
 tree.write(ROOT/'sitemap.xml',encoding='utf-8',xml_declaration=True)
 ET.register_namespace('atom','http://www.w3.org/2005/Atom')
 rss=ET.Element('rss',{'version':'2.0'});channel=ET.SubElement(rss,'channel')

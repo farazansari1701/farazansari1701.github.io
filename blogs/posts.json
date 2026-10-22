@@ -1,12 +1,63 @@
 [
   {
+    "slug": "crm-data-quality-review-before-automation",
+    "title": "CRM data quality: a practical review before automation",
+    "seoTitle": "CRM data quality review before automation | Faraz Ansari",
+    "description": "Review CRM data quality before marketing automation. Check identity, field definitions, freshness and ownership with a practical guide from Faraz Ansari.",
+    "deck": "A focused review of the records, definitions and ownership behind a useful automated journey.",
+    "publishedAt": "2026-10-22T09:18:55+01:00",
+    "modifiedAt": "2026-10-22T09:18:55+01:00",
+    "category": "Marketing automation",
+    "categoryUrl": "/blogs/topics/marketing-automation/",
+    "keywords": [
+      "CRM data quality",
+      "CRM data quality review",
+      "HubSpot data quality",
+      "marketing automation",
+      "CRM data hygiene"
+    ],
+    "heroPrefix": "crm-data-quality",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Conceptual illustration of contact cards under a magnifying glass beside duplicate cards and a small checklist",
+    "heroCaption": "Check the record before automating the next step.",
+    "context": "Educational guidance informed by public CRM and marketing responsibilities. No employer data or campaign-specific outcome is presented.",
+    "sources": [
+      {
+        "name": "Faraz Ansari: public role history and responsibilities",
+        "url": "/#work",
+        "context": "Professional context only; no private CRM or campaign records used."
+      },
+      {
+        "name": "HubSpot: Deduplicate records in HubSpot",
+        "url": "https://knowledge.hubspot.com/records/deduplication-of-records",
+        "context": "Identifiers and matching routes. Accessed 22 October 2026."
+      },
+      {
+        "name": "HubSpot: Review and manage duplicate records",
+        "url": "https://knowledge.hubspot.com/records/manage-duplicate-records",
+        "context": "Review before merging; merged records cannot be reverted. Accessed 22 October 2026."
+      },
+      {
+        "name": "HubSpot: Set validation rules for a property",
+        "url": "https://knowledge.hubspot.com/properties/set-validation-rules-for-properties",
+        "context": "Supported validation and enforcement exceptions. Accessed 22 October 2026."
+      }
+    ],
+    "url": "/blogs/crm-data-quality-review-before-automation/",
+    "date": "2026-10-22",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1025
+  },
+  {
     "slug": "b2b-lead-quality-cost-per-lead",
     "title": "B2B lead quality: looking beyond cost per lead",
     "seoTitle": "B2B lead quality and cost per lead | Faraz Ansari",
     "description": "Assess B2B lead quality alongside cost per lead. Faraz Ansari shares a practical framework for audience fit, qualification, CRM ownership and campaign reviews.",
     "deck": "A practical framework for connecting acquisition costs with audience fit, qualification and the next useful conversation.",
     "publishedAt": "2026-10-21T17:45:06+01:00",
-    "modifiedAt": "2026-10-21T17:45:06+01:00",
+    "modifiedAt": "2026-10-22T09:18:55+01:00",
     "category": "Performance marketing",
     "categoryUrl": "/blogs/",
     "keywords": [
@@ -43,7 +94,7 @@
     "date": "2026-10-21",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1012
+    "wordCount": 1034
   },
   {
     "title": "B2B marketing automation: HubSpot lessons from OKI",
@@ -53,6 +104,7 @@
     "category": "Marketing automation",
     "description": "Explore B2B marketing automation lessons from my work at OKI Europe, with a practical HubSpot checklist for email, landing pages, CRM and follow-up.",
     "wordCount": 1047,
-    "status": "published"
+    "status": "published",
+    "modifiedAt": "2026-10-22T09:18:55+01:00"
   }
 ]
