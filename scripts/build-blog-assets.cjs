@@ -2,6 +2,26 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const esbuild=require('esbuild');
 const root=path.resolve(__dirname,'..'),assets=path.join(root,'blogs/assets');
+// The portfolio owns the brand tokens and its light/dark theme selectors.
+// Synchronise these at build time so every archive and article inherits them.
+const portfolio=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const portfolioRoot=portfolio.match(/:root\s*\{([^}]+)\}/)[1];
+const blogPath=path.join(assets,'blog.css');
+let blogCss=fs.readFileSync(blogPath,'utf8');
+blogCss=blogCss.replace(/^:root\{([^}]+)\}/,(_,declarations)=>{
+ for(const token of ['paper','ink','cyan','magenta','yellow','font','gutter']){
+  const value=portfolioRoot.match(new RegExp('--'+token+':([^;]+)'))?.[1].trim();
+  if(!value)throw new Error('Missing portfolio token: '+token);
+  declarations=declarations.replace(new RegExp('--'+token+':[^;]+'),'--'+token+':'+value);
+ }
+ return ':root{'+declarations+'}';
+});
+const darkRules=portfolio.match(/@media \(prefers-color-scheme: dark\)\{[^\n]+\}\s*\n:root\[data-theme="dark"\]\{[^\n]+\}/)?.[0];
+if(!darkRules)throw new Error('Missing portfolio dark theme rules');
+const theme='/* Portfolio theme: generated from index.html */\n'+darkRules.replace(/--mute:/g,'color-scheme:dark;--mute:')+'\n/* End portfolio theme */';
+blogCss=blogCss.replace(/\/\* Portfolio theme: generated from index.html \*\/[\s\S]*?\/\* End portfolio theme \*\/\n?/,'');
+blogCss=blogCss.replace(/(^:root\{[^}]+\}\n)/,'$1'+theme+'\n');
+fs.writeFileSync(blogPath,blogCss);
 const versions={};
 for(const file of ['blog.js','footer.js','blog.css','footer.css']){
   const ext=path.extname(file),name=path.basename(file,ext)+'.min'+ext;

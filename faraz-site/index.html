@@ -1491,8 +1491,8 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   #work > .opener.op-about + .col.lead::before{ content:""; position:absolute; top:0; left:calc(-1 * var(--indent)); right:0; height:2px; background:var(--cyan); }
 }
 </style>
-<link rel="stylesheet" href="/assets/portfolio-responsive.min.css?v=d0835cb47463">
-<script src="/assets/portfolio-responsive.min.js?v=38b243cb81ac" defer></script>
+<link rel="stylesheet" href="/assets/portfolio-responsive.min.css?v=02390ade318f">
+<script src="/assets/portfolio-responsive.min.js?v=09e036e420db" defer></script>
 <link rel="alternate" type="application/rss+xml" title="Faraz Ansari — Field notes" href="/blogs/feed.xml">
 <meta property="og:title" content="Faraz Ansari | Digital Marketing &amp; SEO Specialist">
 <meta property="og:description" content="Digital Marketing &amp; SEO Specialist | Marketing Automation | AI-Driven Growth Strategies | B2B/B2C Campaign Expert | HubSpot &amp; CRM Optimization">
@@ -1711,7 +1711,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="band-body" id="role-xf-dma-pt-body"><div><div class="band-inner"><div><p class="b-site">Company site: <a class="xl" href="https://x-forces.com/" target="_blank" rel="noopener">x-forces.com</a></p><p class="links"><span>Linked on LinkedIn</span><i>Expert Business Consultant - Ren Kapur</i><i><a class="xl" href="https://www.soldieringon.org/" target="_blank" rel="noopener">Soldiering On Awards</a></i><i><a class="xl" href="https://x-forces.com/" target="_blank" rel="noopener">X-Forces Enterprise - Helping You Be The Best in Business</a></i></p></div></div></div></div>
     </article>
   </div>
-  <h3 class="sub glide">Career at a glance</h3>
+  <h3 class="sub glide career-glance">Career at a glance</h3>
   <p class="swipe-hint">Swipe the chart sideways</p>
   <div class="lanes-wrap">
     <div class="lanes" id="lanes" aria-label="Career timeline, earliest start first. Select a bar for role details.">
@@ -2763,7 +2763,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const len = line.getTotalLength ? line.getTotalLength() : 600;
     G.set(line, { strokeDasharray: len, strokeDashoffset: len });
     G.set('.landed > *', { opacity: 0, y: 30 });
-    const tl = G.timeline({ scrollTrigger: { trigger: stage, start: 'top top', end: () => '+=' + (innerWidth < 760 ? 150 : 230) + '%', invalidateOnRefresh: true, pin: true, scrub: 1, anticipatePin: 1, refreshPriority: 2 } });
+    const tl = G.timeline({ scrollTrigger: { trigger: stage, start: 'top top', end: '+=230%', invalidateOnRefresh: true, pin: true, scrub: 1, anticipatePin: 1, refreshPriority: 2 } });
     ST.sort();
     tl.to('.pass-top', { rotateX: -178, duration: 1, ease: 'power2.inOut' })
       .to('#pass', { scale: .3, rotate: -14, opacity: 0, duration: .8, ease: 'power2.in' }, '>-0.15')
@@ -2884,10 +2884,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const f = words[bi];
       if (f !== front) { front && front.classList.remove('front'); f && f.classList.add('front'); front = f; }
     }
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let raf = 0, lastFrame = 0, visible = false;
     function frame(time){
       raf = 0;
-      if (!running || !visible || document.hidden) return;
+      if (!running || !visible || document.hidden) { running = false; lastFrame = 0; return; }
       const step = lastFrame ? Math.min(3, Math.max(.1, (time - lastFrame) / (1000 / 60))) : 1;
       lastFrame = time;
       if (!drag) {
@@ -2898,7 +2899,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       raf = requestAnimationFrame(frame);
     }
     function start(){
-      if (reduce || !visible || document.hidden || running) return;
+      if (motion.matches || !visible || document.hidden || raf) return;
       running = true; lastFrame = 0; raf = requestAnimationFrame(frame);
     }
     function stop(){
@@ -2908,14 +2909,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       visible = on;
       if (on) { size(); render(); start(); } else stop();
     }
+    const check = () => {
+      const r = sp.getBoundingClientRect();
+      visibility(r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight);
+    };
     render();
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(es => es.forEach(en => visibility(en.isIntersecting)), {threshold:0}).observe(sp);
-    } else {
-      const check = () => { const r = sp.getBoundingClientRect(); visibility(r.bottom > 0 && r.top < innerHeight); };
-      addEventListener('scroll', check, {passive:true}); addEventListener('resize', check); check();
-    }
-    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    } else addEventListener('scroll', check, {passive:true});
+    // A restored page may retain the observer's old state but not its RAF callback.
+    addEventListener('pageshow', check);
+    addEventListener('resize', check);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : check());
+    if (motion.addEventListener) motion.addEventListener('change', () => motion.matches ? stop() : check());
+    check();
     const clamp = v => Math.max(-.14, Math.min(.14, v));
     let pointer = null, sx = 0, sy = 0, horizontal = false;
     function end() {
@@ -2927,8 +2934,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     sp.addEventListener('pointerdown', e => {
       if (pointer !== null || (e.pointerType === 'mouse' && e.button !== 0)) return;
       pointer = e.pointerId; sx = lx = e.clientX; sy = ly = e.clientY;
-      horizontal = e.pointerType === 'mouse'; drag = true;
-      sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId);
+      horizontal = e.pointerType === 'mouse';
+      // A finger resting here, or beginning a vertical page scroll, is not a spin.
+      drag = horizontal;
+      if (drag) { sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId); }
     });
     sp.addEventListener('pointermove', e => {
       if (pointer !== e.pointerId) return;
@@ -2936,7 +2945,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const dx = e.clientX - sx, dy = e.clientY - sy;
         if (Math.max(Math.abs(dx), Math.abs(dy)) < 6) return;
         if (Math.abs(dy) > Math.abs(dx)) { end(); return; }
-        horizontal = true;
+        horizontal = drag = true;
+        sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId);
       }
       const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
       vy = clamp(dx * .0062); vx = clamp(-dy * .0062);
@@ -2944,7 +2954,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => sp.addEventListener(type, e => { if (pointer === e.pointerId) end(); }));
     sp.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !sp.hasPointerCapture?.(e.pointerId)) end(); });
+    // A pending touch has no capture until its direction is known.
+    ['pointerup', 'pointercancel'].forEach(type => document.addEventListener(type, e => { if (pointer === e.pointerId) end(); }, {passive:true}));
     addEventListener('blur', end);
+    addEventListener('pagehide', () => { end(); stop(); });
     document.addEventListener('visibilitychange', () => { if (document.hidden) end(); });
   }
 

@@ -3,6 +3,9 @@
   const mobile = matchMedia('(max-width:760px)');
   const groups = [];
   let serial = 0;
+  // Disclosures change the document flow after the inline timelines initialise.
+  // Measure after those changes have rendered, including the first mobile load.
+  const refresh = () => window.ScrollTrigger?.refresh(true);
   function disclose(container, nodes, label, more = 'Read More', less = 'Read Less', after = false) {
     if (!container || !nodes.length) return;
     const extra = document.createElement('div');
@@ -23,7 +26,7 @@
       group.open = !group.open; sync();
       // Keep focus on the control when content above it collapses.
       if (!group.open) button.focus({preventScroll:true});
-      window.ScrollTrigger?.refresh();
+      refresh();
     });
     if (after) container.after(button); else extra.after(button);
     group.sync = sync; groups.push(group); sync();
@@ -50,8 +53,9 @@
   if (certificates) disclose(certificates, Array.from(certificates.children).slice(4), 'Certifications', 'View All Certifications', 'Show Fewer Certifications', true);
   function resize() {
     groups.forEach(group => {if (!mobile.matches) group.open = false; group.sync();});
-    window.ScrollTrigger?.refresh();
+    refresh();
   }
   if (mobile.addEventListener) mobile.addEventListener('change', resize);
   else mobile.addListener(resize);
+  refresh();
 })();

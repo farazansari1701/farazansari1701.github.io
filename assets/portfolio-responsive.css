@@ -13,7 +13,9 @@ html.menu-open,html.menu-open body{overflow:hidden}
 @media(max-width:1024px){
   /* Avoid two competing reveals around a small-screen animation stage. */
   .flight.stretch,.foot.stretch{clip-path:none!important}
-  .flight-stage{height:100svh;min-height:620px;padding:32px var(--gutter) 210px;place-items:center}
+  .flight-stage{height:100svh;min-height:0;padding:24px var(--gutter) clamp(150px,25svh,210px);place-items:center}
+  /* Same SVG viewport as desktop: CSS must not give the route a second geometry. */
+  .flight .route-svg.map2{inset:4% 2%;width:96%;height:80%}
   .flight .landed{left:var(--gutter);right:var(--gutter);bottom:28px}
   .flight .landed .l3{max-width:46ch;line-height:1.5}
   .flight .pass{max-width:600px;width:100%}
@@ -51,14 +53,15 @@ html.menu-open,html.menu-open body{overflow:hidden}
 }
 
 /* Chronological career graph: complete labels and a full-width touch target. */
-.lanes-wrap{overflow:visible}
-.lanes{--label:clamp(200px,25vw,310px);--lane-gap:24px;min-width:0;padding-top:30px}
+.career-glance{margin-top:clamp(32px,4vw,56px);margin-bottom:16px}
+.lanes-wrap{overflow:visible;margin-bottom:clamp(24px,3vw,40px)}
+.lanes{--label:clamp(200px,25vw,310px);--lane-gap:24px;min-width:0;padding-top:24px}
 .lanes .axis{left:calc(var(--label) + var(--lane-gap))}
-.lane{grid-template-columns:var(--label) minmax(0,1fr);gap:var(--lane-gap);min-height:86px;padding:12px 0}
+.lane{grid-template-columns:var(--label) minmax(0,1fr);gap:var(--lane-gap);min-height:66px;padding:6px 0}
 .lane-name{min-width:0;padding-right:0;font-size:15px;line-height:1.35;font-weight:700;overflow-wrap:break-word}
 .lane-name strong,.lane-name small,.lane-dates{display:block}
-.lane-name small{font-size:13px;line-height:1.45;font-weight:500;margin-top:3px}
-.lane-dates{font-size:11px;line-height:1.4;font-weight:500;margin-top:4px;color:color-mix(in srgb,var(--fg) 65%,transparent)}
+.lane-name small{font-size:13px;line-height:1.35;font-weight:500;margin-top:1px}
+.lane-dates{font-size:11px;line-height:1.35;font-weight:500;margin-top:1px;color:color-mix(in srgb,var(--fg) 65%,transparent)}
 .lane-bar{height:44px;min-width:0}
 .lane .seg{position:relative;left:auto;top:auto;width:100%;height:44px;min-width:0;padding:0;background:transparent;overflow:visible}
 .lane .seg::before{content:"";position:absolute;left:var(--start);width:var(--span);min-width:4px;top:12px;height:20px;background:var(--fg);transition:background .25s}
@@ -70,7 +73,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
   .lanes-wrap{margin-inline:0;padding-inline:0}
   .lanes .axis{left:0}
   .lanes .axis span{bottom:auto;height:20px;font-size:10px;padding-left:3px}
-  .lane{grid-template-columns:minmax(0,1fr);gap:0;padding:12px 0 6px;min-height:0}
+  .lane{grid-template-columns:minmax(0,1fr);gap:0;padding:6px 0 0;min-height:0}
   .lane-name{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;font-size:14px}
   .lane-name strong{grid-column:1;grid-row:1}
   .lane-name small{grid-column:1 / -1;grid-row:2;margin:0}
