@@ -105,6 +105,7 @@
     "description": "Explore B2B marketing automation lessons from my work at OKI Europe, with a practical HubSpot checklist for email, landing pages, CRM and follow-up.",
     "wordCount": 1047,
     "status": "published",
-    "modifiedAt": "2026-10-22T09:18:55+01:00"
+    "modifiedAt": "2026-10-22T09:18:55+01:00",
+    "heroFallbackFormat": "webp"
   }
 ]
