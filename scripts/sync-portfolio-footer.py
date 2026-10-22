@@ -1,12 +1,11 @@
 """Copy the portfolio footer and its CSS into the shared blog footer assets."""
 from pathlib import Path
 import re
-import hashlib
-import html
 ROOT=Path(__file__).resolve().parents[1]
 home=(ROOT/'index.html').read_text()
 footer=re.search(r'<footer\b[^>]*>[\s\S]*?</footer>',home).group()
-# The SVG is emitted once as a reusable asset below.
+# Keep the portfolio's exact SVG in the shared footer so its animated elements
+# are available immediately, without a separate fetch/parse/hydration stage.
 # Preserve the cascade and media queries of the portfolio's footer rules.
 def relevant(selector):
  return bool(re.search(r'\.(?:foot(?:-row)?|wordmark|pano|sky3|socials(?:-foot)?)\b',selector)) and not bool(re.search(r'\.(?:socials-top|socials-menu)',selector))
@@ -50,10 +49,5 @@ asset = svg.replace('><defs>', '><defs>', 1)
 position = asset.index('>') + 1
 asset = asset[:position] + '<style>' + palette + css + '</style>' + asset[position:]
 (ROOT/'blogs/assets/portfolio-skyline.svg').write_text(asset)
-version = hashlib.sha256(asset.encode()).hexdigest()[:12]
-url = '/blogs/assets/portfolio-skyline.svg?v=' + version
-label = re.search(r'aria-label="([^"]+)"', svg).group(1)
-placeholder = '<svg class="skyline sky3" viewBox="0 0 2600 450" preserveAspectRatio="xMidYMax meet" role="img" aria-label="' + label + '" data-footer-art="' + url + '"><image href="' + url + '" width="2600" height="450"/></svg>'
-footer = re.sub(r'<svg class="skyline sky3"[\s\S]*?</svg>', lambda match: placeholder, footer, count=1)
 (ROOT/'templates/blog-footer.html').write_text(footer+'\n')
 print('Synced portfolio footer, shared SVG artwork and styles')

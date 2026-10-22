@@ -51,7 +51,9 @@ for p in htmls:
     if path.startswith('/blogs/'):
         for asset in ['blog.min.js','footer.min.js','blog.min.css','footer.min.css']:
             assert text.count('/blogs/assets/'+asset+'?')==1,(path,asset,'asset duplicate/missing')
-        assert 'data-footer-art=' in text and '<image href="/blogs/assets/portfolio-skyline.svg' in text,path+' static footer art missing'
+        footer_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',text)
+        portfolio_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',(ROOT/'index.html').read_text())
+        assert footer_svg and portfolio_svg and footer_svg.group()==portfolio_svg.group(),path+' original portfolio footer artwork missing or changed'
     results.append({'path':path,'bytes':len(text.encode()),'title':title})
 assert len(set(titles))==len(titles),'Duplicate titles'
 assert titles[1:] or titles

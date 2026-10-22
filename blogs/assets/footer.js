@@ -20,33 +20,41 @@
   if(reduce)return;
   function load(src,exists){
     if(exists())return Promise.resolve();
-    return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=reject;document.head.appendChild(script);});
-  }
-  async function loadArtwork(){
-    const placeholder=$('[data-footer-art]');
-    if(!placeholder)return;
-    const response=await fetch(placeholder.dataset.footerArt,{credentials:'same-origin'});
-    if(!response.ok)throw new Error('Footer artwork unavailable');
-    const parsed=new DOMParser().parseFromString(await response.text(),'image/svg+xml');
-    if(parsed.querySelector('parsererror')||parsed.documentElement.localName!=='svg')throw new Error('Invalid footer artwork');
-    parsed.querySelectorAll('style').forEach(style=>style.remove());
-    placeholder.replaceWith(document.importNode(parsed.documentElement,true));
+    return new Promise((resolve,reject)=>{
+      const script=document.createElement('script');script.src=src;script.async=true;
+      const finish=error=>{clearTimeout(timeout);script.onload=script.onerror=null;if(error){script.remove();reject(error);}else resolve();};
+      const timeout=setTimeout(()=>finish(new Error('Footer animation library timed out')),8000);
+      script.onload=()=>finish(exists()?null:new Error('Footer animation library unavailable'));
+      script.onerror=()=>finish(new Error('Footer animation library failed to load'));
+      document.head.appendChild(script);
+    });
   }
   async function animate(){
+    let context;
     try{
-      await loadArtwork();
       await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',()=>window.gsap);
       await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',()=>window.ScrollTrigger);
-      await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js',()=>window.MotionPathPlugin);
-      const G=window.gsap,ST=window.ScrollTrigger;G.registerPlugin(ST,window.MotionPathPlugin);
+      // A missing optional plane plugin must not disable the rest of the footer.
+      try{await load('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js',()=>window.MotionPathPlugin);}catch{}
+      const G=window.gsap,ST=window.ScrollTrigger;G.registerPlugin(ST);
+      if(window.MotionPathPlugin)G.registerPlugin(window.MotionPathPlugin);
+      const pano=$('.pano'),sky=$('.sky3');
+      if(!pano||!sky||!$('#sk-route')||!$('.sk-plane'))return;
+      context=G.context(()=>{},foot);
+      context.add(()=>{
       G.fromTo(foot,{clipPath:'inset(42% 0% 42% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',ease:'none',scrollTrigger:{trigger:foot,start:'top bottom',end:'top 20%',scrub:true}});
       G.to($('.wordmark'),{'--wd':125,ease:'none',scrollTrigger:{trigger:foot,start:'top bottom',end:'bottom bottom',scrub:true}});
       [['.sk-far',40,'top 30%'],['.sk-mid',70,'top 30%'],['.sk-sun',90,'top 20%']].forEach(([selector,y,end])=>G.from($(selector),{y,ease:'none',scrollTrigger:{trigger:foot,start:'top bottom',end,scrub:.6}}));
-      const pano=$('.pano'),sky=$('.sky3');pano.classList.add('panning');
       G.to(sky,{x:()=>-Math.max(0,sky.getBoundingClientRect().width-pano.clientWidth),ease:'none',scrollTrigger:{trigger:pano,start:'top 92%',endTrigger:foot,end:'bottom bottom',scrub:.5,invalidateOnRefresh:true}});
-      G.fromTo($('.sk-plane'),{motionPath:{path:'#sk-route',align:'#sk-route',alignOrigin:[.5,.5],autoRotate:true,start:0,end:0}},{motionPath:{path:'#sk-route',align:'#sk-route',alignOrigin:[.5,.5],autoRotate:true,start:0,end:1},ease:'none',scrollTrigger:{trigger:pano,start:'top 92%',endTrigger:foot,end:'bottom bottom',scrub:.6}});
+      if(window.MotionPathPlugin)G.fromTo($('.sk-plane'),{motionPath:{path:'#sk-route',align:'#sk-route',alignOrigin:[.5,.5],autoRotate:true,start:0,end:0}},{motionPath:{path:'#sk-route',align:'#sk-route',alignOrigin:[.5,.5],autoRotate:true,start:0,end:1},ease:'none',scrollTrigger:{trigger:pano,start:'top 92%',endTrigger:foot,end:'bottom bottom',scrub:.6}});
+      });
+      pano.classList.add('panning');
       ST.refresh();
-    }catch{ /* Static artwork and footer controls remain usable if animation libraries fail. */ }
+    }catch{
+      context?.revert();$('.pano')?.classList.remove('panning');
+      // The original SVG and native footer controls stay usable without GSAP.
+    }
   }
-  if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();animate();}},{rootMargin:'1000px'});observer.observe(foot);}else animate();
+  // Start with the document, as on the portfolio, including direct footer links.
+  animate();
 })();
