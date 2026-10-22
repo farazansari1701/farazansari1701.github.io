@@ -38,7 +38,6 @@
 .sky3 .sk-plane{ fill:var(--fg); }
 @keyframes kite{ to{ transform:translate(6px,-5px) rotate(5deg); } }
 @media (prefers-reduced-motion: reduce){.sky3 .sk-kite{ animation:none; }}
-
 .socials{ display:flex; align-items:center; gap:0; }
 .socials a{ display:grid; place-items:center; width:40px; height:44px; color:inherit; opacity:.9; transition:transform .25s var(--ease,ease), opacity .2s, color .2s; }
 .socials svg{ width:19px; height:19px; display:block; }
@@ -49,6 +48,7 @@
 .socials-foot{ margin-left:-10px; }
 @media (max-width:600px){.foot-row .socials-foot{ order:-1; flex:0 0 100%; margin-left:-10px; margin-bottom:-6px; }}
 .foot-row{ align-items:center; }
+.foot-row button{min-height:44px}
 @media(max-width:1024px){.foot.stretch{clip-path:none!important}
 .foot .foot-row{flex-wrap:wrap;gap:14px 22px}}</style>
   <defs>

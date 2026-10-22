@@ -30,7 +30,9 @@ def rules(css):
    if selected:out.append(','.join(selected)+'{'+body+'}')
   pos=end
  return '\n'.join(out)
-css='\n'.join(rules(x) for x in re.findall(r'<style[^>]*>([\s\S]*?)</style>',home))
+portfolio_css=ROOT/'assets/portfolio.css'
+styles=[portfolio_css.read_text()] if portfolio_css.exists() else re.findall(r'<style[^>]*>([\s\S]*?)</style>',home)
+css='\n'.join(rules(x) for x in styles)
 responsive=ROOT/'assets/portfolio-responsive.css'
 if responsive.exists():css+='\n'+rules(responsive.read_text())
 base='''/* Generated from the main portfolio footer by scripts/sync-portfolio-footer.py. */

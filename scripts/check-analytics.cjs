@@ -31,7 +31,9 @@ const cross=setup(null);cross.listeners.storage({key:'fa-consent',newValue:'gran
 assert.equal(pageviews(setup('granted')).length,1);
 const pending=setup('granted',false,'loading');assert.equal(pageviews(pending).length,0);pending.window.farazAnalytics.applyConsent('denied');pending.context.document.readyState='interactive';pending.documentListeners.DOMContentLoaded();assert.equal(pageviews(pending).length,0);pending.window.farazAnalytics.applyConsent('granted');assert.equal(pageviews(pending).length,1);
 const home=fs.readFileSync(root+'/index.html','utf8');
-const cookie=home.split('/* ---- cookie banner + GA4 ---- */')[1].split('/* ---- marquee leans')[0];
+const portfolio=fs.readFileSync(root+'/assets/portfolio.js','utf8');
+assert.ok(home.includes('/assets/portfolio.min.js'),'Portfolio consent handlers must be loaded');
+const cookie=portfolio.split('/* ---- cookie banner + GA4 ---- */')[1].split('/* ---- marquee leans')[0];
 const h=setup(null),controls={};
 Object.assign(h.context,{CONFIG:{gaId:'G-0S2BYMQSKW'},store:{get:()=>h.context.localStorage.getItem('fa-consent'),set:(k,v)=>h.context.localStorage.setItem(k,v)},$:id=>id==='#cookie'?{classList:{add(){},remove(){}}}:(controls[id]??={addEventListener:(type,fn)=>controls[id].handler=fn})});
 vm.runInContext(cookie,h.context);assert.equal(pageviews(h).length,0);controls['#ck-yes'].handler();assert.equal(pageviews(h).length,1);controls['#ck-no'].handler();assert.equal(h.window['ga-disable-G-0S2BYMQSKW'],true);

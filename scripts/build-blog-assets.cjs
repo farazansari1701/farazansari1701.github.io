@@ -4,7 +4,7 @@ const esbuild=require('esbuild');
 const root=path.resolve(__dirname,'..'),assets=path.join(root,'blogs/assets');
 // The portfolio owns the brand tokens and its light/dark theme selectors.
 // Synchronise these at build time so every archive and article inherits them.
-const portfolio=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const portfolio=fs.readFileSync(path.join(root,'assets/portfolio.css'),'utf8');
 const portfolioRoot=portfolio.match(/:root\s*\{([^}]+)\}/)[1];
 const blogPath=path.join(assets,'blog.css');
 let blogCss=fs.readFileSync(blogPath,'utf8');
@@ -100,5 +100,20 @@ for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),path.
  html=html.replace(/<!-- Shared favicons -->[\s\S]*?<!-- End shared favicons -->\s*/g,'');
  html=html.replace(/<link\b[^>]*\brel=["'](?:icon|shortcut icon|apple-touch-icon(?:-precomposed)?|manifest)["'][^>]*>\s*/gi,'');
  html=html.replace('</head>',faviconLinks+'\n</head>');
+ fs.writeFileSync(file,html);
+}
+
+// Keep readable portfolio sources, but ship minified inline CSS and deferred JS.
+// Inline CSS avoids adding a new render-blocking stylesheet request.
+const portfolioCss=esbuild.transformSync(portfolio,{loader:'css',minify:true,legalComments:'none',charset:'utf8'}).code;
+const portfolioJs=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/portfolio.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
+fs.writeFileSync(path.join(root,'assets/portfolio.min.js'),portfolioJs);
+const portfolioJsUrl='/assets/portfolio.min.js?v='+crypto.createHash('sha256').update(portfolioJs).digest('hex').slice(0,12);
+for(const rel of ['index.html','faraz-site/index.html']){
+ const file=path.join(root,rel);
+ let html=fs.readFileSync(file,'utf8');
+ if(!/<style data-portfolio>/.test(html))throw new Error('Missing portfolio CSS build slot: '+rel);
+ html=html.replace(/<style data-portfolio>[\s\S]*?<\/style>/,()=>'<style data-portfolio>'+portfolioCss+'</style>');
+ html=html.replace(/\/assets\/portfolio\.min\.js(?:\?[^"\s<>]*)?/g,portfolioJsUrl);
  fs.writeFileSync(file,html);
 }
