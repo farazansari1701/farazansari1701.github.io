@@ -1474,6 +1474,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 /* Portfolio navigation shares the original Blogs link style. */
 .header-links{display:flex;align-items:center;gap:22px}
 .menu-icon{display:none;width:22px;height:22px}
+.nav-arrow{margin-left:.3em}
 @media(max-width:900px){
   .top{display:flex;flex-wrap:nowrap;gap:12px}
   .top-actions{display:flex;gap:12px;flex-shrink:0}
@@ -1485,6 +1486,11 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
   .top .menu-icon{display:block}
 }
 @media(max-width:600px){
-  .top .logo span{display:none}
+  .top{gap:8px}
+  .top-actions{gap:8px}
+  .top .logo{font-size:clamp(13px,3.5vw,15px);gap:6px;white-space:nowrap}
+  .top .logo span{display:inline}
+  .top .logo svg{width:18px;height:18px;flex-shrink:0}
   .top .header-links{gap:12px}
+  .top .nav-arrow{display:none}
 }
