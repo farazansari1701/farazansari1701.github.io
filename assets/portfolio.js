@@ -48,25 +48,8 @@ document.documentElement.classList.add('js');
   const toastEl = $('#toast'); let toastT;
   function toast(msg){ if(!toastEl) return; toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 3200); }
 
-  /* ---- sound (off by default) ---- */
-  let soundOn = store.get('fa-sound') === 'on'; let actx = null;
-  function tick(freq = 1800, dur = .05, vol = .5){
-    if (!soundOn) return;
-    try {
-      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
-      const len = Math.max(1, Math.floor(actx.sampleRate * dur));
-      const buf = actx.createBuffer(1, len, actx.sampleRate); const d = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 4);
-      const src = actx.createBufferSource(); src.buffer = buf;
-      const f = actx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq;
-      const g = actx.createGain(); g.gain.value = vol;
-      src.connect(f); f.connect(g); g.connect(actx.destination); src.start();
-    } catch(e){}
-  }
-  const snd = $('#snd');
-  function syncSnd(){ if (snd) snd.setAttribute('aria-pressed', soundOn ? 'true' : 'false'); }
-  syncSnd();
-  snd && snd.addEventListener('click', () => { soundOn = !soundOn; store.set('fa-sound', soundOn ? 'on' : 'off'); syncSnd(); tick(1400, .08); });
+  // The header sound feature is retired; existing interaction hooks remain silent.
+  function tick(){}
 
   /* ---- smooth scroll ---- */
   let lenis = null;
@@ -119,9 +102,9 @@ document.documentElement.classList.add('js');
 
   /* ---- hero intro ---- */
   const heroLines = $$('.hero-name .ln');
-  if (G && !reduce) G.set(heroLines, { '--wi': 62, yPercent: 30, opacity: 0 });
+  if (G && !reduce && fine) G.set(heroLines, { '--wi': 62, yPercent: 30, opacity: 0 });
   function heroIntro(){
-    if (G && !reduce) G.to(heroLines, { '--wi': 100, yPercent: 0, opacity: 1, duration: 1.4, stagger: .12, ease: 'expo.out' });
+    if (G && !reduce && fine) G.to(heroLines, { '--wi': 100, yPercent: 0, opacity: 1, duration: 1.4, stagger: .12, ease: 'expo.out' });
   }
 
   /* ---- start immediately: content is already in the static document ---- */

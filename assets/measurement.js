@@ -18,7 +18,9 @@
     } else if (url.hostname === 'calendly.com') {
       emit('contact_click', {method:'booking', page_path});
     } else if (/\.(pdf|docx?)$/i.test(url.pathname)) {
-      emit(/(?:cv|resume)/i.test(url.pathname) ? 'cv_download' : 'file_download', {file_path:url.pathname,file_extension:url.pathname.split('.').pop(),page_path});
+      const download = link.hasAttribute('download');
+      const cv = /(?:cv|resume)/i.test(url.pathname);
+      emit(cv ? (download ? 'cv_download' : 'cv_open') : (download ? 'file_download' : 'file_open'), {file_path:url.pathname,file_extension:url.pathname.split('.').pop(),page_path});
     } else if (url.origin !== location.origin && /^https?:$/.test(url.protocol)) {
       const profile = /(^|\.)(linkedin\.com|instagram\.com|facebook\.com)$/.test(url.hostname);
       emit(profile ? 'outbound_profile_click' : 'outbound_click', {link_domain:url.hostname,page_path});

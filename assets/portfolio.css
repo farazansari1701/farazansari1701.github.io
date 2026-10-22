@@ -1,3 +1,4 @@
+@font-face{font-family:Archivo;font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url("/assets/fonts/archivo-roman-latin.woff2?v=f18b05b319a8") format("woff2")}
 
 :root{
   --paper:#F6F6F3; --ink:#1A1A1A; --cyan:#00AEEF; --magenta:#EC008C; --yellow:#FFE500; --mute:#8C8C86;
@@ -55,7 +56,7 @@ button{ font:inherit; color:inherit; }
 .logo svg{ width:22px; height:22px; }
 .top-actions{ display:flex; gap:22px; align-items:center; font-size:15px; }
 .tbtn{ background:none; border:0; padding:6px 0; cursor:pointer; font-weight:600; }
-.tbtn[aria-pressed="true"] .snd-state::after{ content:" on"; } .tbtn[aria-pressed="false"] .snd-state::after{ content:" off"; }
+
 #progress{ position:fixed; z-index:51; left:0; top:0; height:3px; width:100%; background:var(--cyan); transform-origin:0 50%; transform:scaleX(0); }
 
 /* ---------- menu ---------- */
@@ -1469,3 +1470,15 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 
 
 .label.expired .st{color:color-mix(in srgb,var(--magenta) 50%,currentColor)}
+
+/* Reuse the Blogs link style for the two public CV actions. */
+.header-links{display:flex;align-items:center;gap:22px}
+@media(max-width:900px){
+  .top{display:grid;grid-template-columns:minmax(0,1fr) auto;row-gap:0;padding-bottom:8px}
+  .top-actions{display:contents}
+  .top .logo{justify-self:start}
+  .top #menu-btn{grid-column:2;grid-row:1;justify-self:end}
+  .top .header-links{grid-column:1 / -1;grid-row:2;justify-content:flex-end;gap:20px}
+  .top .socials-top{display:none}
+  .hero .lamp-wrap{top:118px}
+}
