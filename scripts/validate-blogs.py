@@ -62,6 +62,11 @@ landing=(ROOT/'blog/index.html').read_text()
 assert '<div class="hero-actions" aria-label="Explore the blog">' in landing, 'Homepage blog CTA group missing'
 assert '<a class="button hero-cta hero-cta--primary" href="/blog/about/">Get to Know Me <span aria-hidden="true">↗</span></a>' in landing, 'Get to Know Me button missing'
 assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/personal-perspectives/">Read My Reflections <span aria-hidden="true">↗</span></a>' in landing, 'Read My Reflections button missing'
+about=(ROOT/'blog/about/index.html').read_text()
+assert '<h1>I'm Faraz.' in about and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing work or life'
+assert 'id="author-professional-writing"' in about and 'id="author-personal-writing"' in about, 'About writing categories missing'
+assert '/blog/topics/personal-perspectives/' in about, 'Personal essay path missing on About page'
+assert '<!-- managed-post-cards:start -->' in about and '<!-- managed-post-cards:end -->' in about, 'About article registry missing'
 posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts)
 for post in posts:
