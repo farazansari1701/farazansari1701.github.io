@@ -131,7 +131,7 @@ for p in posts:
 tree.write(ROOT/'sitemap.xml',encoding='utf-8',xml_declaration=True)
 ET.register_namespace('atom','http://www.w3.org/2005/Atom')
 rss=ET.Element('rss',{'version':'2.0'});channel=ET.SubElement(rss,'channel')
-for tag,value in [('title','Faraz Ansari — Digital Marketing Insights'),('link',BASE+'/blog/'),('description','Practical digital marketing experiences and lessons.'),('language','en-gb')]:ET.SubElement(channel,tag).text=value
+for tag,value in [('title','Faraz Ansari — Work, Life & Personal Perspectives'),('link',BASE+'/blog/'),('description','Professional marketing insights and personal reflections on life and society.'),('language','en-gb')]:ET.SubElement(channel,tag).text=value
 ET.SubElement(channel,'{http://www.w3.org/2005/Atom}link',{'href':BASE+'/blog/feed.xml','rel':'self','type':'application/rss+xml'})
 for p in posts:
     item=ET.SubElement(channel,'item')

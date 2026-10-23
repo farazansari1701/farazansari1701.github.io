@@ -57,7 +57,7 @@ for p in htmls:
     results.append({'path':path,'bytes':len(text.encode()),'title':title})
 assert len(set(titles))==len(titles),'Duplicate titles'
 assert titles[1:] or titles
-assert re.search('<title>(.*?)</title>',(ROOT/'blog/index.html').read_text()).group(1)=='Digital Marketing Insights - Practical reflections from my work'
+assert re.search('<title>(.*?)</title>',(ROOT/'blog/index.html').read_text()).group(1)=='Marketing & Personal Perspectives | Faraz Ansari'
 posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts)
 for post in posts:
