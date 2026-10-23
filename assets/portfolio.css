@@ -1291,7 +1291,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 /* Soldiering On: old logo to new */
 .ba{ display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:14px; margin:8px 0 22px; }
 .ba figure{ margin:0; }
-.ba img{ display:block; width:100%; aspect-ratio:16 / 10; object-fit:cover; border:1px solid color-mix(in srgb,currentColor 16%,transparent); }
+.ba img{ display:block; width:100%; max-width:320px; height:auto; aspect-ratio:auto; object-fit:contain; margin-inline:auto; border:1px solid color-mix(in srgb,currentColor 16%,transparent); }
 .ba figcaption{ margin-top:8px; font-size:12.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
 .ba-a figcaption{ opacity:.6; }
 .ba-b figcaption{ color:var(--cyan); }
