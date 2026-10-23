@@ -117,3 +117,9 @@ for(const rel of ['index.html','faraz-site/index.html']){
  html=html.replace(/\/assets\/portfolio\.min\.js(?:\?[^"\s<>]*)?/g,portfolioJsUrl);
  fs.writeFileSync(file,html);
 }
+
+
+// The deployed homepage and the legacy nested copy must be byte-identical.
+// Build both for shared assets first, then mirror the canonical root page
+// so validation and direct nested visits cannot serve stale content.
+fs.copyFileSync(path.join(root,'index.html'),path.join(root,'faraz-site/index.html'));
