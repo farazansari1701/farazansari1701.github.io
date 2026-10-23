@@ -1,7 +1,7 @@
 // Minify the shared blog assets and use content hashes to avoid stale cached files.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const esbuild=require('esbuild');
-const root=path.resolve(__dirname,'..'),assets=path.join(root,'blogs/assets');
+const root=path.resolve(__dirname,'..'),assets=path.join(root,'blog/assets');
 // The portfolio owns the brand tokens and its light/dark theme selectors.
 // Synchronise these at build time so every archive and article inherits them.
 const portfolio=fs.readFileSync(path.join(root,'assets/portfolio.css'),'utf8');
@@ -35,16 +35,16 @@ function update(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})
   let text=fs.readFileSync(file,'utf8');
   for(const [source,dest]of Object.entries(versions)){
     const [base,ext]=source.split('.');
-    const re=new RegExp('/blogs/assets/'+base+'(?:\\.min)?\\.'+ext+'(?:\\?[^"\\s<>]*)?','g');
-    text=text.replace(re,'/blogs/assets/'+dest);
+    const re=new RegExp('/blog/assets/'+base+'(?:\\.min)?\\.'+ext+'(?:\\?[^"\\s<>]*)?','g');
+    text=text.replace(re,'/blog/assets/'+dest);
   }
   fs.writeFileSync(file,text);
 }}
-update(path.join(root,'blogs'));
+update(path.join(root,'blog'));
 const measurement=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/measurement.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
 fs.writeFileSync(path.join(root,'assets/measurement.min.js'),measurement);
 const measurementUrl='/assets/measurement.min.js?v='+crypto.createHash('sha256').update(measurement).digest('hex').slice(0,12);
-for(const file of [path.join(root,'index.html'),path.join(root,'faraz-site/index.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blogs'))]){
+for(const file of [path.join(root,'index.html'),path.join(root,'faraz-site/index.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blog'))]){
  let html=fs.readFileSync(file,'utf8');
  html=html.replace(/\/assets\/measurement\.min\.js(?:\?[^"\s<>]*)?/g,measurementUrl);
  fs.writeFileSync(file,html);
@@ -87,7 +87,7 @@ const faviconLinks=`<!-- Shared favicons -->
 <link rel="apple-touch-icon" sizes="180x180" href="${iconUrl('apple-touch-icon.png')}">
 <link rel="manifest" href="${iconUrl('site.webmanifest')}">
 <!-- End shared favicons -->`;
-for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),path.join(root,'faraz-site/index.html'),path.join(root,'faraz-site/404.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blogs'))]){
+for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),path.join(root,'faraz-site/index.html'),path.join(root,'faraz-site/404.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blog'))]){
  let html=fs.readFileSync(file,'utf8').replace(/<script src="\/assets\/analytics\.min\.js(?:\?[^"\s<>]*)?" data-container="GTM-57BRSKXB"><\/script>\s*/g,'');
  html=html.replace(/<!-- Google consent defaults -->.*?<!-- End Google Tag Manager -->\s*/gs,'');
  html=html.replace(/(<meta charset="utf-8">)\s*/i,'$1\n'+tagHead+'\n<script src="'+analyticsUrl+'" data-container="GTM-57BRSKXB"></script>');

@@ -7,7 +7,7 @@ const inline=[...head.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x=>x[1]);
 assert.equal(inline.length,2);
 function setup(initial,blocked=false,ready='complete'){
  let value=initial;const scripts=[],listeners={},documentListeners={};
- const context={Date,location:{origin:'https://farazansari1701.com',pathname:'/blogs/test/',href:'https://farazansari1701.com/blogs/test/?private=value'},addEventListener:(name,fn)=>listeners[name]=fn,document:{title:'Test article',readyState:ready,addEventListener:(name,fn)=>documentListeners[name]=fn,createElement:()=>({}),getElementsByTagName:()=>[{parentNode:{insertBefore:s=>{scripts.push(s);assert.equal(context['ga-disable-G-0S2BYMQSKW'],true,'GA4 disabled before GTM');}}}]},localStorage:{getItem:()=>{if(blocked)throw Error('blocked');return value;},setItem:(k,v)=>value=v}};
+ const context={Date,location:{origin:'https://farazansari1701.com',pathname:'/blog/test/',href:'https://farazansari1701.com/blog/test/?private=value'},addEventListener:(name,fn)=>listeners[name]=fn,document:{title:'Test article',readyState:ready,addEventListener:(name,fn)=>documentListeners[name]=fn,createElement:()=>({}),getElementsByTagName:()=>[{parentNode:{insertBefore:s=>{scripts.push(s);assert.equal(context['ga-disable-G-0S2BYMQSKW'],true,'GA4 disabled before GTM');}}}]},localStorage:{getItem:()=>{if(blocked)throw Error('blocked');return value;},setItem:(k,v)=>value=v}};
  context.window=context;vm.createContext(context);
  for(const code of inline)vm.runInContext(code,context);
  vm.runInContext(source,context);
@@ -23,7 +23,7 @@ assert.equal(queue[0][0],'consent');assert.equal(queue[0][2].analytics_storage,'
 assert.equal(queue[1][0],'set');assert.equal(queue[1][1],'send_page_view');assert.equal(queue[1][2],false);
 assert.equal(queue.filter(x=>x.event==='gtm.js').length,1);
 s.window.farazAnalytics.applyConsent('granted');assert.equal(s.window['ga-disable-G-0S2BYMQSKW'],false);assert.equal(pageviews(s).length,1);
-assert.equal(pageviews(s)[0][2].send_to,'G-0S2BYMQSKW');assert.equal(pageviews(s)[0][2].page_location,'https://farazansari1701.com/blogs/test/');
+assert.equal(pageviews(s)[0][2].send_to,'G-0S2BYMQSKW');assert.equal(pageviews(s)[0][2].page_location,'https://farazansari1701.com/blog/test/');
 s.window.farazAnalytics.applyConsent('denied');assert.equal(s.window['ga-disable-G-0S2BYMQSKW'],true);assert.equal(queue.at(-1)[2].analytics_storage,'denied');
 s.window.farazAnalytics.applyConsent('granted');vm.runInContext(source,s.context);assert.equal(s.scripts.length,1);assert.equal(pageviews(s).length,1,'No duplicate page view on repeat grant/bootstrap');
 assert.equal(queue.filter(x=>x[0]==='config').length,0,'No standalone GA4 config alongside GTM');
@@ -39,5 +39,5 @@ Object.assign(h.context,{CONFIG:{gaId:'G-0S2BYMQSKW'},store:{get:()=>h.context.l
 vm.runInContext(cookie,h.context);assert.equal(pageviews(h).length,0);controls['#ck-yes'].handler();assert.equal(pageviews(h).length,1);controls['#ck-no'].handler();assert.equal(h.window['ga-disable-G-0S2BYMQSKW'],true);
 const b=setup(null),buttons={};
 Object.assign(b.context,{navigator:{},document:{...b.context.document,getElementById:()=>null,querySelector:()=>null,querySelectorAll:selector=>selector==='[data-consent]'?['granted','denied'].map(value=>({dataset:{consent:value},addEventListener:(type,fn)=>buttons[value]=fn})):[]}});
-vm.runInContext(fs.readFileSync(root+'/blogs/assets/blog.min.js','utf8'),b.context);assert.equal(pageviews(b).length,0);buttons.granted();assert.equal(pageviews(b).length,1);buttons.denied();assert.equal(b.window['ga-disable-G-0S2BYMQSKW'],true);
+vm.runInContext(fs.readFileSync(root+'/blog/assets/blog.min.js','utf8'),b.context);assert.equal(pageviews(b).length,0);buttons.granted();assert.equal(pageviews(b).length,1);buttons.denied();assert.equal(b.window['ga-disable-G-0S2BYMQSKW'],true);
 console.log('PASS: standard GTM loader, consent before container, no direct GA4 loader/config, one consented page view, DOM readiness, withdrawal/regrant, cross-tab and real banner handlers');

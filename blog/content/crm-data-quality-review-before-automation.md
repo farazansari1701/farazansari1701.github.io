@@ -8,7 +8,7 @@ A database can look tidy while still being unsuitable for its intended use. An e
 
 Write down the next action first: selecting an audience, assigning an enquiry, reporting a campaign or deciding who needs follow-up. Then define the information necessary for that action. This keeps the review focused on usefulness rather than collecting fields simply because the CRM can store them.
 
-For context on that broader journey, read my [HubSpot marketing automation lessons](/blogs/hubspot-marketing-automation-lessons-oki/). Here, the narrower question is whether the underlying records are dependable enough to support it.
+For context on that broader journey, read my [HubSpot marketing automation lessons](/blog/hubspot-marketing-automation-lessons-oki/). Here, the narrower question is whether the underlying records are dependable enough to support it.
 
 ## Define a manageable review scope
 
@@ -38,7 +38,7 @@ A complete record may still have no clear next action. Check whether responsibil
 
 Review communication preferences and suppression rules separately from data completeness. A populated email field does not establish that a contact should receive every communication. Define eligibility for the particular journey and test how exclusions behave before including the intended audience.
 
-This supports the distinction in my [B2B lead-quality framework](/blogs/b2b-lead-quality-cost-per-lead/): usable contact details, audience fit and progression are related signals, but they describe different things. A cleanup should not silently change the qualification definition used in reporting.
+This supports the distinction in my [B2B lead-quality framework](/blog/b2b-lead-quality-cost-per-lead/): usable contact details, audience fit and progression are related signals, but they describe different things. A cleanup should not silently change the qualification definition used in reporting.
 
 ## Prevent the same issue at its source
 
@@ -66,4 +66,4 @@ Start with the identifiers and fields that determine the next action. Usually th
 
 Set the frequency around how quickly the information changes and the consequence of an error. Review a new import or integration before relying on it. Give recurring checks a named owner and revisit the schedule when sources or processes change.
 
-Explore the [marketing automation collection](/blogs/topics/marketing-automation/) for related guidance, or [get in touch](/#contact) to discuss how I approach connected marketing operations.
+Explore the [marketing automation collection](/blog/topics/marketing-automation/) for related guidance, or [get in touch](/#contact) to discuss how I approach connected marketing operations.

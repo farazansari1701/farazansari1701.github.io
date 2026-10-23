@@ -8,7 +8,7 @@
     "publishedAt": "2026-10-22T09:18:55+01:00",
     "modifiedAt": "2026-10-22T09:18:55+01:00",
     "category": "Marketing automation",
-    "categoryUrl": "/blogs/topics/marketing-automation/",
+    "categoryUrl": "/blog/topics/marketing-automation/",
     "keywords": [
       "CRM data quality",
       "CRM data quality review",
@@ -44,7 +44,7 @@
         "context": "Supported validation and enforcement exceptions. Accessed 22 October 2026."
       }
     ],
-    "url": "/blogs/crm-data-quality-review-before-automation/",
+    "url": "/blog/crm-data-quality-review-before-automation/",
     "date": "2026-10-22",
     "author": "Faraz Ansari",
     "status": "published",
@@ -59,7 +59,7 @@
     "publishedAt": "2026-10-21T17:45:06+01:00",
     "modifiedAt": "2026-10-22T09:18:55+01:00",
     "category": "Performance marketing",
-    "categoryUrl": "/blogs/",
+    "categoryUrl": "/blog/",
     "keywords": [
       "B2B lead quality",
       "cost per lead",
@@ -90,7 +90,7 @@
         "context": "Qualified and converted lead measurement. Accessed 21 October 2026."
       }
     ],
-    "url": "/blogs/b2b-lead-quality-cost-per-lead/",
+    "url": "/blog/b2b-lead-quality-cost-per-lead/",
     "date": "2026-10-21",
     "author": "Faraz Ansari",
     "status": "published",
@@ -98,7 +98,7 @@
   },
   {
     "title": "B2B marketing automation: HubSpot lessons from OKI",
-    "url": "/blogs/hubspot-marketing-automation-lessons-oki/",
+    "url": "/blog/hubspot-marketing-automation-lessons-oki/",
     "date": "2026-10-21",
     "author": "Faraz Ansari",
     "category": "Marketing automation",

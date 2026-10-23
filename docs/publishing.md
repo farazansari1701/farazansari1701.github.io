@@ -1,9 +1,9 @@
 # Publishing digital marketing insights
 
-The site is a static GitHub Pages deployment from `main`. Public articles use `/blogs/`.
+The site is a static GitHub Pages deployment from `main`. Public articles use `/blog/`.
 
-1. Read `blogs/posts.json` and current live content before selecting a topic. Use the private editorial register to prevent duplicate publication for a London calendar date. A refresh is preferable when a distinct, evidenced article is unavailable.
-2. Create a new Markdown body and matching JSON in `blogs/content/`. Preserve the original publication timestamp on refresh. Generate and inspect an original, relevant image, then add compressed WebP variants and a 1200 × 630 social asset.
+1. Read `blog/posts.json` and current live content before selecting a topic. Use the private editorial register to prevent duplicate publication for a London calendar date. A refresh is preferable when a distinct, evidenced article is unavailable.
+2. Create a new Markdown body and matching JSON in `blog/content/`. Preserve the original publication timestamp on refresh. Generate and inspect an original, relevant image, then add compressed WebP variants and a 1200 × 630 social asset.
 3. Prepare useful contextual inbound links on existing pages before release. Add useful links from the article to older material. All related changes must deploy together.
 4. Run `npm ci`, `npm run build:blogs`, and `npm run check:blogs`. Review source claims, external references, responsive styles and interactions. Inspect changed files and retain the prior commit SHA.
 5. Build a Git tree on the current branch head, then one commit. Update `main` only with an expected-head lease. On conflict, fetch the new head and reconcile changes. Never force-push over someone else's work.
@@ -41,3 +41,9 @@ The installation checker previously missed the delayed external GTM bootstrap. T
 The section menu has a bounded internal scroll area and a keyboard focus loop. Mobile/tablet flight animation plays the existing boarding-pass and flight sequence once on viewport entry, without the desktop pin. Desktop retains its pinned scroll timeline. Touch rotation uses pointer capture and yields vertical gestures to page scrolling; reduced motion keeps manual rotation available without automatic spinning.
 
 The Contact section links to the owner-supplied, unmodified `assets/Faraz-Ansari-CV.pdf`. Keep both the same-origin download link and the open-in-new-tab fallback. Its click is eligible for the existing consent-gated `cv_download` event; that is a click intent, not proof of a completed download. A future CV replacement must use the owner's approved file.
+
+
+
+## Singular Blog URLs
+
+The owner requested singular “Blog” wording and `/blog/` URLs, and explicitly requested complete deletion of the old `/blogs/` directory on 23 October 2026. This supersedes earlier plural-path instructions. All canonical pages, metadata, internal links, media and source content use `/blog/`. Do not recreate compatibility redirects, feeds or assets under `/blogs/`. Historical versions remain available in Git history. The existing build and check command names remain supported.

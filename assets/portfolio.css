@@ -1471,7 +1471,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 
 .label.expired .st{color:color-mix(in srgb,var(--magenta) 50%,currentColor)}
 
-/* Portfolio navigation shares the original Blogs link style. */
+/* Portfolio navigation shares the original Blog link style. */
 .header-links{display:flex;align-items:center;gap:22px}
 .menu-icon{display:none;width:22px;height:22px}
 .nav-arrow{margin-left:.3em}

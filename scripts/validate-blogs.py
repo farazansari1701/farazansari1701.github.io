@@ -21,7 +21,7 @@ class Page(HTMLParser):
     def handle_endtag(self,tag):
         if tag=='script':self.in_json=False
 
-htmls=[ROOT/'index.html',*(ROOT/'blogs').rglob('*.html')]
+htmls=[ROOT/'index.html',*(ROOT/'blog').rglob('*.html')]
 pages={('/' if p.name=='index.html' and p.parent==ROOT else '/'+str(p.relative_to(ROOT).parent)+'/'):Page(p.read_text()) for p in htmls}
 titles=[];results=[]
 for p in htmls:
@@ -41,30 +41,30 @@ for p in htmls:
     assert len(title)<=65,(path,'Title too long',len(title))
     assert re.search('<meta name="description" content="[^"]+"',text)
     assert parsed.json,path+' structured data missing'
-    assert not re.search(r'(?<!s)/blog(?:/|["\s<>])',text),path+' legacy blog URL'
+    assert not re.search(r'/blogs(?:/|["\s<>])',text),path+' legacy blog URL'
     for tag,a in parsed.tags:
         if tag=='a' and a.get('href'):
             url=urlparse(urljoin(BASE+path,a['href']))
             if url.netloc=='farazansari1701.com' and url.path in pages and url.fragment:
                 assert unquote(url.fragment) in pages[url.path].ids,(path,a['href'],'missing anchor')
         if tag=='img':assert 'alt' in a,(path,'missing alt')
-    if path.startswith('/blogs/'):
+    if path.startswith('/blog/'):
         for asset in ['blog.min.js','footer.min.js','blog.min.css','footer.min.css']:
-            assert text.count('/blogs/assets/'+asset+'?')==1,(path,asset,'asset duplicate/missing')
+            assert text.count('/blog/assets/'+asset+'?')==1,(path,asset,'asset duplicate/missing')
         footer_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',text)
         portfolio_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',(ROOT/'index.html').read_text())
         assert footer_svg and portfolio_svg and footer_svg.group()==portfolio_svg.group(),path+' original portfolio footer artwork missing or changed'
     results.append({'path':path,'bytes':len(text.encode()),'title':title})
 assert len(set(titles))==len(titles),'Duplicate titles'
 assert titles[1:] or titles
-assert re.search('<title>(.*?)</title>',(ROOT/'blogs/index.html').read_text()).group(1)=='Digital Marketing Insights - Practical reflections from my work'
-posts=json.loads((ROOT/'blogs/posts.json').read_text())
+assert re.search('<title>(.*?)</title>',(ROOT/'blog/index.html').read_text()).group(1)=='Digital Marketing Insights - Practical reflections from my work'
+posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts)
 for post in posts:
     assert post['url'] in pages,post['url']+' missing'
     incoming={path for path,page in pages.items() for tag,a in page.tags if tag=='a' and a.get('href')==post['url'] and path!=post['url']}
     assert incoming,post['url']+' orphan'
     assert 1000<=post['wordCount']<=1200,post['url']+' word count'
-for name in ['sitemap.xml','blogs/feed.xml','blogs/assets/portfolio-skyline.svg']:ET.parse(ROOT/name)
+for name in ['sitemap.xml','blog/feed.xml','blog/assets/portfolio-skyline.svg']:ET.parse(ROOT/name)
 assert (ROOT/'index.html').read_bytes()==(ROOT/'faraz-site/index.html').read_bytes(),'Homepage copies differ'
 print(json.dumps({'status':'PASS','pages':results,'posts':len(posts)},indent=2))

@@ -32,9 +32,9 @@ Separate a mismatch in targeting from a mismatch in the offer. Someone may fit t
 
 Check whether contact details are usable and whether responsibility for the next action is clear. A lead awaiting an owner tells a different story from an enquiry that was contacted and declined. Record these states separately so operational delays do not disappear inside a single conversion rate.
 
-Before relying on those fields, use this [CRM data-quality review](/blogs/crm-data-quality-review-before-automation/) to check identity, consistency and the route information took into the system.
+Before relying on those fields, use this [CRM data-quality review](/blog/crm-data-quality-review-before-automation/) to check identity, consistency and the route information took into the system.
 
-This connects with my earlier [HubSpot marketing automation lessons](/blogs/hubspot-marketing-automation-lessons-oki/): email, landing pages and CRM information need to support a coherent next step. Automation is most useful when its eligibility rules and ownership reflect the intended journey.
+This connects with my earlier [HubSpot marketing automation lessons](/blog/hubspot-marketing-automation-lessons-oki/): email, landing pages and CRM information need to support a coherent next step. Automation is most useful when its eligibility rules and ownership reflect the intended journey.
 
 ### Qualification and progression
 
@@ -69,7 +69,7 @@ Preserve the context when sharing a finding with colleagues. Include the offer, 
 - Compare acquisition groups with equivalent time to progress.
 - Document the decision, responsible person and next review date.
 
-Explore the [marketing automation topic](/blogs/topics/marketing-automation/) for related journey-planning guidance. My [author profile](/blogs/about/) explains the professional background behind these reflections.
+Explore the [marketing automation topic](/blog/topics/marketing-automation/) for related journey-planning guidance. My [author profile](/blog/about/) explains the professional background behind these reflections.
 
 ## Common questions about lead quality
 

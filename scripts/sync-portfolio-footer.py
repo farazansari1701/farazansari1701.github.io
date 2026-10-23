@@ -40,7 +40,7 @@ base='''/* Generated from the main portfolio footer by scripts/sync-portfolio-fo
 :root[data-theme="dark"] .foot{--paper:#141414;--ink:#EDEDE9}
 .foot :where(p){margin:1em 0}.foot a{color:inherit}.foot button{font:inherit;color:inherit}.foot img,.foot svg{max-width:100%}
 '''
-(ROOT/'blogs/assets/footer.css').write_text(base+css+'\n@media print{.foot{display:none!important}}\n')
+(ROOT/'blog/assets/footer.css').write_text(base+css+'\n@media print{.foot{display:none!important}}\n')
 # Share the same artwork across blog pages instead of repeating ~36 KB of SVG.
 svg = re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>', footer).group()
 svg = svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', 1)
@@ -48,6 +48,6 @@ palette = ':root{--paper:#F6F6F3;--ink:#1A1A1A;--cyan:#00AEEF;--magenta:#EC008C;
 asset = svg.replace('><defs>', '><defs>', 1)
 position = asset.index('>') + 1
 asset = asset[:position] + '<style>' + palette + css + '</style>' + asset[position:]
-(ROOT/'blogs/assets/portfolio-skyline.svg').write_text(asset)
+(ROOT/'blog/assets/portfolio-skyline.svg').write_text(asset)
 (ROOT/'templates/blog-footer.html').write_text(footer+'\n')
 print('Synced portfolio footer, shared SVG artwork and styles')
