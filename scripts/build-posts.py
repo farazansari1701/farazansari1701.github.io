@@ -41,7 +41,8 @@ def picture(p,eager=False):
     assert fallback in ('jpg','webp'), 'Unsupported hero fallback format'
     candidates=[640,1200,1600] if w==1600 else [640,1200]
     sizes=', '.join(ASSET+prefix+'-'+str(n)+'.webp '+str(n)+'w' for n in candidates)
-    return f'<figure class="journey-art"><picture><source type="image/webp" srcset="{sizes}" sizes="(max-width:680px) 100vw, 48vw"><img src="{ASSET}{prefix}-{w}.{fallback}" width="{w}" height="{h}" alt="{e(p.get("heroAlt","Conceptual illustration connecting email, landing pages and CRM"))}" loading="{"eager" if eager else "lazy"}" '+('fetchpriority="high" ' if eager else '')+f'decoding="async"></picture><figcaption>{e(p.get("heroCaption","Email. Landing page. CRM. One connected journey."))}<span>{'Original editorial artwork' if p.get('category')=='Personal perspectives' else 'Conceptual illustration'}</span></figcaption></figure>'
+    art_label='Original editorial artwork' if p.get('category')=='Personal perspectives' else 'Conceptual illustration'
+    return f'<figure class="journey-art"><picture><source type="image/webp" srcset="{sizes}" sizes="(max-width:680px) 100vw, 48vw"><img src="{ASSET}{prefix}-{w}.{fallback}" width="{w}" height="{h}" alt="{e(p.get("heroAlt","Conceptual illustration connecting email, landing pages and CRM"))}" loading="{"eager" if eager else "lazy"}" '+('fetchpriority="high" ' if eager else '')+f'decoding="async"></picture><figcaption>{e(p.get("heroCaption","Email. Landing page. CRM. One connected journey."))}<span>{art_label}</span></figcaption></figure>'
 
 def date_label(date):return datetime.fromisoformat(date).strftime('%-d %B %Y')
 def read_time(p):return max(1,(int(p.get('wordCount',1000))+199)//200)
