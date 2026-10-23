@@ -64,6 +64,9 @@ assert '<a class="button hero-cta hero-cta--primary" href="/blog/about/">Get to 
 assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/personal-perspectives/">Read My Reflections <span aria-hidden="true">↗</span></a>' in landing, 'Read My Reflections button missing'
 about=(ROOT/'blog/about/index.html').read_text()
 assert '<h1>I'm Faraz.' in about and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing work or life'
+assert 'class="author-copy"' in about and 'I build digital experiences for a living.' in about, 'Updated About hero missing'
+assert 'grid-template-columns:minmax(0,1.75fr) minmax(280px,.92fr)' in about and 'max-width:76ch' in about, 'Expanded About text column missing'
+assert '@media(max-width:900px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About mobile layout safeguard missing'
 assert 'id="author-professional-writing"' in about and 'id="author-personal-writing"' in about, 'About writing categories missing'
 assert '/blog/topics/personal-perspectives/' in about, 'Personal essay path missing on About page'
 assert '<!-- managed-post-cards:start -->' in about and '<!-- managed-post-cards:end -->' in about, 'About article registry missing'
