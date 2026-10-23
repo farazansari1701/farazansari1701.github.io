@@ -21,14 +21,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="alternate" type="application/rss+xml" title="Faraz Ansari — Field notes" href="/blog/feed.xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="/blog/assets/blog.min.css?v=9c69d5454af1">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","mainEntity":{"@type":"Person","@id":"https://farazansari1701.com/blog/about/#person","name":"Faraz Ansari","url":"https://farazansari1701.com/blog/about/","jobTitle":"Senior Digital Marketing Executive","sameAs":["https://www.linkedin.com/in/farazansari1701/"],"image":"https://farazansari1701.com/assets/op-work.webp","description":"Meet Faraz Ansari, a London-based digital marketer with roots in Varanasi and Mussoorie, writing about work, personal experiences and social questions.","address":{"@type":"PostalAddress","addressLocality":"London","addressCountry":"GB"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"Anglia Ruskin University","url":"https://www.aru.ac.uk/"},{"@type":"CollegeOrUniversity","name":"Banaras Hindu University","url":"https://www.bhu.ac.in/"}],"knowsAbout":["Digital marketing","Search engine optimisation","Marketing automation","HubSpot CRM","Digital campaigns","Artificial intelligence in marketing"]},"description":"Meet Faraz Ansari, a London-based digital marketer with roots in Varanasi and Mussoorie, writing about work, personal experiences and social questions."}</script><script src="/blog/assets/blog.min.js?v=d73e89d21ef4" defer></script><link rel="stylesheet" href="/blog/assets/footer.min.css?v=6827357dec3d">
 <script src="/assets/measurement.min.js?v=f5932bf9665a" defer></script><style>
-.author-intro{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(280px,.92fr);gap:clamp(24px,3vw,48px);align-items:center;padding:clamp(36px,5vw,72px) 0 48px}
-.author-intro .author-copy{min-width:0}
-.author-intro h1{font-size:clamp(48px,6.8vw,100px);line-height:1.02;letter-spacing:-.055em;margin:24px 0}
-.author-intro .deck{max-width:66ch;margin:0 0 22px;font-size:clamp(19px,1.65vw,24px);line-height:1.48}.author-lead{max-width:76ch;font-size:clamp(18px,1.45vw,21px);line-height:1.64;margin-bottom:26px}
-.author-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px}.author-portrait{margin:0;max-width:400px;width:100%;justify-self:end}.author-portrait img{display:block;width:100%;height:auto;border:1px solid var(--line)}
+/* Editorial two-column introduction: concise copy, full-width left column and balanced portrait */
+.author-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,370px);gap:clamp(28px,5vw,78px);align-items:center;padding:clamp(24px,3vw,42px) 0 clamp(34px,4vw,54px)}
+.author-intro .author-copy{min-width:0;max-width:820px}
+.author-intro .eyebrow{margin-bottom:20px}
+.author-intro h1{font-size:clamp(56px,5.4vw,82px);line-height:1.01;letter-spacing:-.055em;margin:0 0 25px;max-width:none}
+.author-intro h1 .accent{display:inline-block}
+.author-intro .deck{max-width:40ch;margin:0 0 18px;font-size:clamp(22px,2vw,29px);line-height:1.32;font-weight:680;color:var(--ink)}
+.author-intro .author-lead{max-width:69ch;font-size:clamp(17px,1.26vw,19px);line-height:1.65;color:var(--muted);margin:0 0 24px}
+.author-intro .author-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px}
+.author-intro .author-actions .button{padding:12px 17px;min-height:47px;font-size:14px;gap:12px;white-space:normal}
+.author-intro .author-actions .text-link{display:inline-block;padding:12px 3px}
+.author-intro .author-portrait{margin:0;width:100%;max-width:370px;justify-self:end;align-self:center}
+.author-intro .author-portrait img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:contain;border:1px solid var(--line)}
 .author-story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);border-top:1px solid var(--line);padding:40px 0 12px}.author-story .about-prose{max-width:none;padding:0;margin:0;font-size:18px;line-height:1.8}.author-story h2{font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.025em;margin:0 0 20px}.author-story p{margin-bottom:20px}.author-note{color:var(--muted);font-size:15px;line-height:1.7}
-@media(max-width:900px){.author-intro{grid-template-columns:minmax(0,1fr);gap:28px;align-items:start}.author-intro h1{font-size:clamp(46px,8vw,74px)}.author-story{grid-template-columns:minmax(0,1fr);gap:26px}.author-intro .deck{max-width:65ch;font-size:clamp(18px,2.5vw,22px)}.author-portrait{justify-self:start;max-width:380px}}
-@media(max-width:540px){.author-intro{grid-template-columns:minmax(0,1fr);padding-top:32px;padding-bottom:32px}.author-intro h1{font-size:clamp(44px,12vw,64px)}.author-portrait{justify-self:start;max-width:320px}.author-actions{gap:16px}.author-story{padding-top:30px}}
+@media(max-width:1020px){.author-intro{grid-template-columns:minmax(0,1fr);gap:30px;align-items:start;padding-top:30px}.author-intro .author-copy{max-width:760px}.author-intro h1{font-size:clamp(52px,7.2vw,74px)}.author-intro .author-portrait{justify-self:start;max-width:350px}.author-story{grid-template-columns:minmax(0,1fr);gap:26px}}
+@media(max-width:540px){.author-intro{grid-template-columns:minmax(0,1fr);padding-top:26px;padding-bottom:34px;gap:26px}.author-intro .eyebrow{margin-bottom:16px}.author-intro h1{font-size:clamp(43px,11.5vw,59px);margin-bottom:20px}.author-intro .deck{font-size:21px;line-height:1.38;margin-bottom:16px}.author-intro .author-lead{font-size:17px;line-height:1.65;margin-bottom:19px}.author-intro .author-portrait{justify-self:start;max-width:310px}.author-actions{gap:12px}.author-story{padding-top:30px}}
 
 .professional-records{max-width:none;margin-top:30px;padding:36px 0 44px;border-top:1px solid var(--line)}
 .professional-records h2{font-size:clamp(28px,3vw,38px);line-height:1.2;letter-spacing:-.025em;margin:0 0 18px}
@@ -47,7 +55,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @media(max-width:760px){.records-grid,.record-learning{grid-template-columns:minmax(0,1fr);gap:24px}.professional-records{margin-top:24px;padding:28px 0 32px}.professional-records .records-intro{margin-bottom:24px}.record-learning h3{max-width:none}}
 
 /* About page: consistent dual career/personal perspective presentation */
-.author-intro h1{max-width:12ch}
+.author-intro h1{max-width:none}
 .author-intro .author-secondary-button{border-color:var(--ink);background:transparent;color:var(--ink)}
 .author-intro .author-secondary-button:hover{background:var(--cyan);border-color:var(--cyan);color:var(--accent-ink)}
 .author-actions .button{min-height:48px;gap:14px}
@@ -81,10 +89,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="main"><div class="wrap"><div class="breadcrumbs"><a href="/blog/">Blog</a><span>/</span>About me</div>
 <header class="author-intro">
   <div class="author-copy">
-    <div class="eyebrow">The person behind the work and the words</div>
-    <h1>I'm Faraz.<br><span class="accent">Still curious.</span></h1>
-    <p class="deck">I build digital experiences for a living. I write to make sense of the world beyond them.</p>
-    <p class="author-lead">I'm a London-based Senior Digital Marketing Executive, drawn to the intersection of ideas, technology and human behaviour. Work has taught me to look beyond the numbers and ask what really matters to people. Life—from Varanasi and Mussoorie to Cambridge and London—has taught me to ask those questions with more empathy. This is where I bring both sides together: the lessons, conversations and personal reflections that continue to shape how I see the world.</p>
+    <div class="eyebrow">Beyond the job title · The person behind the words</div>
+    <h1>I'm Faraz.<br><span class="accent">More than metrics.</span></h1>
+    <p class="deck">Some questions start with a dashboard. Others start with a conversation.</p>
+    <p class="author-lead">I'm a Senior Digital Marketing Executive in London, working across SEO, automation and AI. But the questions I return to aren't always about marketing. From Varanasi and Mussoorie to Cambridge and London, I've become interested in belonging, fairness and what a good conversation can change. This is where my professional lessons and personal reflections meet.</p>
     <div class="author-actions">
       <a class="button" href="/#work">Explore my work <span aria-hidden="true">↗</span></a>
       <a class="button author-secondary-button" href="/blog/topics/personal-perspectives/">Read my reflections <span aria-hidden="true">↗</span></a>
