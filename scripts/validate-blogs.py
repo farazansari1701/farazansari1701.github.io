@@ -60,8 +60,8 @@ assert titles[1:] or titles
 assert re.search('<title>(.*?)</title>',(ROOT/'blog/index.html').read_text()).group(1)=='Marketing & Personal Perspectives | Faraz Ansari'
 landing=(ROOT/'blog/index.html').read_text()
 assert '<div class="hero-actions" aria-label="Explore the blog">' in landing, 'Homepage blog CTA group missing'
-assert '<a class="button hero-cta hero-cta--primary" href="/blog/about/">' in landing, 'Meet the writer button missing'
-assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/personal-perspectives/">' in landing, 'Personal perspectives button missing'
+assert '<a class="button hero-cta hero-cta--primary" href="/blog/about/">Get to Know Me <span aria-hidden="true">↗</span></a>' in landing, 'Get to Know Me button missing'
+assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/personal-perspectives/">Read My Reflections <span aria-hidden="true">↗</span></a>' in landing, 'Read My Reflections button missing'
 posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts)
 for post in posts:
