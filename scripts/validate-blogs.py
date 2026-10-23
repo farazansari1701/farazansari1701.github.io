@@ -63,10 +63,10 @@ assert '<div class="hero-actions" aria-label="Explore the blog">' in landing, 'H
 assert '<a class="button hero-cta hero-cta--primary" href="/blog/about/">Get to Know Me <span aria-hidden="true">↗</span></a>' in landing, 'Get to Know Me button missing'
 assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/personal-perspectives/">Read My Reflections <span aria-hidden="true">↗</span></a>' in landing, 'Read My Reflections button missing'
 about=(ROOT/'blog/about/index.html').read_text()
-assert '<h1>I'm Faraz.' in about and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing work or life'
+assert "<h1>I'm Faraz." in about and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing work or life'
 assert 'class="author-copy"' in about and 'More than metrics.' in about, 'About hero headline missing'
 assert 'Some questions start with a dashboard.' in about and 'From Varanasi and Mussoorie to Cambridge and London' in about, 'About hero story missing'
-assert 'grid-template-columns:minmax(0,1fr) minmax(280px,370px)' in about and 'max-width:820px' in about, 'About editorial grid missing'
+assert 'grid-template-columns:minmax(0,1fr) minmax(280px,370px)' in about and '.author-intro .author-copy{min-width:0;max-width:none}' in about, 'About editorial grid or full-width copy missing'
 assert '@media(max-width:1020px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About tablet stacking missing'
 assert '@media(max-width:540px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About mobile stacking missing'
 assert 'id="author-professional-writing"' in about and 'id="author-personal-writing"' in about, 'About writing categories missing'
