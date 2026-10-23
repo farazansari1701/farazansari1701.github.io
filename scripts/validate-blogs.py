@@ -64,7 +64,12 @@ for post in posts:
     assert post['url'] in pages,post['url']+' missing'
     incoming={path for path,page in pages.items() for tag,a in page.tags if tag=='a' and a.get('href')==post['url'] and path!=post['url']}
     assert incoming,post['url']+' orphan'
-    assert 1000<=post['wordCount']<=1200,post['url']+' word count'
+    if post.get('category')=='Personal perspectives':
+        assert 200<=post['wordCount']<=2500,post['url']+' personal word count'
+        assert post.get('answerCount')==10 and post.get('approvedForPublication') is True and post.get('privacyChecked') is True, post['url']+' journal safeguards'
+        assert post.get('entryDate')==post.get('date'),post['url']+' journal date'
+    else:
+        assert 1000<=post['wordCount']<=1200,post['url']+' professional word count'
 for name in ['sitemap.xml','blog/feed.xml','blog/assets/portfolio-skyline.svg']:ET.parse(ROOT/name)
 assert (ROOT/'index.html').read_bytes()==(ROOT/'faraz-site/index.html').read_bytes(),'Homepage copies differ'
 print(json.dumps({'status':'PASS','pages':results,'posts':len(posts)},indent=2))

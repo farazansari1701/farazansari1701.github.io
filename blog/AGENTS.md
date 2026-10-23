@@ -11,3 +11,8 @@ Managed new articles live in `blog/content/<slug>.md` with matching JSON metadat
 Before release, prepare contextual inbound links on useful existing pages, render the new article, then run `npm run build:blogs` and `npm run check:blogs`. Review the entire change set and publish atomically with a current-branch lease. Verify actual live HTML, media and affected links after GitHub Pages finishes. Never report a deployment as live from a commit response alone.
 
 Keep private reports, analytics, connector details, editorial plans and source evidence outside this public repository. Use approved public professional context or educational guidance. Do not invent achievements, results or exact historical work dates. A contact click indicates intent and is not a confirmed enquiry. The shared measurement asset only sends events after analytics consent.
+
+
+## Personal journal exception
+
+`Personal perspectives` entries have a distinct 200–2,500-word range and require ten user answers, dated approval and privacy review in metadata. Keep unpublished answers outside this public repository. The 18:00 / 20:00 Europe/London schedule is driven by ChatGPT tasks; GitHub Actions builds and publishes only committed approved source. Do not invent experiences or publish without the author's explicit approval. If the author has not responded, send a reminder and skip that day rather than generating fiction.
