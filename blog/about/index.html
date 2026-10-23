@@ -31,7 +31,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .author-intro .author-lead{max-width:69ch;font-size:clamp(17px,1.26vw,19px);line-height:1.65;color:var(--muted);margin:0 0 24px}
 .author-intro .author-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px}
 .author-intro .author-actions .button{padding:12px 17px;min-height:47px;font-size:14px;gap:12px;white-space:normal}
-.author-intro .author-actions .text-link{display:inline-block;padding:12px 3px}
+.author-intro .author-actions .author-instagram-link{display:inline-flex;align-items:center;justify-content:center;flex:0 0 48px;width:48px;height:48px;border:1px solid var(--ink);color:var(--ink);text-decoration:none}
+.author-intro .author-actions .author-instagram-link:hover{background:var(--magenta);border-color:var(--magenta);color:var(--accent-ink)}
+.author-instagram-link svg{display:block;width:24px;height:24px}
 .author-intro .author-portrait{margin:0;width:100%;max-width:370px;justify-self:end;align-self:center}
 .author-intro .author-portrait img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;border:1px solid var(--line)}
 .author-story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);border-top:1px solid var(--line);padding:40px 0 12px}.author-story .about-prose{max-width:none;padding:0;margin:0;font-size:18px;line-height:1.8}.author-story h2{font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.025em;margin:0 0 20px}.author-story p{margin-bottom:20px}.author-note{color:var(--muted);font-size:15px;line-height:1.7}
@@ -72,7 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .author-writing-pane p{font-size:17px;line-height:1.75;margin:0 0 24px}
 .author-writing-pane a{margin-top:auto;display:inline-block;padding:8px 0}
 @media(max-width:760px){.author-writing-grid{grid-template-columns:minmax(0,1fr)}.author-writing-block{padding:32px 0}.author-writing-pane{padding:24px}.author-pane-number{margin-bottom:18px}}
-@media(max-width:540px){.author-intro h1{max-width:none}.author-actions{align-items:stretch;gap:12px}.author-actions .button{width:100%;justify-content:space-between}.author-actions .text-link{padding:8px 0}.author-writing-block>h2{font-size:36px}}
+@media(max-width:540px){.author-intro h1{max-width:none}.author-intro .author-actions{align-items:stretch;gap:12px}.author-actions .button{width:100%;justify-content:space-between}.author-actions .author-secondary-button{width:calc(100% - 60px);min-width:0}.author-writing-block>h2{font-size:36px}}
 </style><!-- Shared favicons -->
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64" href="/favicon.ico?v=d8ceae9f461a">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=21846082e217">
@@ -98,7 +100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="author-actions">
       <a class="button author-primary-button" href="/#work">Explore my work <span aria-hidden="true">↗</span></a>
       <a class="button author-secondary-button" href="/blog/topics/personal-perspectives/">Read my reflections <span aria-hidden="true">↗</span></a>
-      <a class="text-link" href="/assets/Faraz-Ansari-CV.pdf" target="_blank" rel="noopener" aria-label="View CV (PDF, opens in a new tab)">View CV <span aria-hidden="true">↗</span></a>
+      <a class="author-instagram-link" href="https://www.instagram.com/farazansari1701/" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on Instagram (opens in a new tab)" title="Instagram: @farazansari1701"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a>
     </div>
   </div>
   <figure class="author-portrait"><img src="/assets/faraz-ansari-about.webp" width="750" height="1000" alt="Faraz Ansari outdoors beside a mountain lake, wearing a light grey jacket, cap and headphones" loading="eager" fetchpriority="high" decoding="async"></figure>
