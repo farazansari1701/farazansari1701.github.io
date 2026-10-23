@@ -47,3 +47,12 @@ The Contact section links to the owner-supplied, unmodified `assets/Faraz-Ansari
 ## Singular Blog URLs
 
 The owner requested singular “Blog” wording and `/blog/` URLs, and explicitly requested complete deletion of the old `/blogs/` directory on 23 October 2026. This supersedes earlier plural-path instructions. All canonical pages, metadata, internal links, media and source content use `/blog/`. Do not recreate compatibility redirects, feeds or assets under `/blogs/`. Historical versions remain available in Git history. The existing build and check command names remain supported.
+
+
+## Daily personal essays (18:00 questions / 20:00 target, Europe/London)
+
+The separate ChatGPT automations ask ten questions at 18:00 and, at 20:00, look for the author's dated answers **and explicit publication approval**. All journal intake and draft answers remain in the private conversation; never commit an interview transcript or draft answer file to this public repository. The automated publisher may commit only approved article Markdown and metadata. If there are fewer than ten answered questions, no explicit approval, no workable source access, or a privacy concern, do not publish; ask the author or report the blocker. Never fabricate the day's experiences.
+
+Approved personal posts use `category: Personal perspectives`, `categoryUrl: /blog/topics/personal-perspectives/`, `answerCount: 10`, `entryDate: YYYY-MM-DD`, `approvedForPublication: true`, ISO timestamp `approvedAt` and `privacyChecked: true` in `blog/content/<slug>.json`, paired with article Markdown. Up to 2,500 words are permitted. Add a unique `heroPrefix` such as `personal-YYYY-MM-DD`, `heroWidth: 1600`, `heroHeight: 900`, meaningful `heroAlt` and `heroCaption`, and source links when factual claims require them. The build makes original editorial cover art automatically if no more specific approved asset exists. Generated public assets must not contain private quotes or named third parties.
+
+The GitHub Actions workflow builds and checks pages whenever these source files change, then commits generated HTML, cards, sitemap and RSS. Confirm the workflow succeeded and verify the live URL before telling the author publication is complete. GitHub Pages may need deployment time after 20:00; 20:00 is the intended start, not a guaranteed visible-on-site second. Keep one personal essay maximum per London calendar day.
