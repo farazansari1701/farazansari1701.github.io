@@ -67,3 +67,6 @@ Start with the identifiers and fields that determine the next action. Usually th
 Set the frequency around how quickly the information changes and the consequence of an error. Review a new import or integration before relying on it. Give recurring checks a named owner and revisit the schedule when sources or processes change.
 
 Explore the [marketing automation collection](/blog/topics/marketing-automation/) for related guidance, or [get in touch](/#contact) to discuss how I approach connected marketing operations.
+
+
+Once records are ready for reporting, use clear [marketing attribution definitions](/blog/marketing-attribution-measurement-definitions/) to distinguish the measured action, counting basis and reporting scope.

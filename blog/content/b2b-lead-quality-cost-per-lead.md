@@ -80,3 +80,6 @@ A lower cost per lead improves acquisition efficiency within the definition bein
 ### What should a small marketing team measure first?
 
 Start with a reliable lead count, a documented qualification definition, clear ownership and a record of the next action. A modest report with consistent inputs is easier to act on than an elaborate dashboard with ambiguous stages.
+
+
+For the reporting step, my [marketing attribution review](/blog/marketing-attribution-measurement-definitions/) explains how to agree outcome definitions, counting rules and reporting windows before comparing channel credit.

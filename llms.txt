@@ -20,3 +20,5 @@ The articles share personal professional experience and practical reflections on
 
 - [RSS feed](https://farazansari1701.com/blog/feed.xml): Published article feed.
 - [XML sitemap](https://farazansari1701.com/sitemap.xml): Canonical public page URLs.
+
+- [Marketing attribution: agree the measurement definitions](https://farazansari1701.com/blog/marketing-attribution-measurement-definitions/): Educational framework for outcomes, counting basis, attribution scope and reporting windows.

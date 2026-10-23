@@ -1,12 +1,68 @@
 [
   {
+    "slug": "marketing-attribution-measurement-definitions",
+    "title": "Marketing attribution: agree the measurement definitions",
+    "seoTitle": "Marketing attribution: measurement definitions | Faraz Ansari",
+    "description": "Define marketing attribution clearly: agree outcomes, counting rules, reporting scope and time windows before comparing channels or changing campaigns.",
+    "deck": "A practical framework for defining what a campaign report measures before deciding what its attribution means.",
+    "publishedAt": "2026-10-23T09:05:00+01:00",
+    "modifiedAt": "2026-10-23T09:05:00+01:00",
+    "category": "Performance marketing",
+    "categoryUrl": "/blog/",
+    "keywords": [
+      "marketing attribution",
+      "marketing attribution definitions",
+      "campaign reporting",
+      "attribution model",
+      "GA4 attribution"
+    ],
+    "heroPrefix": "marketing-attribution",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Conceptual paper illustration of email, search and browser touchpoints connected to a blank outcome card beside a calendar",
+    "heroCaption": "Define the outcome, the counting basis and the time boundary.",
+    "context": "Educational guidance with hypothetical examples, informed by public professional context. No employer data or measured campaign outcome is presented.",
+    "sources": [
+      {
+        "name": "Faraz Ansari: public professional context",
+        "url": "/#work",
+        "context": "Context only; not evidence of a specific campaign result."
+      },
+      {
+        "name": "Google Analytics: About key events",
+        "url": "https://support.google.com/analytics/answer/9267568?hl=en",
+        "context": "Definition and business importance of a selected event. Accessed 23 October 2026."
+      },
+      {
+        "name": "Google Analytics: Default channel group",
+        "url": "https://support.google.com/analytics/answer/9756891?hl=en",
+        "context": "Distinct user, session and event scopes. Accessed 23 October 2026."
+      },
+      {
+        "name": "Google Analytics: Select attribution settings",
+        "url": "https://support.google.com/analytics/answer/10597962?hl=en",
+        "context": "Reporting model and lookback settings. Accessed 23 October 2026."
+      },
+      {
+        "name": "Google Analytics: Key event attribution models report",
+        "url": "https://support.google.com/analytics/answer/10596865?hl=en",
+        "context": "Compare allocation under different models. Accessed 23 October 2026."
+      }
+    ],
+    "url": "/blog/marketing-attribution-measurement-definitions/",
+    "date": "2026-10-23",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1020
+  },
+  {
     "slug": "crm-data-quality-review-before-automation",
     "title": "CRM data quality: a practical review before automation",
     "seoTitle": "CRM data quality review before automation | Faraz Ansari",
     "description": "Review CRM data quality before marketing automation. Check identity, field definitions, freshness and ownership with a practical guide from Faraz Ansari.",
     "deck": "A focused review of the records, definitions and ownership behind a useful automated journey.",
     "publishedAt": "2026-10-22T09:18:55+01:00",
-    "modifiedAt": "2026-10-22T09:18:55+01:00",
+    "modifiedAt": "2026-10-23T09:05:00+01:00",
     "category": "Marketing automation",
     "categoryUrl": "/blog/topics/marketing-automation/",
     "keywords": [
@@ -48,7 +104,7 @@
     "date": "2026-10-22",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1025
+    "wordCount": 1046
   },
   {
     "slug": "b2b-lead-quality-cost-per-lead",
@@ -57,7 +113,7 @@
     "description": "Assess B2B lead quality alongside cost per lead. Faraz Ansari shares a practical framework for audience fit, qualification, CRM ownership and campaign reviews.",
     "deck": "A practical framework for connecting acquisition costs with audience fit, qualification and the next useful conversation.",
     "publishedAt": "2026-10-21T17:45:06+01:00",
-    "modifiedAt": "2026-10-22T09:18:55+01:00",
+    "modifiedAt": "2026-10-23T09:05:00+01:00",
     "category": "Performance marketing",
     "categoryUrl": "/blog/",
     "keywords": [
@@ -94,7 +150,7 @@
     "date": "2026-10-21",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1034
+    "wordCount": 1057
   },
   {
     "title": "B2B marketing automation: HubSpot lessons from OKI",
