@@ -2,6 +2,8 @@ Cost per lead is useful because it puts a price against a campaign response. It 
 
 My work at OKI Europe spans paid campaigns, HubSpot and lead generation. Those responsibilities provide the context for this practical framework. It explains how to connect acquisition reporting with qualification, without presenting a platform lead as a customer or claiming an unverified revenue outcome.
 
+A consistent [UTM naming convention](/blog/utm-naming-campaign-reviews/) can help keep acquisition labels interpretable when reviewing lead quality across campaign placements.
+
 ## What is the best way to assess B2B lead quality?
 
 Assess B2B lead quality by checking audience fit, the need expressed, contactability and progression through an agreed sales process. Review those signals alongside cost per lead. Define the stages, use a consistent reporting period and give enquiries enough time to progress before comparing campaigns.

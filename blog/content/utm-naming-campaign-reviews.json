@@ -1,0 +1,45 @@
+{
+  "slug": "utm-naming-campaign-reviews",
+  "title": "UTM naming that supports useful campaign reviews",
+  "seoTitle": "UTM naming for campaign reviews | Faraz Ansari",
+  "description": "Build a practical UTM naming convention: define source, medium and campaign, keep a shared register and test links before reviewing campaign traffic.",
+  "deck": "A practical naming convention, a fictional campaign example and the checks that make tracking links easier to review.",
+  "publishedAt": "2026-10-24T09:08:19+01:00",
+  "modifiedAt": "2026-10-24T09:08:19+01:00",
+  "category": "Campaign operations",
+  "categoryUrl": "/blog/",
+  "keywords": [
+    "UTM naming convention",
+    "campaign tracking",
+    "UTM parameters",
+    "campaign reporting"
+  ],
+  "heroPrefix": "utm-naming",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Example UTM naming diagram: source linkedin, medium paid_social and campaign autumn-webinar-2026, with content feed-intro-a",
+  "heroCaption": "One fictional initiative. Distinct source, channel and creative labels.",
+  "context": "Educational guidance with a fictional campaign example. No employer implementation, campaign data or measured result is presented.",
+  "sources": [
+    {
+      "name": "Google Analytics: campaign URL parameters",
+      "url": "https://support.google.com/analytics/answer/10917952?hl=en",
+      "context": "Parameter meanings and case sensitivity. Accessed 24 October 2026."
+    },
+    {
+      "name": "GOV.UK: campaign tagging",
+      "url": "https://docs.data-community.publishing.service.gov.uk/processes/utm-usage/",
+      "context": "Public organisational convention and internal-link caution. Accessed 24 October 2026."
+    },
+    {
+      "name": "Google Analytics: manual tagging and auto-tagging",
+      "url": "https://support.google.com/analytics/answer/11242870?hl=en",
+      "context": "Supported integrations and traffic-source dimensions. Accessed 24 October 2026."
+    },
+    {
+      "name": "Google Analytics: avoid personally identifiable information",
+      "url": "https://support.google.com/analytics/answer/6366371?hl=en",
+      "context": "Personal information must not appear in campaign parameters. Accessed 24 October 2026."
+    }
+  ]
+}

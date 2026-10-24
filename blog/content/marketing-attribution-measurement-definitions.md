@@ -42,7 +42,7 @@ I would therefore separate observations from decisions: record the credit alloca
 
 ## Check identity and handovers before explaining gaps
 
-A reporting discrepancy may begin with records or definitions. Review campaign naming, duplicate contacts, missing identifiers and the relationship between a website action and its CRM record. My [CRM data quality review](/blog/crm-data-quality-review-before-automation/) provides a practical starting point for checking those foundations before automating decisions.
+A reporting discrepancy may begin with records or definitions. Review [campaign naming and UTM conventions](/blog/utm-naming-campaign-reviews/), duplicate contacts, missing identifiers and the relationship between a website action and its CRM record. My [CRM data quality review](/blog/crm-data-quality-review-before-automation/) provides a practical starting point for checking those foundations before automating decisions.
 
 The same care applies when handing an enquiry to another team. Document who confirms acceptance, where that status is stored and how corrections reach the report. These proposed checks complement my broader [marketing automation reflections](/blog/hubspot-marketing-automation-lessons-oki/): connected journeys need clear ownership as well as functioning tools.
 
