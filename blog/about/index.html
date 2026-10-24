@@ -43,6 +43,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .author-instagram-link svg{display:block;width:24px;height:24px}
 .author-intro .author-portrait{grid-area:portrait;margin:0;width:100%;max-width:340px;justify-self:start;align-self:start}
 .author-intro .author-portrait img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;border:1px solid var(--line)}
+/* Let the text define the portrait height in the two-column layout. */
+@media(min-width:901px){
+  .author-intro .author-portrait{position:relative;align-self:stretch;min-height:0}
+  .author-intro .author-portrait img{position:absolute;inset:0;height:100%;aspect-ratio:auto;object-fit:cover}
+}
 .author-story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);border-top:1px solid var(--line);padding:40px 0 12px}.author-story .about-prose{max-width:none;padding:0;margin:0;font-size:18px;line-height:1.8}.author-story h2{font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.025em;margin:0 0 20px}.author-story p{margin-bottom:20px}.author-note{color:var(--muted);font-size:15px;line-height:1.7}
 @media(max-width:900px){.author-intro{grid-template-columns:minmax(0,1fr);grid-template-areas:"heading" "portrait" "copy" "poems";max-width:620px;gap:24px;padding-top:28px}.author-intro .author-portrait{justify-self:center;max-width:260px}.author-poems{grid-template-columns:minmax(0,1fr);gap:26px;margin-top:4px;padding-top:24px}.author-story{grid-template-columns:minmax(0,1fr);gap:26px}}
 @media(max-width:540px){.author-intro{padding-top:24px;padding-bottom:34px}.author-intro h1{font-size:clamp(43px,10.5vw,56px);margin-bottom:14px}.author-intro .deck{font-size:21px;line-height:1.4;margin-bottom:18px}.author-intro .author-lead{font-size:17px;line-height:1.7}.author-intro .author-portrait{max-width:240px}.author-story{padding-top:30px}}
@@ -127,14 +132,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>History, travel, art and music offer other ways into people's lives. They feed the questions I want to write about here: what makes us feel at home, how we treat one another, and what fairness and freedom mean in ordinary life.</p>
     </div>
   </div>
-  <div class="author-poems" role="group" aria-label="Poetry by Robert Frost and Allama Iqbal">
-      <figure class="author-quote">
-        <blockquote><p>“The woods are lovely, dark and deep.<br>But I have promises to keep,<br>And miles to go before I sleep,<br>And miles to go before I sleep.”</p></blockquote>
-        <figcaption>Robert Frost · from <cite><a href="https://poets.org/poem/stopping-woods-snowy-evening" target="_blank" rel="noopener noreferrer">Stopping by Woods on a Snowy Evening</a></cite></figcaption>
-      </figure>
+  <div class="author-poems" role="group" aria-label="Poetry by Allama Iqbal and Robert Frost">
       <figure class="author-quote">
         <blockquote lang="ur-Latn" dir="ltr"><p>“Duniya ki mehfilon se ukta gaya hoon, ya Rab,<br>Kya lutf anjuman ka jab dil hi bujh gaya ho.<br>Shorish se bhaagta hoon, dil dhoondta hai mera,<br>Aisa sukoot jis par taqreer bhi fida ho.”</p></blockquote>
         <figcaption>Allama Iqbal · from <cite><a href="https://www.rekhta.org/nazms/ek-aarzuu-duniyaa-kii-mahfilon-se-uktaa-gayaa-huun-yaa-rab-allama-iqbal-nazms?lang=ur" target="_blank" rel="noopener noreferrer">Ek Arzoo</a></cite></figcaption>
+      </figure>
+      <figure class="author-quote">
+        <blockquote><p>“The woods are lovely, dark and deep.<br>But I have promises to keep,<br>And miles to go before I sleep,<br>And miles to go before I sleep.”</p></blockquote>
+        <figcaption>Robert Frost · from <cite><a href="https://poets.org/poem/stopping-woods-snowy-evening" target="_blank" rel="noopener noreferrer">Stopping by Woods on a Snowy Evening</a></cite></figcaption>
       </figure>
     </div>
 </header>
