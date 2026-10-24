@@ -31,8 +31,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .author-intro .author-lead{width:100%;max-width:none;font-size:clamp(17px,1.26vw,19px);line-height:1.65;color:var(--muted);margin:0 0 24px}
 .author-intro .author-lead p{margin:0 0 12px}
 .author-intro .author-lead p:last-child{margin-bottom:0}
-.author-intro .author-quote{margin:18px 0 0;padding:0 0 0 16px;border-left:3px solid var(--magenta)}
+.author-poems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px 28px;align-items:start;margin-top:18px}
+.author-intro .author-quote{min-width:0;margin:0;padding:0 0 0 16px;border-left:3px solid var(--magenta)}
 .author-quote blockquote{margin:0}.author-quote blockquote p{margin:0 0 6px;font-size:clamp(18px,1.65vw,24px);line-height:1.45;font-style:italic;color:var(--ink)}
+.author-poems .author-quote blockquote p{font-size:clamp(17px,1.25vw,20px);line-height:1.6}
 .author-quote figcaption{font-size:12px;line-height:1.6;color:var(--muted)}.author-quote cite{font-style:normal}
 .author-intro .author-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin:0 0 24px}
 .author-intro .author-actions .button{padding:12px 17px;min-height:48px;min-width:0;max-width:100%;flex:0 1 auto;font-size:14px;line-height:1.35;gap:12px;white-space:normal;overflow-wrap:anywhere}
@@ -121,10 +123,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>Varanasi, Mussoorie, Cambridge and London have each shaped my life. Moving between them has made me think about what makes somewhere feel like home, and what we carry with us when we leave.</p>
       <p>I care about belonging, fairness and the freedom to be yourself. I write here about the people, places and experiences that stay with me, including the social questions they raise and the things I'm still trying to understand.</p>
     </div>
-    <figure class="author-quote">
-      <blockquote><p>“But I have promises to keep,<br>And miles to go before I sleep,<br>And miles to go before I sleep.”</p></blockquote>
-      <figcaption>Robert Frost · from <cite><a href="https://poets.org/poem/stopping-woods-snowy-evening" target="_blank" rel="noopener noreferrer">Stopping by Woods on a Snowy Evening</a></cite></figcaption>
-    </figure>
+    <div class="author-poems" role="group" aria-label="Poetry by Robert Frost and Allama Iqbal">
+      <figure class="author-quote">
+        <blockquote><p>“But I have promises to keep,<br>And miles to go before I sleep,<br>And miles to go before I sleep.”</p></blockquote>
+        <figcaption>Robert Frost · from <cite><a href="https://poets.org/poem/stopping-woods-snowy-evening" target="_blank" rel="noopener noreferrer">Stopping by Woods on a Snowy Evening</a></cite></figcaption>
+      </figure>
+      <figure class="author-quote">
+        <blockquote lang="ur-Latn" dir="ltr"><p>“Duniya ki mehfilon se ukta gaya hoon, ya Rab,<br>Kya lutf anjuman ka jab dil hi bujh gaya ho.<br>Shorish se bhaagta hoon, dil dhoondta hai mera,<br>Aisa sukoot jis par taqreer bhi fida ho.”</p></blockquote>
+        <figcaption>Allama Iqbal · from <cite><a href="https://www.rekhta.org/nazms/ek-aarzuu-duniyaa-kii-mahfilon-se-uktaa-gayaa-huun-yaa-rab-allama-iqbal-nazms?lang=ur" target="_blank" rel="noopener noreferrer">Ek Arzoo</a></cite></figcaption>
+      </figure>
+    </div>
   </div>
   <figure class="author-portrait"><img src="/assets/faraz-ansari-about.webp" width="750" height="1000" alt="Faraz Ansari outdoors beside a mountain lake, wearing a light grey jacket, cap and headphones" loading="eager" fetchpriority="high" decoding="async"></figure>
 </header>
