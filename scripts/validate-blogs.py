@@ -64,8 +64,8 @@ assert '<a class="button hero-cta hero-cta--primary" href="/blog/about/">Get to 
 assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/personal-perspectives/">Read My Reflections <span aria-hidden="true">↗</span></a>' in landing, 'Read My Reflections button missing'
 about=(ROOT/'blog/about/index.html').read_text()
 assert "<h1>I'm Faraz." in about and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing work or life'
-assert 'class="author-copy"' in about and 'Still curious.' in about, 'About hero headline missing'
-assert "I've changed places." in about and 'moved to the UK in 2019' in about, 'About personal introduction missing'
+assert 'class="author-copy"' in about and 'Reading the world.' in about, 'About hero headline missing'
+assert 'Poetry draws me to what a few words can hold.' in about and 'moved to the UK in 2019' in about, 'About personal introduction missing'
 assert 'grid-template-columns:minmax(0,1fr) minmax(280px,370px)' in about and '.author-intro .author-copy{min-width:0;max-width:none}' in about, 'About editorial grid or full-width copy missing'
 assert '@media(max-width:1020px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About tablet stacking missing'
 assert '@media(max-width:540px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About mobile stacking missing'
