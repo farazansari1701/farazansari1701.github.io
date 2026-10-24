@@ -77,6 +77,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .author-writing-pane a{margin-top:auto;display:inline-block;padding:8px 0}
 @media(max-width:760px){.author-writing-grid{grid-template-columns:minmax(0,1fr)}.author-writing-block{padding:32px 0}.author-writing-pane{padding:24px}.author-pane-number{margin-bottom:18px}}
 @media(max-width:540px){.author-intro h1{max-width:none}.author-intro .author-actions{align-items:stretch;gap:12px}.author-actions .button{width:100%;justify-content:space-between}.author-actions .author-secondary-button{width:calc(100% - 60px);min-width:0}.author-writing-block>h2{font-size:36px}}
+/* Keep the complete action row in view on shorter desktop windows. */
+@media(min-width:1021px) and (max-height:900px){
+  .author-intro{grid-template-columns:minmax(0,1fr) minmax(260px,340px);padding-top:clamp(12px,2.5vh,20px);padding-bottom:28px}
+  .author-intro .eyebrow{margin-bottom:12px}
+  .author-intro h1{font-size:clamp(52px,8.5vh,72px);margin-bottom:18px}
+  .author-intro .deck{font-size:clamp(21px,3.1vh,26px);line-height:1.3;margin-bottom:14px}
+  .author-intro .author-lead{font-size:clamp(16px,2.15vh,17px);line-height:1.5;margin-bottom:18px}
+  .author-intro .author-lead p{margin-bottom:10px}
+  .author-intro .author-lead p:last-child{margin-bottom:0}
+}
 </style><!-- Shared favicons -->
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64" href="/favicon.ico?v=d8ceae9f461a">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=21846082e217">
