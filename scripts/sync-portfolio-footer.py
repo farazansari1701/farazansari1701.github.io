@@ -1,8 +1,17 @@
 """Copy the portfolio footer and its CSS into the shared blog footer assets."""
 from pathlib import Path
 import re
+from compact_skyline import compact_svg
 ROOT=Path(__file__).resolve().parents[1]
-home=(ROOT/'index.html').read_text()
+home_path=ROOT/'index.html'
+home=home_path.read_text()
+# Shorten equivalent SVG syntax without rounding coordinates or changing nodes.
+# Keep the canonical portfolio and every generated footer on the same artwork.
+skyline=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',home)
+compact=compact_svg(skyline.group())
+if compact != skyline.group():
+ home=home[:skyline.start()]+compact+home[skyline.end():]
+ home_path.write_text(home)
 footer=re.search(r'<footer\b[^>]*>[\s\S]*?</footer>',home).group()
 # Keep the portfolio's exact SVG in the shared footer so its animated elements
 # are available immediately, without a separate fetch/parse/hydration stage.
@@ -41,7 +50,7 @@ base='''/* Generated from the main portfolio footer by scripts/sync-portfolio-fo
 .foot :where(p){margin:1em 0}.foot a{color:inherit}.foot button{font:inherit;color:inherit}.foot img,.foot svg{max-width:100%}
 '''
 (ROOT/'blog/assets/footer.css').write_text(base+css+'\n@media print{.foot{display:none!important}}\n')
-# Share the same artwork across blog pages instead of repeating ~36 KB of SVG.
+# Also export the same artwork as a standalone asset for existing asset links.
 svg = re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>', footer).group()
 svg = svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', 1)
 palette = ':root{--paper:#F6F6F3;--ink:#1A1A1A;--cyan:#00AEEF;--magenta:#EC008C;--yellow:#FFE500;--bg:var(--ink);--fg:var(--paper)}@media(prefers-color-scheme:dark){:root{--paper:#141414;--ink:#EDEDE9}}'

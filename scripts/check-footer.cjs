@@ -23,7 +23,7 @@ async function check(file,mode){
 }
 (async()=>{
  const home=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<footer\b[\s\S]*?<\/footer>/)[0];
- const pages=['blog/index.html','blog/about/index.html','blog/topics/marketing-automation/index.html',...JSON.parse(fs.readFileSync(path.join(root,'blog/posts.json'),'utf8')).map(p=>p.url.slice(1)+'index.html')];
+ const pages=['blog/index.html','blog/about/index.html','blog/topics/marketing-automation/index.html','blog/topics/personal-perspectives/index.html',...JSON.parse(fs.readFileSync(path.join(root,'blog/posts.json'),'utf8')).map(p=>p.url.slice(1)+'index.html')];
  for(const page of pages){const html=fs.readFileSync(path.join(root,page),'utf8');assert.equal(html.match(/<footer\b[\s\S]*?<\/footer>/)[0],home,page+' must contain the exact portfolio footer');assert(!html.includes('data-footer-art='));}
  console.log('PASS original portfolio markup, artwork, links and controls on every blog page');
  for(const file of ['blog/assets/footer.js','blog/assets/footer.min.js'])for(const mode of ['normal','reduced','blocked','optional-blocked','setup-failure'])await check(file,mode);
