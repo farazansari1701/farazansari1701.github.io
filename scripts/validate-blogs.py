@@ -65,7 +65,7 @@ assert '<a class="button hero-cta hero-cta--secondary" href="/blog/topics/person
 about=(ROOT/'blog/about/index.html').read_text()
 assert "<h1>I'm Faraz." in about and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing work or life'
 assert 'class="author-copy"' in about and 'More than metrics.' in about, 'About hero headline missing'
-assert "Between where I'm from" in about and 'Since moving to the UK in 2019' in about, 'About personal introduction missing'
+assert "I've changed places." in about and 'moved to the UK in 2019' in about, 'About personal introduction missing'
 assert 'grid-template-columns:minmax(0,1fr) minmax(280px,370px)' in about and '.author-intro .author-copy{min-width:0;max-width:none}' in about, 'About editorial grid or full-width copy missing'
 assert '@media(max-width:1020px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About tablet stacking missing'
 assert '@media(max-width:540px){.author-intro{grid-template-columns:minmax(0,1fr)' in about, 'About mobile stacking missing'
