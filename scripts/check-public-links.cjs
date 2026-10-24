@@ -107,6 +107,16 @@ for (const relative of ['blog/posts.json', 'sitemap.xml']) {
   }
 }
 
+for (const page of ['index.html', 'faraz-site/index.html']) {
+  const html = read(page);
+  if (!html.includes('href="/assets/certificates/microsoft-advertising-certified-professional-2021.pdf"')) {
+    fail(page + ' must link to the original December 2021 Microsoft certificate PDF.');
+  }
+  if (!html.includes('data-to="65">65') || !html.includes('data-to="57">57')) {
+    fail(page + ' has out-of-date certification counters.');
+  }
+}
+
 if (problems.length) {
   for (const message of problems) console.error('FAIL ' + message);
   process.exitCode = 1;
