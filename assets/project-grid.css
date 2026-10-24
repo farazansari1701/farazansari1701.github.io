@@ -1,0 +1,90 @@
+/* Scoped to the six primary project cards. Freelance website tiles remain unchanged. */
+#projects > .proj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(16px, 2vw, 32px);
+  row-gap: clamp(28px, 3vw, 48px);
+  align-items: stretch;
+}
+#projects > .proj-grid > .proj {
+  grid-column: auto;
+  grid-row: auto;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+#projects > .proj-grid > .proj > .flip {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+#projects > .proj-grid > .proj .flip-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+#projects > .proj-grid > .proj .face {
+  grid-area: 1 / 1;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+#projects > .proj-grid > .proj .face.front {
+  display: flex;
+  flex-direction: column;
+}
+#projects > .proj-grid > .proj .face.back {
+  position: relative;
+  inset: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(14px, 1.5vw, 24px);
+  overflow-wrap: anywhere;
+}
+#projects > .proj-grid > .proj .back .b-n {
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1.04;
+  overflow-wrap: anywhere;
+}
+#projects > .proj-grid > .proj .back .b-t {
+  margin: 0;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+#projects > .proj-grid > .proj .back .b-s {
+  font-size: 12px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+#projects > .proj-grid > .proj .slot {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#projects > .proj-grid > .proj .p-cap {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#projects > .proj-grid > .proj .p-actions {
+  margin-top: auto;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding-top: 12px;
+}
+@media (max-width: 1099px) {
+  #projects > .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  #projects > .proj-grid { grid-template-columns: minmax(0, 1fr); }
+}
