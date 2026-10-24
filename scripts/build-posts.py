@@ -97,11 +97,22 @@ for source in sorted((ROOT/'blog/content').glob('*.json')):
 
 posts.sort(key=lambda p:p.get('publishedAt',p['date']),reverse=True)
 (ROOT/'blog/posts.json').write_text(json.dumps(posts,ensure_ascii=False,indent=2)+'\n')
+def compact_reading_list(items):
+    return '<ol class="about-reading-list">'+''.join(
+        '<li><div class="reading-meta">'+e(p['category'])+' · '+date_label(p.get('publishedAt',p['date']))+'</div><h3><a href="'+e(p['url'])+'">'+e(p['title'])+'</a></h3></li>'
+        for p in items)+'</ol>'
+
+def personal_notebook_start():
+    return '<section class="notebook-empty" aria-labelledby="first-personal-entry"><div class="eyebrow">A place to begin</div><h2 id="first-personal-entry">The first entry is still to come.</h2><p>No personal essays are published here yet. In the meantime, start with the move in 2019 that shaped my perspective, or follow the writing as this notebook grows.</p><div class="about-link-row"><a class="button" href="/blog/about/#author-life">Start with my story <span aria-hidden="true">↗</span></a><a class="text-link" href="/blog/feed.xml">Follow new writing (RSS) ↗</a></div></section>'
+
 archives={'blog/index.html':posts,'blog/about/index.html':posts,
           'blog/topics/marketing-automation/index.html':[p for p in posts if p['category']=='Marketing automation'],
           'blog/topics/personal-perspectives/index.html':[p for p in posts if p['category']=='Personal perspectives']}
 for rel,archive_posts in archives.items():
-    path=ROOT/rel;s=path.read_text();block='<div class="post-list">'+'\n'.join(card(p) for p in archive_posts)+'</div>'
+    path=ROOT/rel;s=path.read_text()
+    if rel=='blog/about/index.html':block=compact_reading_list(archive_posts)
+    elif rel=='blog/topics/personal-perspectives/index.html' and not archive_posts:block=personal_notebook_start()
+    else:block='<div class="post-list">'+'\n'.join(card(p) for p in archive_posts)+'</div>'
     mark=r'<!-- managed-post-cards:start -->[\s\S]*?<!-- managed-post-cards:end -->'
     if re.search(mark,s):s=re.sub(mark,lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s)
     else:s=re.sub(r'<article class="post-card">[\s\S]*?</article>',lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s,count=1)
