@@ -91,7 +91,7 @@ def main():
     for source in sorted((ROOT/'blog/content').glob('*.json')):
         p=json.loads(source.read_text())
         if p.get('category')!='Personal perspectives':continue
-        assert p.get('approvedForPublication') is True and p.get('privacyChecked') is True and p.get('answerCount')==10,'Not approved'
+        assert p.get('approvedForPublication') is True and p.get('privacyChecked') is True and (p.get('answerCount')==10 or (p.get('editorialBasis')=='standalone-approved' and p.get('standaloneApproved') is True and p.get('answerCount')==0)),'Not approved'
         create_assets(p)
         created+=1
     print('Personal artwork validated for',created,'approved posts')
