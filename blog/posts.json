@@ -1,5 +1,54 @@
 [
   {
+    "slug": "someone-will-be-disappointed",
+    "title": "Someone Will Be Disappointed",
+    "seoTitle": "Someone Will Be Disappointed | Faraz Ansari",
+    "description": "A personal essay on expectations, family, freedom and responsibility: can we live with disappointing people without abandoning care and fairness?",
+    "deck": "On the freedom to choose, the expectations we inherit, and why doing the right thing does not always make everyone happy.",
+    "publishedAt": "2026-10-25T23:10:44.089+00:00",
+    "modifiedAt": "2026-10-25T23:10:44.089+00:00",
+    "approvedAt": "2026-10-25T23:08:37+00:00",
+    "entryDate": "2026-10-25",
+    "interviewDate": "2026-10-25",
+    "answerCount": 20,
+    "editorialBasis": "standalone-approved",
+    "standaloneApproved": true,
+    "approvedForPublication": true,
+    "privacyChecked": true,
+    "category": "Personal perspectives",
+    "categoryUrl": "/blog/topics/personal-perspectives/",
+    "keywords": [
+      "personal expectations",
+      "family expectations and freedom",
+      "responsibility and independence",
+      "disappointment in relationships",
+      "identity and belonging"
+    ],
+    "heroPrefix": "personal-2026-10-25-choices",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Original editorial typographic illustration for Someone Will Be Disappointed, a personal essay about expectations and independence",
+    "heroCaption": "The difficult space between caring for others and choosing for ourselves.",
+    "context": "Separately approved personal essay based on 20 multiple-choice reflections and optional elaboration from 25 October 2026. No actual conversations or identifying third-party details are disclosed.",
+    "sources": [
+      {
+        "name": "Faiz Ahmad Faiz — Bol (nazm)",
+        "url": "https://rekhta.org/nazms/bol-bol-ki-lab-aazaad-hain-tere-faiz-ahmad-faiz-nazms",
+        "context": "Verified Urdu line and poetry attribution; the nazm addresses speaking out against repression."
+      },
+      {
+        "name": "Qur'an, Surah An-Nisa 4:135",
+        "url": "https://quran.com/4/135",
+        "context": "The verse concerns standing for justice and truthful witness, including when doing so is against one's own interests or family."
+      }
+    ],
+    "url": "/blog/someone-will-be-disappointed/",
+    "date": "2026-10-25",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1727
+  },
+  {
     "slug": "the-answer-that-isnt-on-my-cv",
     "title": "The Answer That Isn't on My CV",
     "seoTitle": "The Answer That Isn't on My CV | Faraz Ansari",
@@ -54,7 +103,7 @@
     "description": "A personal essay on life between India and Britain, family expectations, work, faith and the challenge of defining what it means to feel settled.",
     "deck": "On living between India and Britain, family expectations, unfinished ambitions, and learning to make peace with a life that is still taking shape.",
     "publishedAt": "2026-10-25T10:24:29.132+00:00",
-    "modifiedAt": "2026-10-25T10:24:29.132+00:00",
+    "modifiedAt": "2026-10-25T23:10:44.089+00:00",
     "approvedAt": "2026-10-25T10:21:01+00:00",
     "entryDate": "2026-10-25",
     "answerCount": 0,
@@ -94,7 +143,7 @@
     "date": "2026-10-25",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1797
+    "wordCount": 1811
   },
   {
     "slug": "landing-page-promise-next-action",
