@@ -111,3 +111,5 @@ But perhaps I don't need to know everything today.
 I have more questions than answers.
 
 And for now, I think that's an honest place to begin.
+
+Further reflection: [The Life I'm Building Doesn't Fit a Simple Timeline](/blog/the-life-im-building-doesnt-fit-a-simple-timeline-2026-10-25/).
