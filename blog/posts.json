@@ -1,5 +1,56 @@
 [
   {
+    "slug": "landing-page-promise-next-action",
+    "title": "Landing page clarity: match the promise to the next step",
+    "seoTitle": "Landing page clarity and conversion paths | Faraz Ansari",
+    "description": "Review a landing page using a promise, proof and action framework. Align campaign intent, page content and the next step without relying on vanity metrics.",
+    "deck": "A practical promise-proof-action review for the moments between a campaign click, the page someone sees and the action they are asked to take.",
+    "publishedAt": "2026-10-25T08:18:00+00:00",
+    "modifiedAt": "2026-10-25T08:18:00+00:00",
+    "category": "Campaign operations",
+    "categoryUrl": "/blog/",
+    "keywords": [
+      "landing page review",
+      "landing page clarity",
+      "landing page call to action",
+      "campaign landing page experience",
+      "B2B landing page checklist"
+    ],
+    "heroPrefix": "landing-promise",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Conceptual illustration of a campaign card connected to a landing page and a form, with a separate crossed-out detour",
+    "heroCaption": "One coherent journey: promise, evidence and a clear next step.",
+    "context": "Public educational framework based on independently published guidance. All examples are hypothetical; no employer campaigns, account data or measured outcomes are disclosed.",
+    "sources": [
+      {
+        "name": "Google Ads: Optimise ads and landing pages",
+        "url": "https://support.google.com/google-ads/answer/6238826/optimize-your-ads-and-landing-pages",
+        "context": "Landing-page relevance, visible actions, mobile use and navigation. Accessed 25 October 2026."
+      },
+      {
+        "name": "Google Search Central: Creating helpful, reliable, people-first content",
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+        "context": "Content usefulness, clarity and factual reliability. Accessed 25 October 2026."
+      },
+      {
+        "name": "W3C WAI: Labelling controls",
+        "url": "https://www.w3.org/WAI/tutorials/forms/labels/",
+        "context": "Accessible form labels and controls. Accessed 25 October 2026."
+      },
+      {
+        "name": "W3C WAI: Form instructions",
+        "url": "https://www.w3.org/WAI/tutorials/forms/instructions/",
+        "context": "Clear required fields and field formats. Accessed 25 October 2026."
+      }
+    ],
+    "url": "/blog/landing-page-promise-next-action/",
+    "date": "2026-10-25",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1145
+  },
+  {
     "slug": "more-questions-than-answers-2026-10-24",
     "title": "More Questions Than Answers",
     "seoTitle": "More Questions Than Answers | Faraz Ansari",
@@ -82,7 +133,7 @@
     "date": "2026-10-24",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1016
+    "wordCount": 1041
   },
   {
     "slug": "marketing-attribution-measurement-definitions",
@@ -138,7 +189,7 @@
     "date": "2026-10-23",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1023
+    "wordCount": 1045
   },
   {
     "slug": "crm-data-quality-review-before-automation",
