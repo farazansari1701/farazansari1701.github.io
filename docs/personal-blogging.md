@@ -15,6 +15,8 @@ When the author replies, draft a first-person personal essay of up to 2,500 word
 5. Commit approved source and relevant linking changes to the GitHub repository. The GitHub Actions `Build and publish blog` workflow renders the pages, optimises media, checks site integrity, and commits the generated files to `main`. Wait for the workflow to pass and verify live URL, image, RSS and sitemap. Do not report success from a source commit alone.
 6. On any missing answers, approval, privacy concern, duplicate, validation failure or deployment issue, **hold publication** and inform the author clearly. Never auto-generate experience or override publication approval.
 
+**One-off approved essay exception:** When the author explicitly approves a complete standalone essay outside the daily interview, it may be published without inventing ten same-day answers. Such a post must set `editorialBasis` to `standalone-approved`, `standaloneApproved` to `true`, `answerCount` to `0`, and retain the same required `approvedAt`, `approvedForPublication`, `privacyChecked`, `entryDate` and local-date uniqueness safeguards. State in `context` that the piece is a standalone reflection rather than a report of that day's events. This exception does not override the scheduled daily interview rules.
+
 Unpublished answers and drafts remain private; do not create a public GitHub issue or commit raw interview answers. Use the same title/date only once; never silently overwrite another article. The editorial questions can be revised as the author's interests evolve.
 
 ## Sample metadata contract
