@@ -1,5 +1,54 @@
 [
   {
+    "slug": "the-life-im-building-doesnt-fit-a-simple-timeline-2026-10-25",
+    "title": "The Life I'm Building Doesn't Fit a Simple Timeline",
+    "seoTitle": "The Life I'm Building | Faraz Ansari",
+    "description": "A personal essay on life between India and Britain, family expectations, work, faith and the challenge of defining what it means to feel settled.",
+    "deck": "On living between India and Britain, family expectations, unfinished ambitions, and learning to make peace with a life that is still taking shape.",
+    "publishedAt": "2026-10-25T10:24:29.132+00:00",
+    "modifiedAt": "2026-10-25T10:24:29.132+00:00",
+    "approvedAt": "2026-10-25T10:21:01+00:00",
+    "entryDate": "2026-10-25",
+    "answerCount": 0,
+    "editorialBasis": "standalone-approved",
+    "standaloneApproved": true,
+    "approvedForPublication": true,
+    "privacyChecked": true,
+    "category": "Personal perspectives",
+    "categoryUrl": "/blog/topics/personal-perspectives/",
+    "keywords": [
+      "living in the UK",
+      "identity and belonging",
+      "family expectations",
+      "personal reflections",
+      "life between India and Britain",
+      "faith and growth"
+    ],
+    "heroPrefix": "personal-2026-10-25",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Original typographic editorial artwork titled The Life I'm Building Doesn't Fit a Simple Timeline",
+    "heroCaption": "Between the life I came from and the life I am building.",
+    "context": "An expressly approved standalone personal reflection, using details previously shared by the author. Not a factual diary of 25 October or a new daily interview.",
+    "sources": [
+      {
+        "name": "Allama Iqbal, Bal-e-Jibril — Digar-gun hai jahan, taron ki gardish tez hai saqi",
+        "url": "https://allamaiqbal.com/poetry.php?bookbup=24&conType=ur&lang=4&lang_code=ur&orderno=213",
+        "context": "Verified Urdu original for the quoted couplet; English interpretation in this essay is an original rendering."
+      },
+      {
+        "name": "Qur'an, Surah Al-Hujurat 49:13",
+        "url": "https://quran.com/49/13",
+        "context": "Verse on peoples, tribes, knowing one another and righteousness, paraphrased in context."
+      }
+    ],
+    "url": "/blog/the-life-im-building-doesnt-fit-a-simple-timeline-2026-10-25/",
+    "date": "2026-10-25",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1783
+  },
+  {
     "slug": "landing-page-promise-next-action",
     "title": "Landing page clarity: match the promise to the next step",
     "seoTitle": "Landing page clarity and conversion paths | Faraz Ansari",
@@ -57,7 +106,7 @@
     "description": "A personal reflection on feeling misunderstood, freedom of expression, identity, belonging and learning to live with uncertainty.",
     "deck": "On uncertainty, belonging and the questions that remain when a day ends without easy answers.",
     "publishedAt": "2026-10-24T20:10:21+01:00",
-    "modifiedAt": "2026-10-24T20:10:21+01:00",
+    "modifiedAt": "2026-10-25T10:24:29.132+00:00",
     "approvedAt": "2026-10-24T20:09:54+01:00",
     "entryDate": "2026-10-24",
     "answerCount": 10,
@@ -83,7 +132,7 @@
     "date": "2026-10-24",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 932
+    "wordCount": 943
   },
   {
     "slug": "utm-naming-campaign-reviews",
