@@ -71,8 +71,8 @@ def artwork(p,width,height):
 
 def create_assets(p):
     prefix=p['heroPrefix']
-    assert re.fullmatch(r'personal-\d{4}-\d{2}-\d{2}',prefix), 'Personal art prefix must use London date'
-    assert prefix=='personal-'+p['entryDate'], 'Personal art date must match journal entry'
+    assert re.fullmatch(r'personal-\d{4}-\d{2}-\d{2}(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?',prefix), 'Personal art prefix must include the London date and optional unique post suffix'
+    assert prefix=='personal-'+p['entryDate'] or (p.get('editorialBasis')=='standalone-approved' and p.get('standaloneApproved') is True and prefix.startswith('personal-'+p['entryDate']+'-')), 'Personal art date must match journal entry; extra prefix requires standalone approval'
     files=[ASSETS/(prefix+'-1600.jpg'),ASSETS/(prefix+'-social.jpg')]
     files += [ASSETS/(prefix+'-'+str(w)+'.webp') for w in (640,1200,1600)]
     existing=[f.exists() for f in files]

@@ -68,7 +68,7 @@ for source in sorted((ROOT/'blog/content').glob('*.json')):
         assert p.get('privacyChecked') is True, 'Personal privacy review required'
         assert p.get('approvedAt') and datetime.fromisoformat(p['approvedAt'])<=datetime.fromisoformat(p['publishedAt']), 'Approval must predate publication'
         for old in posts:
-            assert not (old.get('category')=='Personal perspectives' and old.get('date')==p['entryDate'] and old.get('slug')!=slug), 'One personal essay per local date'
+            assert not (old.get('category')=='Personal perspectives' and old.get('date')==p['entryDate'] and old.get('slug')!=slug and (old.get('editorialBasis')!='standalone-approved' or p.get('editorialBasis')!='standalone-approved' or old.get('standaloneApproved') is not True or p.get('standaloneApproved') is not True)), 'Multiple personal posts per date require separate explicit standalone approvals'
     else:
         assert 1000<=p['wordCount']<=1200, f'Professional body words outside range: {p["wordCount"]}'
     for old in posts:
