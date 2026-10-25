@@ -2,6 +2,8 @@ Marketing attribution assigns credit for an important action to the touchpoints 
 
 This is educational guidance, rather than an account of a measured OKI campaign. My [public marketing responsibilities](/#work) provide professional context, but the examples below are hypothetical. They illustrate a review method without presenting employer data or claiming that a particular channel caused an outcome.
 
+Good attribution definitions also depend on a coherent destination. My [landing-page clarity checklist](/blog/landing-page-promise-next-action/) examines the promise, evidence and action awaiting each visitor.
+
 ## Start with the decision, then define the outcome
 
 A useful attribution question is specific: which recorded touchpoints receive credit for submitted enquiry forms during this reporting period? “Which channel works best?” leaves too much unspecified. It can mean acquisition volume, engagement, sales acceptance or revenue, each requiring different evidence and a different comparison.

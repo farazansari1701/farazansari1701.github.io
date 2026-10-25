@@ -2,6 +2,8 @@ UTM naming works best when source identifies the publisher, medium identifies th
 
 This is a proposed working method, with a fictional campaign example. It is not a description of an OKI implementation or a claim of improved performance. It complements my [marketing attribution guide](/blog/marketing-attribution-measurement-definitions/): naming describes incoming traffic, while attribution concerns how recorded touchpoints receive credit for a defined action.
 
+The next step is the experience after arrival. My [landing-page promise-to-action review](/blog/landing-page-promise-next-action/) provides a practical way to check whether the destination supports the campaign message.
+
 ## Start with the question the report must answer
 
 Before creating links, write the campaign question in plain English. For example: which placements bring relevant visits to a fictional autumn webinar? Decide whether the review needs a channel comparison, a placement comparison or a creative comparison. Each question needs a different level of detail, so avoid adding fields simply because they are available.
