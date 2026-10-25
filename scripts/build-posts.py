@@ -62,7 +62,7 @@ for source in sorted((ROOT/'blog/content').glob('*.json')):
     personal=p.get('category')=='Personal perspectives'
     if personal:
         assert 200<=p['wordCount']<=2500, f'Personal essay length outside 200-2500: {p["wordCount"]}'
-        assert p.get('answerCount')==10, 'All ten daily questions must be answered'
+        assert (p.get('answerCount')==10 or (p.get('editorialBasis')=='standalone-approved' and p.get('standaloneApproved') is True and p.get('answerCount')==0)), 'Require ten daily answers, or an explicitly approved standalone article with no fabricated interview answers'
         assert p.get('entryDate')==p['publishedAt'][:10], 'Personal entry must match London publication date'
         assert p.get('approvedForPublication') is True, 'Explicit author approval required'
         assert p.get('privacyChecked') is True, 'Personal privacy review required'
