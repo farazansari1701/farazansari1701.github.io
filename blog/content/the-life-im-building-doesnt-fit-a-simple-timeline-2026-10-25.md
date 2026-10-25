@@ -207,3 +207,5 @@ For now, I think that deserves to count as living.
 Not merely preparing to live.
 
 A related reflection on careers and uncertainty: [The Answer That Isn't on My CV](/blog/the-answer-that-isnt-on-my-cv/).
+
+Related reading on choosing a life beyond other people's expectations: [Someone Will Be Disappointed](/blog/someone-will-be-disappointed/).
