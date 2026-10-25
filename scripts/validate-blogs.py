@@ -81,7 +81,7 @@ for post in posts:
     assert incoming,post['url']+' orphan'
     if post.get('category')=='Personal perspectives':
         assert 200<=post['wordCount']<=2500,post['url']+' personal word count'
-        assert post.get('answerCount')==10 and post.get('approvedForPublication') is True and post.get('privacyChecked') is True, post['url']+' journal safeguards'
+        assert (post.get('answerCount')==10 or (post.get('editorialBasis')=='standalone-approved' and post.get('standaloneApproved') is True and post.get('answerCount')==0)) and post.get('approvedForPublication') is True and post.get('privacyChecked') is True, post['url']+' journal safeguards'
         assert post.get('entryDate')==post.get('date'),post['url']+' journal date'
     else:
         assert 1000<=post['wordCount']<=1200,post['url']+' professional word count'
