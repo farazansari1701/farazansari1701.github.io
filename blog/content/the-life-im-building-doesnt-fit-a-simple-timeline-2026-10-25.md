@@ -205,3 +205,5 @@ But I am here, making decisions, sometimes getting them wrong, learning from wha
 For now, I think that deserves to count as living.
 
 Not merely preparing to live.
+
+A related reflection on careers and uncertainty: [The Answer That Isn't on My CV](/blog/the-answer-that-isnt-on-my-cv/).
