@@ -1,5 +1,62 @@
 [
   {
+    "slug": "hubspot-workflow-eligibility-suppression-rules",
+    "title": "HubSpot workflow eligibility: who enters, who exits, and why",
+    "seoTitle": "HubSpot workflow eligibility and exclusions | Faraz Ansari",
+    "description": "A practical HubSpot workflow guide to enrolment, suppression, re-enrolment and testing. Make automation decisions clearer before sending messages.",
+    "deck": "A testable approach to workflow entry signals, exclusion rules, re-enrolment and the outcomes that matter after automation begins.",
+    "publishedAt": "2026-10-26T09:48:00+00:00",
+    "modifiedAt": "2026-10-26T09:48:00+00:00",
+    "jobKey": "faraz-growth:2026-10-26",
+    "category": "Marketing automation",
+    "categoryUrl": "/blog/topics/marketing-automation/",
+    "keywords": [
+      "HubSpot workflows",
+      "workflow enrolment triggers",
+      "workflow suppression",
+      "workflow re-enrolment",
+      "marketing automation eligibility"
+    ],
+    "heroPrefix": "workflow-eligibility",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Original three-stage workflow diagram with an entry trigger, audience eligibility rules, suppression guardrail and an action-or-exit step",
+    "heroCaption": "Entry, eligibility and action need independent rules, with a visible suppression gate.",
+    "context": "A proposed educational framework supported by public HubSpot and ICO guidance. All examples are fictional; no employer workflow data or results are disclosed.",
+    "sources": [
+      {
+        "name": "HubSpot: Create workflows",
+        "url": "https://knowledge.hubspot.com/workflows/create-workflows",
+        "context": "Supported trigger types and enrolment settings; checked 26 October 2026."
+      },
+      {
+        "name": "HubSpot: Set unenrolment triggers in workflows",
+        "url": "https://knowledge.hubspot.com/workflows/set-unenrollment-triggers-in-company-deal-ticket-quote-based-workflows",
+        "context": "Suppression, goals, workflow settings and object-based exits; checked 26 October 2026."
+      },
+      {
+        "name": "HubSpot: Add re-enrolment triggers",
+        "url": "https://knowledge.hubspot.com/workflows/add-re-enrollment-triggers-to-a-workflow",
+        "context": "Re-entry conditions and unsupported triggers; checked 26 October 2026."
+      },
+      {
+        "name": "HubSpot: Troubleshoot workflow enrolment",
+        "url": "https://knowledge.hubspot.com/workflows/contact-company-deal-ticket-or-quote-not-enrolled-in-workflow",
+        "context": "Why records may fail to enter or remain in a workflow; checked 26 October 2026."
+      },
+      {
+        "name": "ICO: Business-to-business marketing",
+        "url": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/",
+        "context": "UK marketing rules, corporate subscribers and personal-data safeguards; checked 26 October 2026."
+      }
+    ],
+    "url": "/blog/hubspot-workflow-eligibility-suppression-rules/",
+    "date": "2026-10-26",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1199
+  },
+  {
     "slug": "someone-will-be-disappointed",
     "title": "Someone Will Be Disappointed",
     "seoTitle": "Someone Will Be Disappointed | Faraz Ansari",
@@ -194,7 +251,7 @@
     "date": "2026-10-25",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1145
+    "wordCount": 1166
   },
   {
     "slug": "more-questions-than-answers-2026-10-24",
@@ -386,7 +443,7 @@
     "date": "2026-10-22",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1046
+    "wordCount": 1065
   },
   {
     "slug": "b2b-lead-quality-cost-per-lead",
@@ -432,7 +489,7 @@
     "date": "2026-10-21",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1075
+    "wordCount": 1099
   },
   {
     "title": "B2B marketing automation: HubSpot lessons from OKI",
