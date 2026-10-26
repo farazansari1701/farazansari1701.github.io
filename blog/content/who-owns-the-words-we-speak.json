@@ -1,0 +1,55 @@
+{
+  "slug": "who-owns-the-words-we-speak",
+  "title": "Who Owns the Words We Speak?",
+  "seoTitle": "Who Owns the Words We Speak? | Faraz Ansari",
+  "description": "A personal essay on Hindi, Urdu, colonial history and belonging: how languages bridge communities, become tools of power, and shape freedom to be understood.",
+  "deck": "On Hindi, Urdu, nationalism and the unfinished work of belonging",
+  "publishedAt": "2026-10-26T23:00:28.791+00:00",
+  "modifiedAt": "2026-10-26T23:00:28.791+00:00",
+  "approvedAt": "2026-10-26T22:57:41+00:00",
+  "entryDate": "2026-10-26",
+  "interviewDate": "2026-10-26",
+  "answerCount": 20,
+  "editorialBasis": "standalone-approved",
+  "standaloneApproved": true,
+  "approvedForPublication": true,
+  "privacyChecked": true,
+  "category": "Personal perspectives",
+  "categoryUrl": "/blog/topics/personal-perspectives/",
+  "keywords": [
+    "language and identity",
+    "Hindi and Urdu",
+    "linguistic nationalism",
+    "colonial language history",
+    "cultural belonging",
+    "freedom of expression"
+  ],
+  "heroPrefix": "personal-2026-10-26-words",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Typographic editorial illustration for Who Owns the Words We Speak? about language, identity and borders",
+  "heroCaption": "On languages we inherit, borders we draw and the freedom to be understood.",
+  "context": "Separately approved personal essay based on the author's 20 responses and extended reflection from 26 October 2026. Historical claims are contextualised; no private interview answers or identifying third-party details are disclosed.",
+  "sources": [
+    {
+      "name": "Faiz Ahmad Faiz — Bol (nazm)",
+      "url": "https://www.rekhta.org/nazms/bol-bol-ki-lab-aazaad-hain-tere-faiz-ahmad-faiz-nazms?lang=ur",
+      "context": "Urdu original and attribution of the short poetic line; the English interpretation in this essay is an original translation."
+    },
+    {
+      "name": "James Baldwin — If Black English Isn't a Language, Then Tell Me, What Is?",
+      "url": "https://digfir-published.macmillanusa.com/readwrite/readwrite_ch52_3.html",
+      "context": "Baldwin's 1979 essay on language, history and identity, used as comparative literary context."
+    },
+    {
+      "name": "UNESCO — International Mother Language Day",
+      "url": "https://www.unesco.org/en/days/mother-language",
+      "context": "Linguistic diversity and history of the Bengali language movement."
+    },
+    {
+      "name": "Government of India — Official Language Policy",
+      "url": "https://rajbhasha.gov.in/en/official-language-policy-union",
+      "context": "India's constitutional and official language framework."
+    }
+  ]
+}
