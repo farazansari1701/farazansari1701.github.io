@@ -21,7 +21,6 @@
   "heroHeight": 900,
   "heroAlt": "Original three-stage workflow diagram with an entry trigger, audience eligibility rules, suppression guardrail and an action-or-exit step",
   "heroCaption": "Entry, eligibility and action need independent rules, with a visible suppression gate.",
-  "context": "A proposed educational framework supported by public HubSpot and ICO guidance. All examples are fictional; no employer workflow data or results are disclosed.",
   "sources": [
     {
       "name": "HubSpot: Create workflows",

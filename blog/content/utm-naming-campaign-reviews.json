@@ -19,7 +19,6 @@
   "heroHeight": 900,
   "heroAlt": "Example UTM naming diagram: source linkedin, medium paid_social and campaign autumn-webinar-2026, with content feed-intro-a",
   "heroCaption": "One fictional initiative. Distinct source, channel and creative labels.",
-  "context": "Educational guidance with a fictional campaign example. No employer implementation, campaign data or measured result is presented.",
   "sources": [
     {
       "name": "Google Analytics: campaign URL parameters",

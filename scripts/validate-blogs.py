@@ -77,6 +77,10 @@ posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts)
 for post in posts:
     assert post['url'] in pages,post['url']+' missing'
+    article_html=(ROOT/post['url'].strip('/')/'index.html').read_text()
+    assert 'class="context-strip"' not in article_html,post['url']+' forbidden editorial context banner'
+    assert 'All insights ↗' not in article_html,post['url']+' forbidden All insights link'
+    assert 'context' not in post,post['url']+' public editorial context metadata'
     incoming={path for path,page in pages.items() for tag,a in page.tags if tag=='a' and a.get('href')==post['url'] and path!=post['url']}
     assert incoming,post['url']+' orphan'
     if post.get('category')=='Personal perspectives':
