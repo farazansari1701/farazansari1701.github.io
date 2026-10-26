@@ -97,6 +97,17 @@ for source in sorted((ROOT/'blog/content').glob('*.json')):
     posts=[old for old in posts if old['url']!=p['url']]+[p]
 
 posts.sort(key=lambda p:p.get('publishedAt',p['date']),reverse=True)
+# Legacy (unmanaged) articles must never retain the discontinued editorial banner.
+# Managed articles are generated without it; the validator also forbids it on every post.
+for old in posts:
+    if old.get('slug'):
+        continue
+    legacy_path=ROOT/old['url'].strip('/')/'index.html'
+    if legacy_path.is_file():
+        original=legacy_path.read_text()
+        cleaned,count=re.subn(r'<div class="context-strip">.*?</div>', '', original, flags=re.S)
+        if count:
+            legacy_path.write_text(cleaned)
 (ROOT/'blog/posts.json').write_text(json.dumps(posts,ensure_ascii=False,indent=2)+'\n')
 def compact_reading_list(items):
     return '<ol class="about-reading-list">'+''.join(
