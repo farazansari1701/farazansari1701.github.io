@@ -38,6 +38,8 @@ Before relying on those fields, use this [CRM data-quality review](/blog/crm-dat
 
 This connects with my earlier [HubSpot marketing automation lessons](/blog/hubspot-marketing-automation-lessons-oki/): email, landing pages and CRM information need to support a coherent next step. Automation is most useful when its eligibility rules and ownership reflect the intended journey.
 
+For the next operational step, my [workflow eligibility and suppression review](/blog/hubspot-workflow-eligibility-suppression-rules/) sets out who should receive automated follow-up and when that journey should stop.
+
 ### Qualification and progression
 
 [HubSpot’s lifecycle-stage documentation](https://knowledge.hubspot.com/records/use-lifecycle-stages) distinguishes contacts qualified by marketing from those qualified by sales. Use those distinctions to agree the meaning of your own stages and the evidence required to move between them.

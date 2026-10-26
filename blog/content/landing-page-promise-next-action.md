@@ -32,6 +32,8 @@ Review whether the action is visible, whether a competing action distracts from 
 
 Do not treat every completed form as an equally valuable outcome. Define what counts as a genuine enquiry or accepted lead and document the handover. That distinction is explored further in my [B2B lead-quality framework](/blog/b2b-lead-quality-cost-per-lead/).
 
+Once someone takes the page's intended action, the [workflow eligibility checklist](/blog/hubspot-workflow-eligibility-suppression-rules/) helps decide whether that event should start an automated response.
+
 ## Include mobile access and form clarity
 
 The review is incomplete if it works only on a large monitor. Test the page on a narrow screen: can the visitor read the first claim without zooming, understand the supporting explanation and find the next action without fighting sticky banners or overlapping controls?

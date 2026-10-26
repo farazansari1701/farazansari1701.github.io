@@ -38,6 +38,8 @@ A complete record may still have no clear next action. Check whether responsibil
 
 Review communication preferences and suppression rules separately from data completeness. A populated email field does not establish that a contact should receive every communication. Define eligibility for the particular journey and test how exclusions behave before including the intended audience.
 
+A separate [HubSpot workflow eligibility guide](/blog/hubspot-workflow-eligibility-suppression-rules/) shows how those record checks become explicit entry rules, exclusions and re-enrolment decisions.
+
 This supports the distinction in my [B2B lead-quality framework](/blog/b2b-lead-quality-cost-per-lead/): usable contact details, audience fit and progression are related signals, but they describe different things. A cleanup should not silently change the qualification definition used in reporting.
 
 ## Prevent the same issue at its source
