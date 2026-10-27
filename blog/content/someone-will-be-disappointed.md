@@ -249,3 +249,5 @@ Sometimes the most responsible thing we can do is listen carefully, consider hon
 Not because their feelings do not matter.
 
 But because ours matter too.
+
+Related reflection: [The Cost of Having a Conscience](/blog/the-cost-of-having-a-conscience/) explores the distance between moral principles and everyday choices.
