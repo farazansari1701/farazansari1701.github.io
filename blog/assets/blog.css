@@ -105,3 +105,8 @@ h2[id]{scroll-margin-top:110px}.hero-grid{grid-template-columns:minmax(0,1.1fr) 
 details.professional-records{padding:0;margin:30px 0 34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.professional-records>summary{padding:20px 0;font-size:clamp(18px,2vw,23px);font-weight:700;line-height:1.4;cursor:pointer}.professional-records>summary::marker{color:var(--magenta)}.professional-records>summary:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}.professional-records[open]>summary{margin-bottom:14px}.professional-records .records-grid{padding-bottom:20px}.professional-records .records-more{font-size:15px;line-height:1.7;margin:0;padding-bottom:24px}
 .notebook-introduction{font-size:18px;line-height:1.75;max-width:68ch;margin:0 0 24px}.notebook-empty{border:1px solid var(--line);border-top:4px solid var(--magenta);padding:clamp(22px,3vw,40px);margin:8px 0 38px}.notebook-empty h2{font-size:clamp(27px,3vw,39px);line-height:1.2;letter-spacing:-.03em;margin:18px 0}.notebook-empty p{font-size:18px;line-height:1.75;max-width:65ch;margin:0 0 24px}
 @media(max-width:540px){.about-reading{padding:10px 0 30px}.about-reading-list li{padding:16px 0}.notebook-introduction,.notebook-empty p{font-size:17px}.notebook-empty{padding:22px}.about-link-row{gap:14px 18px}.notebook-empty .button{width:100%;justify-content:space-between}}
+
+/* Personal entries published without new images or cover generation. */
+.hero-grid--text-only,.post-card--text-only{grid-template-columns:minmax(0,1fr)}
+.hero-grid--text-only{max-width:920px}
+.post-card--text-only>div{max-width:850px}

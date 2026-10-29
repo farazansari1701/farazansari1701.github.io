@@ -92,6 +92,9 @@ def main():
         p=json.loads(source.read_text())
         if p.get('category')!='Personal perspectives':continue
         assert p.get('approvedForPublication') is True and p.get('privacyChecked') is True and (p.get('answerCount')==10 or (p.get('editorialBasis')=='standalone-approved' and p.get('standaloneApproved') is True and (p.get('answerCount')==0 or (p.get('answerCount')==20 and p.get('interviewDate')==p.get('entryDate'))))),'Not approved'
+        # Preserve image-free approval: do not generate artwork for text-only essays.
+        if p.get('heroDisabled'):
+            continue
         create_assets(p)
         created+=1
     print('Personal artwork validated for',created,'approved posts')
