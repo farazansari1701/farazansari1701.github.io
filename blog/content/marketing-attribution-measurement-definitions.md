@@ -10,6 +10,8 @@ A useful attribution question is specific: which recorded touchpoints receive cr
 
 Write down the action before opening the dashboard. A form submission, a booked meeting and an accepted opportunity are separate milestones. A click on an email address shows contact intent; it does not establish that a message was sent or a conversation occurred. Keep those distinctions visible in the report title and commentary.
 
+For a closer distinction between a counted interaction and a completed request, see my [GA4 enquiry-event audit](/blog/ga4-key-events-enquiry-measurement-audit/).
+
 Google’s [key event guidance](https://support.google.com/analytics/answer/9267568?hl=en) explains how an important collected event can be marked for reporting. That designation expresses its importance to the business. It does not independently validate the real-world outcome behind the event. Define a separate confirmation source when the decision depends on an actual enquiry or sale.
 
 ## Agree what the denominator contains

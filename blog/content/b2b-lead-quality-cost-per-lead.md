@@ -4,6 +4,8 @@ My work at OKI Europe spans paid campaigns, HubSpot and lead generation. Those r
 
 A consistent [UTM naming convention](/blog/utm-naming-campaign-reviews/) can help keep acquisition labels interpretable when reviewing lead quality across campaign placements.
 
+For the website measurement side, my [GA4 key-event review](/blog/ga4-key-events-enquiry-measurement-audit/) separates contact intent from verifiable enquiry outcomes.
+
 ## What is the best way to assess B2B lead quality?
 
 Assess B2B lead quality by checking audience fit, the need expressed, contactability and progression through an agreed sales process. Review those signals alongside cost per lead. Define the stages, use a consistent reporting period and give enquiries enough time to progress before comparing campaigns.
