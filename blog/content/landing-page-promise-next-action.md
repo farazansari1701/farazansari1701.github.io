@@ -40,6 +40,8 @@ The review is incomplete if it works only on a large monitor. Test the page on a
 
 Accessible forms are part of conversion quality, not a separate decoration exercise. The W3C Web Accessibility Initiative recommends [clear, associated labels](https://www.w3.org/WAI/tutorials/forms/labels/) for form controls, while its [instructions guidance](https://www.w3.org/WAI/tutorials/forms/instructions/) explains how to communicate required entries and formats. Test keyboard navigation, error feedback and whether important instructions remain visible when a field is in focus. An inaccessible form can prevent a willing visitor from completing the action.
 
+Before interpreting a call-to-action click as an enquiry, review this [GA4 event-measurement checklist](/blog/ga4-key-events-enquiry-measurement-audit/) for separate action and completion signals.
+
 ## Measure the handover without claiming causation
 
 After improving clarity, agree what should be measured. Possible observations include landing-page sessions, clicks on the primary action, form starts, completed valid submissions and qualified follow-ups. These are distinct events, not interchangeable names for success. Record consent requirements, event definitions, date boundaries and whether test activity is excluded.

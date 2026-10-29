@@ -1,0 +1,57 @@
+{
+  "slug": "ga4-key-events-enquiry-measurement-audit",
+  "title": "GA4 key events versus enquiries: a practical measurement audit",
+  "seoTitle": "GA4 key events and enquiry tracking | Faraz Ansari",
+  "description": "Learn to audit GA4 key events, separate page views and contact clicks from confirmed enquiries, and test consent-aware website measurement.",
+  "deck": "A practical measurement audit that distinguishes browsing, contact intent and confirmed outcomes before treating a number as a conversion.",
+  "publishedAt": "2026-10-29T08:00:00+00:00",
+  "modifiedAt": "2026-10-29T08:00:00+00:00",
+  "category": "Performance marketing",
+  "categoryUrl": "/blog/",
+  "jobKey": "faraz-growth:2026-10-29",
+  "keywords": [
+    "GA4 key events",
+    "GA4 enquiry tracking",
+    "conversion tracking audit",
+    "contact click event",
+    "GA4 generate_lead",
+    "website measurement"
+  ],
+  "heroPrefix": "ga4-enquiry-evidence",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Conceptual editorial graphic showing a page view, a contact-intent action and a confirmed enquiry as separate measurement stages",
+  "heroCaption": "A measured interaction is not always a confirmed outcome. Separate the stages before reporting.",
+  "sources": [
+    {
+      "name": "Google Analytics: About key events",
+      "url": "https://support.google.com/analytics/answer/9267568?hl=en",
+      "context": "What key events represent in GA4. Accessed 29 October 2026."
+    },
+    {
+      "name": "Google Analytics: Conversions versus key events",
+      "url": "https://support.google.com/analytics/answer/13965727",
+      "context": "The different purposes and reporting scopes of conversions and key events. Accessed 29 October 2026."
+    },
+    {
+      "name": "Google Analytics: Create or modify key events",
+      "url": "https://support.google.com/analytics/answer/12844695?hl=en",
+      "context": "Guidance against treating generic page views as confirmation outcomes. Accessed 29 October 2026."
+    },
+    {
+      "name": "Google Analytics: Tutorial to set up a key event",
+      "url": "https://support.google.com/analytics/answer/12966437?hl=en-GB",
+      "context": "Create a specific confirmation event, with generate_lead as a recommended example. Accessed 29 October 2026."
+    },
+    {
+      "name": "Google Tag Platform: Set up consent mode",
+      "url": "https://developers.google.com/tag-platform/security/guides/consent",
+      "context": "Consent defaults and updates. Accessed 29 October 2026."
+    },
+    {
+      "name": "Google Analytics: About events",
+      "url": "https://support.google.com/analytics/answer/9322688?hl=en",
+      "context": "Event collection, Realtime and DebugView checks. Accessed 29 October 2026."
+    }
+  ]
+}
