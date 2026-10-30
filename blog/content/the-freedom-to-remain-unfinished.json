@@ -23,7 +23,6 @@
     "freedom to change",
     "uncertainty"
   ],
-  "heroDisabled": true,
   "heroPrefix": "personal-2026-10-29-unfinished",
   "heroWidth": 1600,
   "heroHeight": 900,
@@ -33,5 +32,7 @@
       "url": "https://www.rekhta.org/ghazals/jis-sar-ko-guruur-aaj-hai-yaan-taaj-varii-kaa-meer-taqi-meer-ghazals",
       "context": "Verified original Urdu couplet, attribution and ghazal; English rendering in the article is original."
     }
-  ]
+  ],
+  "heroAlt": "An open stairway crossing an unfinished landscape, representing growth, love and freedom to change",
+  "heroCaption": "Understanding another person does not mean they have stopped becoming."
 }
