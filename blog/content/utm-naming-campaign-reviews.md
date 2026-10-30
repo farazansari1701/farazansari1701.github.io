@@ -4,6 +4,8 @@ This is a proposed working method, with a fictional campaign example. It is not 
 
 The next step is the experience after arrival. My [landing-page promise-to-action review](/blog/landing-page-promise-next-action/) provides a practical way to check whether the destination supports the campaign message.
 
+When explaining these decisions to campaign colleagues, an [answer-first content structure](/blog/answer-first-marketing-article-writing/) can make the central recommendation clear before the supporting detail.
+
 ## Start with the question the report must answer
 
 Before creating links, write the campaign question in plain English. For example: which placements bring relevant visits to a fictional autumn webinar? Decide whether the review needs a channel comparison, a placement comparison or a creative comparison. Each question needs a different level of detail, so avoid adding fields simply because they are available.
