@@ -1,6 +1,115 @@
 // Enable progressive reveals only when the application has actually loaded.
 document.documentElement.classList.add('js');
 
+/* Phone choreography is independent of optional smooth scrolling. The CDN
+ * scripts are ordered `defer` scripts, but load listeners also allow the phone
+ * setup to recover if a dependency arrives after this file. */
+(() => {
+  const phone = matchMedia('(max-width:760px)');
+  let started = false;
+  function start() {
+    if (started || !phone.matches) return;
+    const G = window.gsap, ST = window.ScrollTrigger, MP = window.MotionPathPlugin;
+    if (!G || !ST || !MP) return;
+    started = true;
+    G.registerPlugin(ST, MP);
+    G.matchMedia().add({ phone: '(max-width:760px)', gentle: '(prefers-reduced-motion: reduce)' }, context => {
+      if (!context.conditions.phone) return;
+      const gentle = context.conditions.gentle;
+      const $ = s => document.querySelector(s);
+      ST.config({ ignoreMobileResize: true });
+
+      // Opacity and short vertical entrances keep the content readable without
+      // the desktop's stretching, lateral parallax or bouncing photo reveals.
+      document.querySelectorAll('.op-img, .kc, .mod, .log-m, .band, .swatch, .tl-q, .tl-photo').forEach((el, i) => {
+        G.from(el, { opacity: 0, y: gentle ? 6 : 18, duration: gentle ? .6 : .75, ease: 'power2.out',
+          scrollTrigger: { id: 'phone-entrance-' + i, trigger: el, start: 'top 94%', once: true } });
+      });
+      G.to('#progress', { scaleX: 1, ease: 'none', scrollTrigger: { id: 'phone-progress', start: 0, end: 'max', scrub: .3 } });
+
+      const stage = $('#flight-stage'), plane = $('#plane'), line = $('#route-line');
+      if (stage && plane && line) {
+        const length = line.getTotalLength();
+        G.set(plane, { display: '', opacity: 0 });
+        G.set(line, { strokeDasharray: length, strokeDashoffset: length });
+        G.set('.landed > *', { opacity: 0, y: gentle ? 6 : 18 });
+        const flight = G.timeline({ scrollTrigger: {
+          id: 'phone-flight', trigger: stage, start: 'top top',
+          end: () => '+=' + Math.round(stage.clientHeight * (gentle ? 1.6 : 2)),
+          pin: true, pinSpacing: true, scrub: gentle ? .7 : .45,
+          anticipatePin: 1, refreshPriority: 2, invalidateOnRefresh: true
+        } });
+        flight.to('.pass-top', { rotateX: gentle ? -8 : -178, duration: .8, ease: 'power2.inOut' })
+          .to('#pass', { scale: gentle ? .94 : .3, rotate: gentle ? 0 : -14, opacity: 0, duration: .7, ease: 'power2.in' }, '>-0.1')
+          .fromTo(plane, { scale: gentle ? .9 : .2, opacity: 0 }, { scale: 1, opacity: 1, duration: .3 }, '>-0.2')
+          .to(plane, { motionPath: { path: '#route', align: '#route', alignOrigin: [.5, .5], autoRotate: true }, duration: 2.4, ease: 'none' })
+          .to(line, { strokeDashoffset: 0, duration: 2.4, ease: 'none' }, '<')
+          .to('.landed > *', { opacity: 1, y: 0, stagger: .12, duration: .5 }, '>-0.25');
+      }
+
+      const pano = $('.pano'), sky = $('.sky3');
+      if (pano && sky) {
+        pano.classList.add('panning');
+        G.to(sky, { x: () => -Math.max(0, sky.getBoundingClientRect().width - pano.clientWidth), ease: 'none',
+          scrollTrigger: { id: 'phone-footer-pan', trigger: pano, start: 'top 92%', endTrigger: '.foot',
+            end: 'bottom bottom', scrub: gentle ? .9 : .5, invalidateOnRefresh: true } });
+        G.fromTo('.sk-plane', { motionPath: { path: '#sk-route', align: '#sk-route', alignOrigin: [.5, .5], autoRotate: true, start: 0, end: 0 } },
+          { motionPath: { path: '#sk-route', align: '#sk-route', alignOrigin: [.5, .5], autoRotate: true, start: 0, end: 1 }, ease: 'none',
+            scrollTrigger: { id: 'phone-footer-plane', trigger: pano, start: 'top 92%', endTrigger: '.foot',
+              end: 'bottom bottom', scrub: gentle ? .9 : .6, invalidateOnRefresh: true } });
+      }
+
+      let refreshTimer, active = true, width = innerWidth;
+      const refresh = () => {
+        clearTimeout(refreshTimer);
+        refreshTimer = setTimeout(() => { if (active) ST.refresh(); }, 120);
+      };
+      const resize = () => {
+        if (innerWidth === width) return;
+        width = innerWidth; refresh();
+      };
+      // Lazy images can arrive long after window.load. ResizeObserver also
+      // covers drawers, read-more, role panels and the resulting text reflow.
+      const images = Array.from(document.images);
+      images.forEach(img => { img.addEventListener('load', refresh); img.addEventListener('error', refresh); });
+      const sizes = new WeakMap();
+      const observer = 'ResizeObserver' in window ? new ResizeObserver(entries => {
+        let changed = false;
+        entries.forEach(({ target, contentRect: r }) => {
+          const previous = sizes.get(target);
+          if (!previous || Math.abs(previous[0] - r.width) > 1 || Math.abs(previous[1] - r.height) > 1) changed = true;
+          sizes.set(target, [r.width, r.height]);
+        });
+        if (changed) refresh();
+      }) : null;
+      document.querySelectorAll('.sec:not(.flight), .foot, .band-body, .drawer-body').forEach(el => observer?.observe(el));
+      document.fonts?.ready.then(() => { if (active) refresh(); });
+      document.fonts?.addEventListener('loadingdone', refresh);
+      addEventListener('load', refresh);
+      addEventListener('resize', resize);
+      addEventListener('orientationchange', refresh);
+      document.addEventListener('portfolio:layout', refresh);
+      ST.sort(); refresh();
+      return () => {
+        active = false; clearTimeout(refreshTimer); observer?.disconnect();
+        images.forEach(img => { img.removeEventListener('load', refresh); img.removeEventListener('error', refresh); });
+        document.fonts?.removeEventListener('loadingdone', refresh);
+        removeEventListener('load', refresh); removeEventListener('resize', resize); removeEventListener('orientationchange', refresh);
+        document.removeEventListener('portfolio:layout', refresh);
+        pano?.classList.remove('panning');
+        ST.config({ ignoreMobileResize: false });
+      };
+    });
+  }
+  phone.addEventListener('change', start);
+  document.querySelectorAll('script[src]').forEach(script => {
+    if (/gsap|ScrollTrigger|MotionPathPlugin/.test(script.src)) script.addEventListener('load', start, { once: true });
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  else start();
+  addEventListener('load', start, { once: true });
+})();
+
 (() => {
   /* ---- Settings: fill these in before going live ---- */
   const CONFIG = {
@@ -14,6 +123,7 @@ document.documentElement.classList.add('js');
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const phone = matchMedia('(max-width:760px)');
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const store = {
     get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
@@ -41,7 +151,13 @@ document.documentElement.classList.add('js');
       for (const k in vars) { if (prev[k]) h.style.setProperty(k, prev[k]); else h.style.removeProperty(k); }
     });
   };
-  fit(); let ft; addEventListener('resize', () => { clearTimeout(ft); ft = setTimeout(() => { fit(); ST && ST.refresh(); }, 150); });
+  fit(); let ft, fitWidth = innerWidth;
+  addEventListener('resize', () => {
+    // Browser chrome changes height, not layout width. Keep a phone's pin stable.
+    if (phone.matches && innerWidth === fitWidth) return;
+    fitWidth = innerWidth;
+    clearTimeout(ft); ft = setTimeout(() => { fit(); ST && ST.refresh(); }, 150);
+  });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
   /* ---- toast ---- */
@@ -115,7 +231,7 @@ document.documentElement.classList.add('js');
 
   /* ---- gliding text (works without GSAP) ---- */
   const glides = $$('.glide');
-  if ('IntersectionObserver' in window && !reduce) {
+  if ('IntersectionObserver' in window && (!reduce || phone.matches)) {
     const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
     glides.forEach(g => io.observe(g));
   } else glides.forEach(g => g.classList.add('in'));
@@ -311,10 +427,12 @@ document.documentElement.classList.add('js');
 
   /* =============== scroll choreography (GSAP) =============== */
   if (!G || !ST || reduce) {
-    if (reduce || !G) { const p = $('#plane'); if (p) p.style.display = 'none'; }
+    if (!phone.matches && (reduce || !G)) { const p = $('#plane'); if (p) p.style.display = 'none'; }
     return;
   }
 
+  // Leave tablet/desktop choreography intact; phones get smaller movements below.
+  G.matchMedia().add('(min-width:761px)', () => {
   // progress bar (ink level)
   G.to('#progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
 
@@ -384,6 +502,7 @@ document.documentElement.classList.add('js');
   // fonts change measurements; refresh once they are in
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
   addEventListener('load', () => ST.refresh());
+  });
 })();
 
 
@@ -488,6 +607,8 @@ document.documentElement.classList.add('js');
       if (f !== front) { front && front.classList.remove('front'); f && f.classList.add('front'); front = f; }
     }
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const phoneSphere = matchMedia('(max-width:760px)');
+    let touchZone = null;
     let raf = 0, lastFrame = 0, visible = false;
     function frame(time){
       raf = 0;
@@ -495,14 +616,18 @@ document.documentElement.classList.add('js');
       const step = lastFrame ? Math.min(3, Math.max(.1, (time - lastFrame) / (1000 / 60))) : 1;
       lastFrame = time;
       if (!drag) {
-        const ease = 1 - Math.pow(.97, step);
-        vy += (baseY - vy) * ease; vx += (baseX - vx) * ease;
+        // Phones keep a quiet idle spin even with reduced motion enabled.
+        // Release velocity eases back to that idle rather than stopping abruptly.
+        const gentle = phoneSphere.matches && motion.matches;
+        const ease = 1 - Math.pow(phoneSphere.matches ? .95 : .97, step);
+        vy += (baseY * (gentle ? .25 : 1) - vy) * ease;
+        vx += (baseX * (gentle ? .25 : 1) - vx) * ease;
         rotate(vy * step, vx * step); render();
       }
       raf = requestAnimationFrame(frame);
     }
     function start(){
-      if (motion.matches || !visible || document.hidden || raf) return;
+      if ((motion.matches && !phoneSphere.matches) || !visible || document.hidden || raf) return;
       running = true; lastFrame = 0; raf = requestAnimationFrame(frame);
     }
     function stop(){
@@ -524,7 +649,13 @@ document.documentElement.classList.add('js');
     addEventListener('pageshow', check);
     addEventListener('resize', check);
     document.addEventListener('visibilitychange', () => document.hidden ? stop() : check());
-    if (motion.addEventListener) motion.addEventListener('change', () => motion.matches ? stop() : check());
+    if (motion.addEventListener) motion.addEventListener('change', () => {
+      if (motion.matches && !phoneSphere.matches) stop();
+      else {
+        if (phoneSphere.matches && motion.matches && !drag) { vy = baseY * .25; vx = baseX * .25; }
+        check();
+      }
+    });
     check();
     const clamp = v => Math.max(-.14, Math.min(.14, v));
     let pointer = null, sx = 0, sy = 0, horizontal = false;
@@ -536,11 +667,17 @@ document.documentElement.classList.add('js');
     }
     sp.addEventListener('pointerdown', e => {
       if (pointer !== null || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      // Only the circular centre owns phone touch gestures. The outer ring
+      // remains a normal vertical page-scroll surface.
+      if (phoneSphere.matches && e.pointerType !== 'mouse' && e.target !== touchZone) return;
       pointer = e.pointerId; sx = lx = e.clientX; sy = ly = e.clientY;
-      horizontal = e.pointerType === 'mouse';
-      // A finger resting here, or beginning a vertical page scroll, is not a spin.
+      horizontal = e.pointerType === 'mouse' || (phoneSphere.matches && e.target === touchZone);
+      // Outside phones, retain the original horizontal-intent touch gesture.
       drag = horizontal;
-      if (drag) { sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId); }
+      if (drag) {
+        if (phoneSphere.matches) { vy = vx = 0; }
+        sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId);
+      }
     });
     sp.addEventListener('pointermove', e => {
       if (pointer !== e.pointerId) return;
@@ -551,8 +688,10 @@ document.documentElement.classList.add('js');
         horizontal = drag = true;
         sp.classList.add('drag'); sp.setPointerCapture?.(e.pointerId);
       }
+      if (phoneSphere.matches && e.cancelable) e.preventDefault();
       const dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
-      vy = clamp(dx * .0062); vx = clamp(-dy * .0062);
+      const sensitivity = phoneSphere.matches && motion.matches ? .0031 : .0062;
+      vy = clamp(dx * sensitivity); vx = clamp(-dy * sensitivity);
       rotate(vy, vx); render();
     });
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => sp.addEventListener(type, e => { if (pointer === e.pointerId) end(); }));
@@ -562,10 +701,26 @@ document.documentElement.classList.add('js');
     addEventListener('blur', end);
     addEventListener('pagehide', () => { end(); stop(); });
     document.addEventListener('visibilitychange', () => { if (document.hidden) end(); });
+    function syncTouchZone(){
+      end();
+      if (phoneSphere.matches && !touchZone) {
+        touchZone = document.createElement('div');
+        touchZone.className = 'sphere-touch-zone';
+        touchZone.setAttribute('aria-hidden', 'true');
+        sp.appendChild(touchZone);
+        if (motion.matches) { vy = baseY * .25; vx = baseX * .25; }
+      } else if (!phoneSphere.matches && touchZone) {
+        touchZone.remove(); touchZone = null;
+      }
+      if (motion.matches && !phoneSphere.matches) stop(); else check();
+    }
+    if (phoneSphere.addEventListener) phoneSphere.addEventListener('change', syncTouchZone);
+    syncTouchZone();
   }
 
   /* ---- recommendations: the line draws itself, quotes arrive as it reaches them ---- */
-  if (G && ST && !reduce && $('.tl')) {
+  if (G && ST && !reduce) G.matchMedia().add('(min-width:761px)', () => {
+  if ($('.tl')) {
     G.fromTo('.tl-line i', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.tl', start: 'top 72%', end: 'bottom 72%', scrub: .4 } });
     $$('.tl-item').forEach(it => {
       const left = it.classList.contains('tl-l') && innerWidth > 760;
@@ -576,7 +731,7 @@ document.documentElement.classList.add('js');
 
   /* ---- footer: pan from the ghats to London, plane crosses the sky ---- */
   const pano = $('.pano'), sky = $('.sky3');
-  if (pano && sky && G && ST && !reduce) {
+  if (pano && sky) {
     pano.classList.add('panning');
     G.to(sky, { x: () => -Math.max(0, sky.getBoundingClientRect().width - pano.clientWidth), ease: 'none',
       scrollTrigger: { trigger: pano, start: 'top 92%', endTrigger: '.foot', end: 'bottom bottom', scrub: .5, invalidateOnRefresh: true } });
@@ -587,6 +742,8 @@ document.documentElement.classList.add('js');
           scrollTrigger: { trigger: pano, start: 'top 92%', endTrigger: '.foot', end: 'bottom bottom', scrub: .6 } });
     }
   }
+  return () => pano && pano.classList.remove('panning');
+  });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh); else refresh();
   setTimeout(refresh, 400);
 })();
