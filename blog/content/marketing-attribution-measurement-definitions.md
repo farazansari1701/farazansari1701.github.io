@@ -4,6 +4,8 @@ This is educational guidance, rather than an account of a measured OKI campaign.
 
 Good attribution definitions also depend on a coherent destination. My [landing-page clarity checklist](/blog/landing-page-promise-next-action/) examines the promise, evidence and action awaiting each visitor.
 
+An [answer-first article structure](/blog/answer-first-marketing-article-writing/) can help present measurement conclusions to readers who need the practical decision before the technical explanation.
+
 ## Start with the decision, then define the outcome
 
 A useful attribution question is specific: which recorded touchpoints receive credit for submitted enquiry forms during this reporting period? “Which channel works best?” leaves too much unspecified. It can mean acquisition volume, engagement, sales acceptance or revenue, each requiring different evidence and a different comparison.
