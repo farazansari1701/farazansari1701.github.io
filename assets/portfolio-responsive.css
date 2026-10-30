@@ -89,3 +89,89 @@ html.menu-open,html.menu-open body{overflow:hidden}
   .mobile-extra[hidden]{display:contents!important}
   .mobile-more-control{display:none!important}
 }
+
+/* Phone polish: every override below stops at 760px. */
+@media(max-width:760px){
+  html,body{max-width:100%;overflow-x:clip}
+  .sec,.foot{text-align:center}
+  .sec>*{min-width:0}
+  .sec :is(.col,.about-me,.story,.note,.mba,.grade-box,.opener figcaption){text-align:center}
+  .sec .col{margin-left:auto;margin-right:auto;max-width:100%}
+  .sec-head,.sec .sub,.hero-title{text-align:center}
+  .sec-head::after{left:50%;transform:translateX(-50%)}
+  .chapter,.hero-meta,.about-me .am-k,.cv-download{justify-content:center}
+  .hero-name .ln:nth-child(2){padding-left:0}
+  .opener figcaption b,.opener.op-l figcaption b{margin-inline:auto}
+  .sec :is(article,.sheet,.now-role,.band,.kc,.mod,.kpi,.icard,.ticket,.svc-list,.dr-face,.dr-inner,.lane,ul,ol){text-align:left}
+  .sec :is(article,.sheet,.now-role,.band,.ticket) :is(h3,h4,p){text-align:inherit}
+  .sec :is(p,h3,h4,blockquote,a){overflow-wrap:break-word}
+  .sec :is(.opener,.op-fig,.story,.note,.swatch,.label,.dr-card,.lane-bar){min-width:0;max-width:100%}
+  .c-head{align-items:center}
+  .c-head .seal{margin-inline:auto}
+  .plain,.foot-row{justify-content:center}
+  .foot-row .socials-foot{justify-content:center;margin-left:0}
+
+  .hero .kpi{padding:12px 10px 14px 0;min-height:0}
+  .hero .kpi:nth-child(even){padding-left:10px}
+  .hero .kpi-n{font-size:clamp(30px,8vw,40px);text-underline-offset:7px}
+  .hero .kpi-c{font-size:13px;line-height:1.4;margin-top:10px}
+  .hero .kpi-note{font-size:12px;line-height:1.4;margin-top:6px}
+
+  .mobile-extra{display:block}
+  .mobile-extra[hidden],.mobile-teaser[hidden]{display:none!important}
+  .mobile-more-control{margin-top:4px;margin-bottom:20px}
+  .mobile-more-control:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+  .vol.vol4 .mobile-more-control{font-size:13px;padding:8px 10px;margin-bottom:0}
+  .mobile-drawer-heading{margin:0 0 16px;font-size:18px;line-height:1.25}
+  .mobile-drawer-featured{margin-bottom:28px;min-width:0}
+  .mobile-drawer-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px;margin:0}
+  .mobile-drawer-cards .sw-t{padding:10px}
+  .mobile-drawer-cards .sw-t b{font-size:14px;padding-inline:0;overflow-wrap:anywhere}
+  .mobile-drawer-cards .sw-t small{padding-inline:0}
+  .mobile-drawer-cards .face{padding:12px}
+  .mobile-drawer-cards .face.back{font-size:12px}
+  .mobile-drawer-cards .face.back ul{font-size:12px;line-height:1.45}
+  .mobile-drawer-cards .label .front h3{font-size:16px;overflow-wrap:anywhere}
+  .mobile-drawer-cards .label .cred{overflow-wrap:anywhere}
+  .mobile-drawer-featured[hidden],.mobile-drawer-cards [hidden]{display:none!important}
+
+  #work .lanes-wrap{width:100%;max-width:100%;min-width:0;margin-inline:0;padding-inline:0;overflow:visible}
+  #work .lanes{min-width:0;width:100%}
+  #work .lane-name{min-width:0;text-align:left}
+  #work .lane-dates{white-space:normal}
+
+  /* Keep every early-career card readable without a sideways swipe. */
+  #india-vp{width:100%;margin-inline:0;padding-inline:0;overflow:visible;scroll-snap-type:none;touch-action:pan-y}
+  #india-track{display:grid;grid-template-columns:minmax(0,1fr);width:100%;gap:18px;transform:none!important}
+  #india-track .sheet{width:100%;min-width:0;min-height:0;max-height:none;scroll-snap-align:none}
+  #india-track .sheet.divider{min-height:148px;margin-top:18px}
+  #india-track .sheet.kid{width:calc(100% - 16px);margin-top:0;margin-left:16px}
+
+  .vol.vol4{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px}
+  .vol.vol4>article{min-width:0}
+  .vol.vol4 h3{font-size:clamp(17px,4.5vw,21px);line-height:1.2}
+  .vol.vol4 p{font-size:14px;line-height:1.55}
+  .vol.vol4 .cause,.vol.vol4 .when{font-size:12px;line-height:1.45}
+
+  #recommendations .tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px;padding:0}
+  #recommendations .tl-line{display:none}
+  #recommendations .tl-item{display:flex;flex-direction:column;align-items:stretch;gap:16px;min-width:0;padding:18px 0 0;border-top:1px solid color-mix(in srgb,var(--fg) 28%,transparent)}
+  #recommendations .tl-photo{width:52px;flex:none;font-size:20px;box-shadow:none;align-self:flex-start}
+  #recommendations .tl-q{width:100%;min-width:0;text-align:left}
+  #recommendations .tl-q blockquote{font-size:17px;line-height:1.35;margin-bottom:16px;text-wrap:pretty}
+  #recommendations .tl-who b{font-size:14px;line-height:1.35}
+  #recommendations .tl-who span{font-size:12px;line-height:1.45}
+  #recommendations .tl-who .tl-rel{font-size:10px;letter-spacing:.02em}
+  #recommendations .tl-q .linkbtn{font-size:13px;min-height:44px;margin-top:0;text-align:left}
+
+  .sphere{max-width:100%;min-width:0;touch-action:pan-y}
+  .sphere-touch-zone{position:absolute;left:50%;top:50%;width:68%;max-width:280px;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;clip-path:circle(50%);z-index:101;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+  .sphere.drag .sphere-touch-zone{cursor:grabbing}
+
+  .js .glide{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .js .glide.in{opacity:1;transform:none}
+}
+@media(max-width:760px) and (prefers-reduced-motion:reduce){
+  .js .glide{transform:translateY(6px);transition-duration:.55s!important}
+  .js .glide.in{transform:none}
+}
