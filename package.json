@@ -2,7 +2,7 @@
   "name": "faraz-portfolio",
   "private": true,
   "scripts": {
-    "build:blogs": "python3 scripts/build-personal-media.py && python3 scripts/build-personal-story-art.py && python3 scripts/build-professional-media.py && python3 scripts/build-workflow-media.py && python3 scripts/build-ga4-events-media.py && python3 scripts/build-answer-first-media.py && python3 scripts/build-posts.py && python3 scripts/update-blog-footer.py && node scripts/build-blog-assets.cjs",
+    "build:blogs": "python3 scripts/build-personal-media.py && python3 scripts/build-personal-story-art.py && python3 scripts/build-professional-media.py && python3 scripts/build-workflow-media.py && python3 scripts/build-ga4-events-media.py && python3 scripts/build-answer-first-media.py && python3 scripts/build-posts.py && python3 scripts/update-blog-footer.py && node scripts/build-blog-assets.cjs && python3 scripts/set-homepage-social-meta.py",
     "check:blogs": "python3 scripts/validate-blogs.py && python3 scripts/check-skyline.py && node scripts/check-analytics.cjs && node scripts/check-footer.cjs && node scripts/check-blog-migration.cjs && node scripts/check-public-links.cjs && node scripts/check-project-grid.cjs"
   },
   "devDependencies": {
