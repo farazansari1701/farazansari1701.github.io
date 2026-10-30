@@ -56,4 +56,7 @@
 .foot-row button{min-height:44px}
 @media(max-width:1024px){.foot.stretch{clip-path:none!important}
 .foot .foot-row{flex-wrap:wrap;gap:14px 22px}}
+@media(max-width:760px){.foot{text-align:center}
+.foot-row{justify-content:center}
+.foot-row .socials-foot{justify-content:center;margin-left:0}}
 @media print{.foot{display:none!important}}
