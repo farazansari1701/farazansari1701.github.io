@@ -56,6 +56,47 @@ async function main(){
       if(Math.min(m.height,m.width)<30)record.warnings.push('Menu has a visual hit target below 30px');
     }
     if(layout.badAboveFoldImages.length)record.problems.push('Broken above-fold images: '+layout.badAboveFoldImages.join('; '));
+    // Exercise real consent handlers and click instrumentation without
+    // producing test traffic in GA4 or navigating away from the page.
+    if(conf.engine==='chromium'&&conf.width===390&&(pathname==='/'||pathname==='/blog/')){
+      const audit=await page.evaluate(()=>{
+        const previous=localStorage.getItem('fa-consent'),gtag=window.gtag,logged=[];
+        window.gtag=(...args)=>logged.push(args);
+        const click=url=>{
+          const a=document.createElement('a');a.href=url;
+          a.addEventListener('click',e=>e.preventDefault());
+          document.body.appendChild(a);
+          a.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));
+          a.remove();
+        };
+        const events=()=>logged.filter(x=>x[0]==='event').map(x=>x[1]);
+        localStorage.setItem('fa-consent','denied');
+        window.farazAnalytics?.applyConsent('denied');
+        click('/projects/myoki-localised-campaigns/');
+        click('https://calendly.com/example/consultation');
+        click('/assets/Faraz-Ansari-CV.pdf');
+        click('mailto:hello@example.com');
+        const before=events();
+        localStorage.setItem('fa-consent','granted');
+        window.farazAnalytics?.applyConsent('granted');
+        logged.length=0;
+        click('/projects/myoki-localised-campaigns/');
+        click('https://calendly.com/example/consultation');
+        click('/assets/Faraz-Ansari-CV.pdf');
+        click('mailto:hello@example.com');
+        const after=events();
+        if(previous===null)localStorage.removeItem('fa-consent');
+        else localStorage.setItem('fa-consent',previous);
+        window.farazAnalytics?.applyConsent(previous);
+        window.gtag=gtag;
+        return {before,after};
+      });
+      record.analyticsAudit=audit;
+      if(audit.before.length)record.problems.push('Tracking events fired without consent: '+audit.before.join(','));
+      for(const name of ['project_visit','booking_intent','cv_open','contact_click']){
+        if(!audit.after.includes(name))record.problems.push('Consented analytics event missing: '+name);
+      }
+    }
     const menuButton=page.locator('#menu-btn');
     if(await menuButton.count()){
       if(layout.menuInitialAria!=='true'||!layout.menuInitialInert)record.problems.push('Closed menu must be aria-hidden and inert');
