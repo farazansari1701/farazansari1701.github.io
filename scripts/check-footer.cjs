@@ -4,6 +4,18 @@ const root=path.resolve(__dirname,'..');
 const canonicalHome=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const canonicalFoot=canonicalHome.match(/<footer\b[^>]*>[\s\S]*?<\/footer>/)?.[0];
 assert(canonicalFoot && canonicalFoot.includes('<svg class="skyline sky3"'),'Canonical homepage footer artwork missing');
+
+// Canonical structure matches the homepage; only the skyline's presentation
+// differs (inline DOM on homepage, cached image on secondary pages).
+const skylinePattern=/<svg class="skyline sky3"[\s\S]*?<\/svg>/;
+const inlineArt=canonicalFoot.match(skylinePattern)?.[0];
+assert(inlineArt,'Homepage artwork not found');
+const normalisedFooter=html=>html.replace(skylinePattern,'[SKYLINE]').replace(/<img class="skyline sky3"[^>]*>/,'[SKYLINE]');
+const footerSkeleton=normalisedFooter(canonicalFoot);
+const fallbackPattern=/<img class="skyline sky3" data-footer-skyline="\/assets\/footer-skyline\.svg\?v=[0-9a-f]{12}" src="\/blog\/assets\/portfolio-skyline\.svg\?v=[0-9a-f]{12}" width="2600" height="450" loading="lazy" decoding="async" alt="[^"]+">/;
+assert(fs.existsSync(path.join(root,'assets/footer-skyline.svg')),'Cached SVG artwork is missing');
+assert(fs.readFileSync(path.join(root,'assets/footer-skyline.svg'),'utf8').includes('id="sk-route"'),'Original motion path is missing');
+
 // Legacy Projects CSS once forced the canonical mobile footer into a vertical
 // column. All footer layout must come from the shared homepage stylesheet.
 const projectTheme=fs.readFileSync(path.join(root,'assets/seo-projects.css'),'utf8');
@@ -25,7 +37,9 @@ for(const item of publishedHtml(root)){
  const html=fs.readFileSync(path.join(root,item),'utf8');
  const footers=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/g)];
  assert.equal(footers.length,1,item+' must contain exactly one footer');
- assert.equal(footers[0][0],canonicalFoot,item+' footer differs from the homepage');
+ assert.equal(normalisedFooter(footers[0][0]),footerSkeleton,item+' footer structure differs from homepage');
+ if(item==='index.html'||item==='faraz-site/index.html')assert.equal(footers[0][0],canonicalFoot);
+ else {assert.match(footers[0][0],fallbackPattern,item+' cached skyline missing');assert.doesNotMatch(footers[0][0],skylinePattern,item+' repeated inline skyline');}
  assert.equal((html.match(/\/assets\/site-footer\.css\?v=[0-9a-f]{12}/g)||[]).length,1,item+' missing shared footer CSS');
 }
 
@@ -60,9 +74,10 @@ async function check(file,mode){
   const html=fs.readFileSync(path.join(root,page),'utf8');
   const footers=[...html.matchAll(/<footer\b[\s\S]*?<\/footer>/g)];
   assert.equal(footers.length,1,page+' must have exactly one footer');
-  assert.equal(footers[0][0],home,page+' must contain the exact homepage footer, including the SVG');
+  assert.equal(normalisedFooter(footers[0][0]),footerSkeleton,page+' shared footer structure differs');
+  if(page==='index.html'||page==='faraz-site/index.html')assert.equal(footers[0][0],home);
+  else {assert.match(footers[0][0],fallbackPattern,page+' cached SVG fallback missing');assert.doesNotMatch(footers[0][0],skylinePattern,page+' inline artwork bloats HTML');}
   assert(!html.includes('data-footer-art='),page+' has a legacy footer loader');
-  assert(!html.includes('footer-skyline-dark.svg'),page+' has a static footer instead of the homepage artwork');
   const links=html.match(/href="\/assets\/site-footer\.css\?v=[0-9a-f]{12}"/g)||[];
   assert.equal(links.length,1,page+' must load the same generated footer stylesheet');
   const isHome=page==='index.html'||page==='faraz-site/index.html';

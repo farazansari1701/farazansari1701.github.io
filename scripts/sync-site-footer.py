@@ -16,6 +16,31 @@ home_footers = footer_pattern.findall(source_home)
 if len(home_footers) != 1:
     raise ValueError("The homepage must contain exactly one canonical footer.")
 footer = home_footers[0]
+# The homepage retains its original SVG nodes for animation. Secondary pages
+# use a cached SVG image (no-JS fallback) hydrated to the same DOM at runtime.
+skyline_pattern = re.compile(r'<svg class="skyline sky3"[\s\S]*?</svg>')
+match_skyline = skyline_pattern.search(footer)
+if not match_skyline:
+    raise ValueError("Canonical homepage SVG artwork is missing")
+inline_skyline = match_skyline.group()
+svg_payload = inline_skyline.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', 1)
+(ROOT / "assets/footer-skyline.svg").write_text(svg_payload + "\n", encoding="utf-8")
+svg_version = sha256(svg_payload.encode("utf-8")).hexdigest()[:12]
+fallback_path = ROOT / "blog/assets/portfolio-skyline.svg"
+if not fallback_path.is_file():
+    raise ValueError("Existing styled skyline fallback image is missing")
+fallback_version = sha256(fallback_path.read_bytes()).hexdigest()[:12]
+alt = re.search(r'aria-label="([^"]+)"', inline_skyline)
+if alt is None:
+    raise ValueError("Skyline accessibility label is missing")
+fallback_img = ('<img class="skyline sky3" '
+                'data-footer-skyline="/assets/footer-skyline.svg?v=' + svg_version + '" '
+                'src="/blog/assets/portfolio-skyline.svg?v=' + fallback_version + '" '
+                'width="2600" height="450" loading="lazy" decoding="async" '
+                'alt="' + alt.group(1) + '">')
+secondary_footer = footer.replace(inline_skyline, fallback_img, 1)
+if len(secondary_footer) >= len(footer) or '<svg class="skyline sky3"' in secondary_footer:
+    raise ValueError("Footer artwork externalisation did not reduce HTML size")
 if '<svg class="skyline sky3"' not in footer or 'id="cookie-reset"' not in footer or 'id="to-top"' not in footer:
     raise ValueError("Homepage footer is missing required artwork or controls.")
 
@@ -90,12 +115,14 @@ for page in sorted(ROOT.rglob("*.html")):
         continue
     scanned += 1
     initial = page.read_text(encoding="utf-8")
+    is_home = str(relative) in ("index.html", "faraz-site/index.html")
+    page_footer = footer if is_home else secondary_footer
     matches = list(footer_pattern.finditer(initial))
     if len(matches) == 1:
         m = matches[0]
-        html = initial[:m.start()] + footer + initial[m.end():]
+        html = initial[:m.start()] + page_footer + initial[m.end():]
     elif not matches and "</body>" in initial:
-        html = initial.replace("</body>", footer + "\n</body>", 1)
+        html = initial.replace("</body>", page_footer + "\n</body>", 1)
     else:
         raise ValueError(f"Cannot reliably synchronise footer: {relative}")
 
@@ -107,12 +134,11 @@ for page in sorted(ROOT.rglob("*.html")):
 
     # The original homepage manages its own footer. On blog pages the existing
     # footer.min.js owns the interactions. Other pages use the same source JS.
-    is_home = str(relative) in ("index.html", "faraz-site/index.html")
     is_blog = relative.parts[0] == "blog"
     if not is_home and not is_blog:
         html = html.replace("</body>", js_tag + "\n</body>", 1)
 
-    if len(footer_pattern.findall(html)) != 1 or footer_pattern.search(html).group() != footer:
+    if len(footer_pattern.findall(html)) != 1 or footer_pattern.search(html).group() != page_footer:
         raise ValueError(f"Footer differs from the homepage in {relative}")
     if initial != html:
         page.write_text(html, encoding="utf-8")

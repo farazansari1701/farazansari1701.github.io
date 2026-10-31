@@ -53,9 +53,9 @@ for p in htmls:
         assert re.search(r'<header class="site-header">\s*<a class="brand" href="/">\s*<svg viewBox="0 0 24 24"', text), (path, 'homepage registration mark missing')
         for asset in ['blog.min.js','footer.min.js','blog.min.css','footer.min.css']:
             assert text.count('/blog/assets/'+asset+'?')==1,(path,asset,'asset duplicate/missing')
-        footer_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',text)
-        portfolio_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',(ROOT/'index.html').read_text())
-        assert footer_svg and portfolio_svg and footer_svg.group()==portfolio_svg.group(),path+' original portfolio footer artwork missing or changed'
+        footer_img=re.search(r'<img class="skyline sky3"[^>]+data-footer-skyline="/assets/footer-skyline.svg\?v=[0-9a-f]{12}"[^>]+src="/blog/assets/portfolio-skyline.svg\?v=[0-9a-f]{12}"',text)
+        original_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',(ROOT/'index.html').read_text())
+        assert footer_img and original_svg and '<svg class="skyline sky3"' not in text,path+' cached canonical artwork missing or incorrectly inlined'
     results.append({'path':path,'bytes':len(text.encode()),'title':title})
 assert len(set(titles))==len(titles),'Duplicate titles'
 assert titles[1:] or titles

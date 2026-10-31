@@ -26,6 +26,29 @@
   };
   fit();let timer;window.addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(()=>{fit();window.ScrollTrigger?.refresh();},150);});
   if(document.fonts?.ready)document.fonts.ready.then(fit);
+  // Keep a styled SVG image visible when JS is disabled or the fetch fails.
+  // Hydrate the cached original nodes before starting the existing GSAP motion.
+  const skylineImage=$('[data-footer-skyline]');
+  if(skylineImage){
+    if(reduce)return;
+    const source=skylineImage.getAttribute('data-footer-skyline');
+    if(!source||!source.startsWith('/assets/footer-skyline.svg?v='))return;
+    fetch(source,{credentials:'same-origin'}).then(response=>{
+      if(!response.ok)throw Error('Skyline SVG unavailable');
+      return response.text();
+    }).then(xml=>{
+      const parsed=new DOMParser().parseFromString(xml,'image/svg+xml');
+      const svg=parsed.documentElement;
+      if(svg.localName!=='svg'||parsed.querySelector('parsererror')
+        ||!svg.classList.contains('sky3')||!svg.querySelector('#sk-route'))
+        throw Error('Invalid skyline SVG payload');
+      skylineImage.replaceWith(document.importNode(svg,true));
+      animate();
+    }).catch(()=>{
+      // Leave the no-JS image fallback in place.
+    });
+    return;
+  }
   if(reduce)return;
   function load(src,exists){
     if(exists())return Promise.resolve();
