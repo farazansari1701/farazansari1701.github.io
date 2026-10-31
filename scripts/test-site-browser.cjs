@@ -47,6 +47,7 @@ async function main(){
     });
     record.layout=layout;
     if(layout.scrollWidth>conf.width+5)record.problems.push('Document horizontal overflow: '+layout.scrollWidth+' vs '+conf.width);
+    if(pathname==='/projects/' && layout.heroTitle && layout.heroTitle.right>conf.width+4)record.problems.push('Projects heading clipped beyond viewport: '+layout.heroTitle.right+' > '+conf.width);
     const h=layout.header,l=layout.logo,m=layout.menuButton;
     if(!h||!l||!m)record.problems.push('Header, logo or Menu missing');
     else{
@@ -73,7 +74,7 @@ async function main(){
     if(conf.engine==='chromium'&&(pathname==='/'||pathname==='/blog/')&&(conf.width===390||conf.width===1440)){
       try {
         const axe=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
-        record.axe=axe.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length,description:v.help}));
+        record.axe=axe.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length,description:v.help,examples:v.nodes.slice(0,6).map(n=>({target:n.target,html:n.html,summary:n.failureSummary}))}));
         for(const v of axe.violations.filter(v=>['critical','serious'].includes(v.impact)))record.warnings.push('WCAG '+v.impact+': '+v.id+' ('+v.nodes.length+' nodes)');
       }catch(err){record.warnings.push('Axe scan failed: '+String(err.message).slice(0,300));}
     }
