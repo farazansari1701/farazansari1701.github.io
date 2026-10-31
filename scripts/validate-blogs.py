@@ -69,9 +69,12 @@ about_heading=re.search(r'<h1\b[^>]*>([\s\S]*?)</h1>',about)
 assert about_heading and 'Faraz' in re.sub(r'<[^>]+>','',about_heading[1]) and 'id="author-work"' in about and 'id="author-life"' in about, 'About biography missing author, work or life'
 assert 'class="author-copy"' in about and 'class="author-lead"' in about, 'About personal introduction missing'
 assert 'moved to the UK in 2019' in about, 'About life context missing'
-assert 'grid-template-areas:"portrait heading" "portrait copy" "poems poems"' in about and 'class="author-heading"' in about, 'About portrait, introduction or full-width poetry layout missing'
-assert '@media(max-width:900px){.author-intro{grid-template-columns:minmax(0,1fr);grid-template-areas:"heading" "portrait" "copy" "poems"' in about, 'About mobile reading order missing'
-assert '@media(max-width:540px){.author-intro{' in about, 'About narrow-screen styles missing'
+# The About page's layout CSS is now an external asset to keep page HTML lean.
+assert about.count('href="/assets/seo-about.css?v=20261031-1"') == 1, 'About SEO stylesheet missing or duplicated'
+about_css = (ROOT/'assets/seo-about.css').read_text()
+assert 'grid-template-areas:"portrait heading" "portrait copy" "poems poems"' in about_css and 'class="author-heading"' in about, 'About portrait, introduction or full-width poetry layout missing'
+assert '@media(max-width:900px){.author-intro{grid-template-columns:minmax(0,1fr);grid-template-areas:"heading" "portrait" "copy" "poems"' in about_css, 'About mobile reading order missing'
+assert '@media(max-width:540px){.author-intro{' in about_css, 'About narrow-screen styles missing'
 assert 'id="author-professional-writing"' in about and 'id="author-personal-writing"' in about, 'About writing categories missing'
 assert '/blog/topics/personal-perspectives/' in about, 'Personal essay path missing on About page'
 assert '<!-- managed-post-cards:start -->' in about and '<!-- managed-post-cards:end -->' in about, 'About article registry missing'
