@@ -42,7 +42,7 @@
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style>
 <link rel="stylesheet" href="/assets/site-footer.css?v=c8c4172e4f6d">
-<link rel="stylesheet" href="/assets/shared-header.css?v=5b47c9e41108">
+<link rel="stylesheet" href="/assets/shared-header.css?v=772f8eb57c5f">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -50,11 +50,14 @@
       <a href="/#projects">Portfolio</a>
       <a href="/projects/">Projects</a>
       <a href="/blog/">Writing</a>
-    </nav><details class="site-head-menu"><summary><span class="site-menu-label">Menu</span><svg class="site-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary><nav class="site-menu-links" aria-label="Site menu">
-      <a href="/#projects">Portfolio</a>
-      <a href="/projects/">Projects</a>
-      <a href="/blog/">Writing</a>
-    </nav></details></div></header>
+    </nav><button class="tbtn" id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="menu-label">Menu</span><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></header>
+<nav class="menu" id="menu" aria-hidden="true" inert data-lenis-prevent aria-label="Sections">
+  <button class="menu-close" id="menu-close" type="button">Close</button>
+  <div class="menu-scroll" data-lenis-prevent>
+  <ol><li><a href="/#work">Experience</a></li><li><a href="/#projects">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#skills">Skills</a></li><li><a href="/#study">Education, UK</a></li><li><a href="/#flight">The move</a></li><li><a href="/#india">Education, India</a></li><li><a href="/#certifications">Certifications</a></li><li><a href="/#recommendations">Recommendations</a></li><li><a href="/#volunteering">Volunteering</a></li><li><a href="/#services">Services</a></li><li><a href="/#contact">Contact</a></li></ol>
+  <nav class="socials socials-menu" aria-label="Social profiles"><a href="https://www.linkedin.com/in/farazansari1701/" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a><a href="https://www.instagram.com/farazansari1701/" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a><a href="https://www.facebook.com/farazansari1701" target="_blank" rel="noopener noreferrer" aria-label="Faraz Ansari on Facebook (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.6 21.5v-8.3h2.8l.45-3.3H13.6V7.8c0-.95.27-1.6 1.62-1.6h1.72V3.25c-.3-.04-1.33-.13-2.52-.13-2.5 0-4.2 1.52-4.2 4.32v2.46H7.4v3.3h2.82v8.3h3.38z"/></svg></a></nav>
+  </div>
+</nav>
   <main id="main" tabindex="-1">
     <section class="hero" aria-labelledby="project-title"><div class="wrap">
       <nav class="crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/projects/">Projects</a></li><li aria-current="page">OKI Europe Digital Asset Management | Brandfolder</li></ol></nav>
@@ -87,5 +90,6 @@
     <button type="button" id="to-top">Back to top</button>
   </div>
 </footer><script src="/assets/site-footer.js?v=a0f0a1f914e7" defer></script>
+<script src="/assets/site-menu.js?v=ff68a771a13b" defer></script>
 </body>
 </html>

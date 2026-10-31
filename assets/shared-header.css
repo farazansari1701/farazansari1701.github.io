@@ -86,3 +86,73 @@ body>header.site-header+main:not(:has(>.hero,>.wrap)){padding-top:calc(env(safe-
  body>header.site-header .site-nav a,
  body>header.site-header .site-menu-links a{transition:none}
 }
+
+body>header.site-header .tbtn{
+background:none; border:0; padding:6px 0; cursor:pointer; font-weight:600;
+min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+margin:0;padding:6px 0;gap:8px;color:inherit;font:600 15px/1 var(--font);
+white-space:nowrap;
+}
+body>header.site-header .tbtn .menu-icon{display:none;width:22px;height:22px;flex:none}
+body>header.site-header .tbtn .menu-label{display:inline}
+body>header.site-header .tbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+body>nav#menu{
+--paper:#F6F6F3;--ink:#1A1A1A;--mute:#8C8C86;
+--cyan:#00AEEF;--magenta:#EC008C;
+--gutter:clamp(20px,5vw,72px);--ease:cubic-bezier(.2,.7,.1,1);--font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+position:fixed; inset:0; z-index:60; background:var(--ink); color:var(--paper); display:flex; flex-direction:column; justify-content:center;
+  padding:calc(env(safe-area-inset-top,0px) + 80px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 40px);
+  clip-path:inset(0 0 100% 0); visibility:hidden; transition:clip-path .7s var(--ease), visibility 0s .7s;
+box-sizing:border-box;width:100%;height:100vh;height:100svh;
+margin:0;overflow:hidden;font-family:var(--font);font-size:17px;
+line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+body>nav#menu.open{clip-path:inset(0 0 0 0); visibility:visible; transition:clip-path .7s var(--ease);}
+body>nav#menu ol{list-style:none; margin:0; padding:0; counter-reset:m;}
+body>nav#menu li a{display:flex; gap:18px; align-items:baseline; text-decoration:none; font-size:clamp(30px,6vw,72px); font-weight:780; line-height:1.05; text-transform:uppercase; font-variation-settings:"wdth" 80; transition:font-variation-settings .5s var(--ease), color .3s;color:inherit}
+body>nav#menu li a::before{counter-increment:m; content:counter(m,decimal-leading-zero); font-size:14px; font-weight:500; color:var(--mute); font-variation-settings:"wdth" 100;}
+body>nav#menu li a:hover,body>nav#menu li a:focus-visible{
+font-variation-settings:"wdth" 125;color:var(--cyan);
+}
+body>nav#menu .menu-close{
+position:absolute; right:var(--gutter); top:calc(env(safe-area-inset-top,0px) + 18px); background:none; border:0; cursor:pointer; font-weight:600;
+display:inline-flex;align-items:center;justify-content:center;
+min-height:44px;padding:8px 12px;color:inherit;font:600 15px/1.2 var(--font);
+z-index:2;
+}
+body>nav#menu .menu-close:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+body>nav#menu .menu-scroll{
+min-height:0;flex:0 1 auto;margin-block:auto;overflow-y:auto;
+overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin;padding:4px 6px 8px 0;
+}
+body>nav#menu .menu-scroll>ol,body>nav#menu .menu-scroll>.socials-menu{flex-shrink:0}
+body>nav#menu li a{overflow-wrap:anywhere;min-height:44px}
+body>nav#menu .socials{display:flex;align-items:center;gap:0}
+body>nav#menu .socials a{
+display:grid;place-items:center;width:48px;height:48px;color:inherit;opacity:.9;
+transition:transform .25s var(--ease),opacity .2s;
+border:1px solid color-mix(in srgb,currentColor 35%,transparent);
+border-radius:50%;margin-right:10px;text-decoration:none;
+}
+body>nav#menu .socials svg{width:21px;height:21px;display:block;max-width:100%}
+body>nav#menu .socials-menu{margin-top:clamp(22px,4vh,40px)}
+body>nav#menu .socials a:hover,body>nav#menu .socials a:focus-visible{
+color:var(--cyan);border-color:var(--cyan);opacity:1;transform:translateY(-2px);
+}
+body>nav#menu .socials a:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+html.menu-open,html.menu-open body{overflow:hidden}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) body>nav#menu{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}
+}
+:root[data-theme="dark"] body>nav#menu{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}
+@media(max-width:900px){
+ body>header.site-header .tbtn .menu-label{display:none}
+ body>header.site-header .tbtn .menu-icon{display:block}
+}
+@media(max-width:760px){
+ body>nav#menu{padding-top:calc(env(safe-area-inset-top,0px) + 70px);padding-bottom:24px}
+ body>nav#menu li a{font-size:clamp(30px,8vw,56px)}
+}
+@media(prefers-reduced-motion:reduce){
+ body>nav#menu,body>nav#menu li a,body>nav#menu .socials a{transition:none}
+}
