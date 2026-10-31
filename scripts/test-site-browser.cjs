@@ -7,12 +7,25 @@ const AxeBuilder = require('@axe-core/playwright').default;
 const origin = (process.env.SITE_URL || 'https://farazansari1701.com').replace(/\/$/, '');
 const output = path.resolve(process.env.QA_OUTPUT || 'audit-output');
 fs.mkdirSync(output, { recursive: true });
+// Visit *every* published HTML route at iPhone width, not just the five
+// representative pages that previously let header regressions go unnoticed.
+const excluded=new Set(['.git','node_modules','templates','blogs','.venv','venv']);
+function publishedPages(dir,relative=''){
+  return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>{
+    const rel=path.posix.join(relative,entry.name),full=path.join(dir,entry.name);
+    if(entry.isDirectory())return excluded.has(entry.name)?[]:publishedPages(full,rel);
+    return entry.isFile()&&entry.name.endsWith('.html')?[rel]:[];
+  });
+}
+const allMobileRoutes=[...new Set(publishedPages(path.resolve(__dirname,'..')).map(p=>
+  p==='index.html'?'/':'/'+p.replace(/index\.html$/,'')
+))].sort();
 const cases = [
   { engine: 'chromium', name: 'Chrome-320', width: 320, height: 568, mobile: true, paths: ['/', '/blog/', '/projects/'] },
   { engine: 'chromium', name: 'Chrome-414', width: 414, height: 896, mobile: true, paths: ['/', '/blog/', '/projects/'] },
-  { engine: 'chromium', name: 'Chrome-390', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/', '/blog/about/', '/projects/myoki-localised-campaigns/', '/projects/b433-b513-product-launch/', '/projects/soldiering-on-awards/', '/projects/oki-brandfolder-digital-asset-management/', '/projects/oki-consumables-recycling/', '/projects/oki-warranty-services/'] },
+  { engine: 'chromium', name: 'Chrome-390', width: 390, height: 844, mobile: true, paths: allMobileRoutes },
   { engine: 'chromium', name: 'Chrome-desktop', width: 1440, height: 900, mobile: false, paths: ['/', '/blog/', '/projects/', '/privacy/'] },
-  { engine: 'webkit', name: 'WebKit-iPhone', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/'] },
+  { engine: 'webkit', name: 'WebKit-iPhone', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/blog/about/', '/blog/the-cost-of-having-a-conscience/', '/blog/topics/personal-perspectives/', '/projects/', '/projects/soldiering-on-awards/', '/privacy/'] },
   { engine: 'webkit', name: 'WebKit-desktop', width: 1280, height: 800, mobile: false, paths: ['/', '/projects/'] }
 ];
 const results = [], fatal = [];
@@ -44,7 +57,9 @@ async function main(){
       return {viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,
         header:rect('header.site-header,header.top'),logo:rect('header.site-header .brand,header.top .logo'),menuButton:rect('#menu-btn'),
         blogLink:rect('header.site-header .site-nav a[href="/blog/"]'),cvLink:rect('header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]'),
-        heroTitle:rect('.hero-name,main h1'),main:rect('main'),badAboveFoldImages:imgs.filter(x=>x.complete&&x.naturalWidth===0).map(x=>x.currentSrc||x.src).slice(0,12),
+        heroTitle:rect('.hero-name,main h1'),main:rect('main'),
+        firstContent:rect('main>.wrap>.breadcrumbs,main>.wrap>.index-hero>.eyebrow,main>.hero:not(.sec) .crumb,main>.hero.sec .chapter,main>.hero.sec .hero-meta,main>.kicker,main.page .code'),
+        badAboveFoldImages:imgs.filter(x=>x.complete&&x.naturalWidth===0).map(x=>x.currentSrc||x.src).slice(0,12),
         menuInitialInert:document.getElementById('menu')?.inert,menuInitialAria:document.getElementById('menu')?.getAttribute('aria-hidden')};
     });
     record.layout=layout;
@@ -57,6 +72,11 @@ async function main(){
       if(m.right>conf.width+3||l.left< -3)record.problems.push('Header control outside viewport');
       if(Math.min(m.height,m.width)<30)record.warnings.push('Menu has a visual hit target below 30px');
     }
+    // The previous test checked the Menu but missed article and Blog headings
+    // hidden behind the fixed header. Check the first meaningful content too.
+    const first=layout.firstContent;
+    if(h&&first&&first.display!=='none'&&first.visibility!=='hidden'&&first.top<h.bottom+6)
+      record.problems.push('Fixed header overlaps first content ('+first.top+' < '+h.bottom+' + 6)');
     if(conf.mobile){
       const b=layout.blogLink,c=layout.cvLink;
       if(!b||b.display==='none'||b.visibility==='hidden'||b.width<20)

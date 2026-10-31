@@ -64,6 +64,10 @@ assert.match(css,/cursor:pointer!important\s*;\s*min-height:44px/s);
 // The fixed header is separated from MAIN by the fullscreen menu. Do not
 // leave breadcrumb placement to a fragile header-adjacent selector.
 assert.match(css,/body>header\.site-header~main\{padding-top:0!important\}/);
+assert.match(css,/body>header\.site-header:not\(\.top\)~main>\.wrap\{[^}]*env\(safe-area-inset-top/s,
+ 'Secondary blog and article pages must clear the iOS safe-area and fixed header');
+assert.match(css,/body>header\.site-header:not\(\.top\)~main>\.hero\.sec\{[^}]*env\(safe-area-inset-top/s,
+ 'Secondary full-bleed project hero must clear the header');
 assert.match(css,/body>main>\.wrap>\.breadcrumbs\{/);
 assert.match(css,/body>header\.site-header~main>\.hero:not\(\.sec\)\{/);
 assert.doesNotMatch(css,/body>header\.site-header\+main/);
@@ -101,10 +105,12 @@ for(const p of allHtml(root)){
  const menuAt=before.indexOf('<nav class="menu" id="menu"');
  assert(start>=0&&menuAt>start&&before.includes('</nav>',menuAt),p+' overlay must follow the fixed header');
  if(/<div class="breadcrumbs"/.test(html)){
-  assert.match(html,/<main\b[^>]*>\s*<div class="wrap" style="padding-top:clamp\(72px,6vw,90px\)!important">\s*<div class="breadcrumbs" style="padding-top:16px!important">/,p+' breadcrumb clearance missing in generated HTML');
+  assert.match(html,/<main\b[^>]*>\s*<div class="wrap">\s*<div class="breadcrumbs" style="padding-top:16px!important">/,p+' shared header clearance must replace hard-coded wrap padding');
+  assert.doesNotMatch(html,/<div class="wrap" style="padding-top:clamp\(72px,6vw,90px\)!important"/,p+' obsolete inline wrap offset');
  }
  if(/<nav class="crumb" aria-label="Breadcrumb">/.test(html)){
-  assert.match(html,/<main\b[^>]*>\s*<section class="hero"[^>]*style="padding-top:clamp\(116px,9vw,148px\)!important">\s*<div class="wrap">\s*<nav class="crumb"/,p+' project breadcrumb clearance missing in hero');
+  assert.match(html,/<main\b[^>]*>\s*<section class="hero"[^>]*>\s*<div class="wrap">\s*<nav class="crumb"/,p+' case-study hero structure missing');
+  assert.doesNotMatch(html,/<section class="hero"[^>]*style="padding-top:clamp\(116px,9vw,148px\)!important"/,p+' obsolete inline hero offset');
  }
  assert.equal(menus[0][0],expected,p+' overlay differs from homepage');
  for(const href of required[p]||[])assert(h.includes('href="'+href+'"'),p+' missing top header link '+href);

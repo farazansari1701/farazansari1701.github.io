@@ -87,8 +87,16 @@ body>header.site-header a:focus-visible{{outline:2px solid var(--cyan);outline-o
    sits between the site header and <main> on secondary pages, so '+main'
    does not match. The general sibling selector deliberately includes it. */
 body>header.site-header~main{{padding-top:0!important}}
-/* Breadcrumbs are now given reliable in-flow space in generated HTML.
-   This rule also works for new pages before the next publishing run. */
+/* The homepage deliberately has a hero behind the fixed header. Secondary
+   blog and article pages instead need real, safe-area-aware flow clearance;
+   leaving the offset at zero clipped the Blog eyebrow on iPhone Safari. */
+body>header.site-header:not(.top)~main>.wrap{{
+padding-top:calc(env(safe-area-inset-top,0px) + 92px)!important;
+}}
+/* Anchored sections must also clear the fixed header on notched phones. */
+html{{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 98px)}}
+/* Breadcrumbs are given a modest local gap *after* the shared header
+   clearance, not an independent hard-coded header offset. */
 body>main>.wrap>.breadcrumbs{{
 position:relative;padding-top:16px!important;
 }}
@@ -111,6 +119,9 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
 @media(max-width:760px){{
  /* Keep Blog and CV accessible in the mobile header at 320px and above. */
  body>header.site-header{{gap:6px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}}
+ /* On the Projects index the hero has a dark full-bleed background; move its
+    contents, not the background, below the iPhone safe-area and fixed nav. */
+ body>header.site-header:not(.top)~main>.hero.sec{{padding-top:calc(env(safe-area-inset-top,0px) + 112px)!important}}
  body>header.site-header .brand{{font-size:clamp(12px,3.5vw,15px);gap:6px;min-width:0;flex:0 1 auto}}
  body>header.site-header .brand span{{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
  body>header.site-header .brand svg{{width:18px;height:18px;flex-basis:18px}}
@@ -120,7 +131,7 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
  body>header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]{{display:inline-flex}}
  body>header.site-header .site-head-actions{{gap:6px;flex-shrink:0}}
  body>header.site-header~main>.hero:not(.sec){{padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}}
- body>header.site-header~main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 80px)!important}}
+ body>header.site-header~main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 94px)!important}}
  body>header.site-header .site-menu-links{{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}}
 }}
 @media(prefers-reduced-motion:reduce){{
@@ -298,10 +309,10 @@ for page in sorted(ROOT.rglob("*.html")):
     has_breadcrumbs = '<div class="breadcrumbs"' in html
     if has_breadcrumbs:
         wrap = re.compile(r'(<main\b[^>]*>\s*<div class="wrap")(?:\s+style="[^"]*")?(\s*>)', re.I)
+        # Remove the legacy inline !important offset. The generated shared
+        # stylesheet now owns a single safe-area-aware offset for every wrap.
         html, wrap_count = wrap.subn(
-            lambda m: (m.group(1)
-                       + ' style="padding-top:clamp(72px,6vw,90px)!important"'
-                       + m.group(2)),
+            lambda m: m.group(1) + m.group(2),
             html, count=1
         )
         if wrap_count != 1:
@@ -319,12 +330,13 @@ for page in sorted(ROOT.rglob("*.html")):
     # creating an empty strip with padding on MAIN itself.
     if '<nav class="crumb"' in html:
         hero = re.compile(r'(<main\b[^>]*>\s*<section class="hero"[^>]*?)\s*(>)', re.I)
-        def set_hero_padding(m):
-            opening = re.sub(r'\s+style="[^"]*"', '', m.group(1))
-            return (opening
-                    + ' style="padding-top:clamp(116px,9vw,148px)!important"'
-                    + m.group(2))
-        html, count = hero.subn(set_hero_padding, html, count=1)
+        def normalise_hero(m):
+            # Legacy hard-coded hero padding could sit behind iOS safe areas.
+            # The shared CSS keeps its dark background behind the header and
+            # places its breadcrumb below the fixed navigation instead.
+            opening = re.sub(r'\s+style="padding-top:[^"]*!important"', '', m.group(1))
+            return opening + m.group(2)
+        html, count = hero.subn(normalise_hero, html, count=1)
         if count != 1:
             raise ValueError(f"Cannot place case-study header clearance in {relative}")
 
