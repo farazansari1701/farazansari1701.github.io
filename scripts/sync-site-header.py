@@ -19,6 +19,17 @@ if not mark:
     raise ValueError("Homepage registration-mark symbol not found")
 brand_icon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">' + mark.group(1) + "</svg>"
 
+# One canonical menu: copy the homepage's real full-screen overlay and button.
+home_menu = re.search(r'<nav class="menu" id="menu"[\s\S]*?</nav>\s*</div>\s*</nav>', HOME)
+home_button = re.search(r'<button class="tbtn" id="menu-btn"[\s\S]*?</button>', HOME)
+if not home_menu or not home_button:
+    raise ValueError("The homepage menu or toggle is missing")
+menu_button = home_button.group()
+menu_html = re.sub(r'href="#([A-Za-z][\w-]*)"', r'href="/#\1"', home_menu.group())
+menu_html = menu_html.replace('id="menu" data-lenis-prevent', 'id="menu" aria-hidden="true" inert data-lenis-prevent', 1)
+assert menu_html.count('id="menu"') == menu_html.count('id="menu-close"') == 1
+
+
 def from_homepage(selector):
     expr = r'(?<![\w-])' + re.escape(selector) + r'\s*\{([^{}]+)\}'
     rule = re.search(expr, PORTFOLIO_CSS)
@@ -127,6 +138,79 @@ body>header.site-header+main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe
  body>header.site-header .site-menu-links a{{transition:none}}
 }}
 '''
+
+# The homepage menu is full-screen, scrollable and numbered, not a dropdown.
+# Reuse the original homepage rules and theme colours across every page.
+css += f'''
+body>header.site-header .tbtn{{
+{from_homepage(".tbtn")}
+min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+margin:0;padding:6px 0;gap:8px;color:inherit;font:600 15px/1 var(--font);
+white-space:nowrap;
+}}
+body>header.site-header .tbtn .menu-icon{{display:none;width:22px;height:22px;flex:none}}
+body>header.site-header .tbtn .menu-label{{display:inline}}
+body>header.site-header .tbtn:focus-visible{{outline:2px solid var(--cyan);outline-offset:4px}}
+body>nav#menu{{
+--paper:#F6F6F3;--ink:#1A1A1A;--mute:#8C8C86;
+--cyan:{token("cyan")};--magenta:{token("magenta")};
+--gutter:{token("gutter")};--ease:{token("ease")};--font:{token("font")};
+{from_homepage(".menu")}
+box-sizing:border-box;width:100%;height:100vh;height:100svh;
+margin:0;overflow:hidden;font-family:var(--font);font-size:17px;
+line-height:1.55;-webkit-font-smoothing:antialiased;
+}}
+body>nav#menu.open{{{from_homepage(".menu.open")}}}
+body>nav#menu ol{{{from_homepage(".menu ol")}}}
+body>nav#menu li a{{{from_homepage(".menu li a")}color:inherit}}
+body>nav#menu li a::before{{{from_homepage(".menu li a::before")}}}
+body>nav#menu li a:hover,body>nav#menu li a:focus-visible{{
+font-variation-settings:"wdth" 125;color:var(--cyan);
+}}
+body>nav#menu .menu-close{{
+{from_homepage(".menu-close")}
+display:inline-flex;align-items:center;justify-content:center;
+min-height:44px;padding:8px 12px;color:inherit;font:600 15px/1.2 var(--font);
+z-index:2;
+}}
+body>nav#menu .menu-close:focus-visible{{outline:2px solid var(--cyan);outline-offset:4px}}
+body>nav#menu .menu-scroll{{
+min-height:0;flex:0 1 auto;margin-block:auto;overflow-y:auto;
+overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin;padding:4px 6px 8px 0;
+}}
+body>nav#menu .menu-scroll>ol,body>nav#menu .menu-scroll>.socials-menu{{flex-shrink:0}}
+body>nav#menu li a{{overflow-wrap:anywhere;min-height:44px}}
+body>nav#menu .socials{{display:flex;align-items:center;gap:0}}
+body>nav#menu .socials a{{
+display:grid;place-items:center;width:48px;height:48px;color:inherit;opacity:.9;
+transition:transform .25s var(--ease),opacity .2s;
+border:1px solid color-mix(in srgb,currentColor 35%,transparent);
+border-radius:50%;margin-right:10px;text-decoration:none;
+}}
+body>nav#menu .socials svg{{width:21px;height:21px;display:block;max-width:100%}}
+body>nav#menu .socials-menu{{margin-top:clamp(22px,4vh,40px)}}
+body>nav#menu .socials a:hover,body>nav#menu .socials a:focus-visible{{
+color:var(--cyan);border-color:var(--cyan);opacity:1;transform:translateY(-2px);
+}}
+body>nav#menu .socials a:focus-visible{{outline:2px solid var(--cyan);outline-offset:4px}}
+html.menu-open,html.menu-open body{{overflow:hidden}}
+@media(prefers-color-scheme:dark){{
+ :root:not([data-theme="light"]) body>nav#menu{{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}}
+}}
+:root[data-theme="dark"] body>nav#menu{{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}}
+@media(max-width:900px){{
+ body>header.site-header .tbtn .menu-label{{display:none}}
+ body>header.site-header .tbtn .menu-icon{{display:block}}
+}}
+@media(max-width:760px){{
+ body>nav#menu{{padding-top:calc(env(safe-area-inset-top,0px) + 70px);padding-bottom:24px}}
+ body>nav#menu li a{{font-size:clamp(30px,8vw,56px)}}
+}}
+@media(prefers-reduced-motion:reduce){{
+ body>nav#menu,body>nav#menu li a,body>nav#menu .socials a{{transition:none}}
+}}
+'''
+
 css_path = ROOT / "assets/shared-header.css"
 css_path.write_text(css, encoding="utf-8")
 css_version = sha256(css.encode("utf-8")).hexdigest()[:12]
@@ -141,21 +225,24 @@ legacy_top = re.compile(r'<a\b[^>]*\bclass="top"[^>]*>[\s\S]*?</a>', re.I)
 body_pattern = re.compile(r'<body\b[^>]*>', re.I)
 main_pattern = re.compile(r'<main\b', re.I)
 
+old_menu = re.compile(r'<nav class="menu" id="menu"[\s\S]*?</nav>\s*</div>\s*</nav>', re.I)
+menu_js = (ROOT / "assets/site-menu.js").read_text(encoding="utf-8")
+menu_js_version = sha256(menu_js.encode("utf-8")).hexdigest()[:12]
+js_tag = '<script src="/assets/site-menu.js?v=' + menu_js_version + '" defer></script>'
+old_js = re.compile(r'<script\b(?=[^>]*\bsrc="/assets/site-menu\.js(?:\?[^"]*)?")[^>]*>\s*</script>\s*', re.I)
+
+
 def build_header(links, label):
-    if not links:
-        return '<header class="site-header">' + brand + '</header>'
-    content = "\n      ".join(links)
-    attrs = ' aria-label="' + escape(label or "Main navigation", quote=True) + '"'
-    nav = '<nav class="site-nav"' + attrs + '>\n      ' + content + '\n    </nav>'
-    menu = ('<details class="site-head-menu"><summary>'
-            '<span class="site-menu-label">Menu</span>'
-            '<svg class="site-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
-            '<path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" '
-            'stroke-width="2" stroke-linecap="round"/></svg>'
-            '</summary><nav class="site-menu-links" aria-label="Site menu">\n      '
-            + content + '\n    </nav></details>')
+    if links:
+        content = "\n      ".join(links)
+        attrs = ' aria-label="' + escape(label or "Main navigation", quote=True) + '"'
+        nav = '<nav class="site-nav"' + attrs + '>\n      ' + content + '\n    </nav>'
+    else:
+        nav = ""
+    # Keep the local top-nav links and use the homepage's Menu toggle.
     return ('<header class="site-header">' + brand
-            + '<div class="site-head-actions">' + nav + menu + '</div></header>')
+            + '<div class="site-head-actions">' + nav + menu_button
+            + '</div></header>')
 
 def is_brand_link(html):
     tag = html.split(">", 1)[0]
@@ -203,6 +290,20 @@ for page in sorted(ROOT.rglob("*.html")):
             # author forgot to include a site-wide header component.
             html = original[:main.start()] + build_header([], "") + "\n" + original[main.start():]
 
+    # Replace any prior shared overlay instead of duplicating it on rebuild.
+    html, removed_menus = old_menu.subn("", html)
+    if removed_menus > 1:
+        raise ValueError(f"Duplicate menu overlays in {relative}")
+    site_header = re.search(r'<header class="site-header">[\s\S]*?</header>', html)
+    if not site_header or site_header.start() > html.index("<main"):
+        raise ValueError(f"Canonical site header is missing: {relative}")
+    html = html[:site_header.end()] + "\n" + menu_html + html[site_header.end():]
+    if html.count('id="menu"') != 1 or html.count('id="menu-btn"') != 1:
+        raise ValueError(f"Duplicate menu identifiers in {relative}")
+    html = old_js.sub("", html)
+    if html.count("</body>") != 1:
+        raise ValueError(f"Missing body close in {relative}")
+    html = html.replace("</body>", js_tag + "\n</body>", 1)
     html = old_css.sub("", html)
     if html.count("</head>") != 1:
         raise ValueError(f"Missing document head in {relative}")

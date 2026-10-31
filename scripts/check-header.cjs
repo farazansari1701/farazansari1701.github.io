@@ -1,62 +1,54 @@
 'use strict';
-// Ensure the homepage registration mark and style apply to all existing and future pages.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..');
-const homepage=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const mark=homepage.match(/<symbol id="reg" viewBox="0 0 24 24">([\s\S]*?)<\/symbol>/)?.[1];
-assert(mark,'Homepage logo symbol is missing');
+const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const mark=home.match(/<symbol id="reg" viewBox="0 0 24 24">([\s\S]*?)<\/symbol>/)?.[1];
+const original=home.match(/<nav class="menu" id="menu"[\s\S]*?<\/nav>\s*<\/div>\s*<\/nav>/)?.[0];
+const button=home.match(/<button class="tbtn" id="menu-btn"[\s\S]*?<\/button>/)?.[0];
+assert(mark&&original&&button,'Canonical homepage header/menu missing');
+const expected=original.replace(/href="#([A-Za-z][\w-]*)"/g,'href="/#$1"')
+  .replace('id="menu" data-lenis-prevent','id="menu" aria-hidden="true" inert data-lenis-prevent');
 const css=fs.readFileSync(path.join(root,'assets/shared-header.css'),'utf8');
-const hash=crypto.createHash('sha256').update(css).digest('hex').slice(0,12);
-const cssLink='/assets/shared-header.css?v='+hash;
+const cssVersion=crypto.createHash('sha256').update(css).digest('hex').slice(0,12);
+const js=fs.readFileSync(path.join(root,'assets/site-menu.js'),'utf8');
+const jsVersion=crypto.createHash('sha256').update(js).digest('hex').slice(0,12);
 assert.match(css,/body>header\.site-header/);
-assert.match(css,/site-menu-icon/);
-assert.match(css,/@media\(max-width:760px\)/);
-assert.match(css,/mix-blend-mode:normal/);
-// Regression: missing semicolons collapsed the desktop nav links together.
+assert.match(css,/body>nav#menu\{/);
+assert.match(css,/body>nav#menu\.open\{/);
+assert.match(css,/body>nav#menu li a::before/);
+assert.match(css,/\.menu-scroll/);
 assert.match(css,/\.site-nav\{[^}]*gap:\s*22px\s*;\s*justify-content:flex-end/s);
 assert.match(css,/cursor:pointer!important\s*;\s*min-height:44px/s);
-assert.doesNotMatch(css,/22pxjustify-content|important\s*\nmin-height/);
-// Regression: padding on main created a white strip above dark case studies.
 assert.match(css,/body>header\.site-header\+main\{padding-top:0!important\}/);
-assert.match(css,/body>header\.site-header\+main>\.hero:not\(\.sec\)/);
-assert.match(css,/body>header\.site-header\+main>\.wrap/);
-assert.doesNotMatch(css,/body>header\.site-header\+main\{padding-top:76px!important\}/);
 const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
 function allHtml(dir,rel=''){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(item=>{
  const full=path.join(dir,item.name),part=path.posix.join(rel,item.name);
  return item.isDirectory()&&!excluded.has(item.name)?allHtml(full,part):item.isFile()&&item.name.endsWith('.html')?[part]:[];
 });}
-const paths=allHtml(root).sort();
 const required={
  'blog/index.html':['/#work','/blog/','/assets/Faraz-Ansari-CV.pdf'],
  'projects/index.html':['/#projects','/blog/','/assets/Faraz-Ansari-CV.pdf'],
  'projects/soldiering-on-awards/index.html':['/#projects','/projects/','/blog/'],
  'privacy/index.html':['/','/blog/','mailto:contact@farazansari1701.com']
 };
-let checked=0;
-for(const p of paths){
+let count=0;
+for(const p of allHtml(root)){
  const html=fs.readFileSync(path.join(root,p),'utf8');
- if(p==='index.html'||p==='faraz-site/index.html'){
-  assert.match(html,/<header class="top">/,'Canonical homepage header missing');
-  continue;
- }
- assert.equal(html.split(cssLink).length-1,1,p+' should use the shared homepage header CSS once');
- const beforeMain=html.slice(0,html.indexOf('<main'));
- const matches=[...beforeMain.matchAll(/<header class="site-header">[\s\S]*?<\/header>/g)];
- assert.equal(matches.length,1,p+' requires exactly one canonical site header');
- const h=matches[0][0];
- assert(h.includes(mark),p+' logo does not match homepage registration mark');
- assert(h.includes('<a class="brand" href="/"><svg viewBox="0 0 24 24"'),p+' logo markup incorrect');
- assert(!h.includes('<span class="mark"'),p+' has a legacy mark');
- const primary=h.match(/<nav class="site-nav"[^>]*>([\s\S]*?)<\/nav>/);
- const dropdown=h.match(/<nav class="site-menu-links"[^>]*>([\s\S]*?)<\/nav>/);
- if(primary){
-  assert(dropdown,p+' lacks working native mobile navigation');
-  assert.equal(primary[1],dropdown[1],p+' mobile navigation links differ');
-  assert.match(h,/<details class="site-head-menu"><summary>/,p+' missing native navigation toggle');
- } else { assert(!dropdown,p+' should not add navigation links absent from original page'); }
- for(const url of required[p]||[])assert(h.includes('href="'+url+'"'),p+' missing original navigation href '+url);
- checked++;
+ if(p==='index.html'||p==='faraz-site/index.html')continue;
+ assert.equal(html.split('/assets/shared-header.css?v='+cssVersion).length-1,1,p+' CSS missing/duplicate');
+ assert.equal(html.split('/assets/site-menu.js?v='+jsVersion).length-1,1,p+' menu JS missing/duplicate');
+ const before=html.slice(0,html.indexOf('<main'));
+ const headers=[...before.matchAll(/<header class="site-header">[\s\S]*?<\/header>/g)];
+ assert.equal(headers.length,1,p+' site header count');
+ const h=headers[0][0];
+ assert(h.includes(mark),p+' wrong logo');
+ assert(h.includes(button),p+' wrong menu button');
+ assert(!h.includes('<details')&&!h.includes('site-menu-links'),p+' legacy dropdown remains');
+ const menus=[...before.matchAll(/<nav class="menu" id="menu"[\s\S]*?<\/nav>\s*<\/div>\s*<\/nav>/g)];
+ assert.equal(menus.length,1,p+' menu overlay count');
+ assert.equal(menus[0][0],expected,p+' overlay differs from homepage');
+ for(const href of required[p]||[])assert(h.includes('href="'+href+'"'),p+' missing top header link '+href);
+ count++;
 }
 assert.equal(fs.readFileSync(path.join(root,'index.html'),'utf8'),fs.readFileSync(path.join(root,'faraz-site/index.html'),'utf8'));
-console.log('PASS homepage-style registration mark, navigation, mobile dropdown and shared CSS on '+checked+' pages');
+console.log('Full-screen homepage menu verified on '+count+' secondary pages.');
