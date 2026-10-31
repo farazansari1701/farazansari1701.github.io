@@ -37,6 +37,24 @@ const found=htmlPathsIn('blogs').sort();
 if(JSON.stringify(found)!==JSON.stringify([...aliases.keys()].sort()))fail('Unexpected plural blog aliases');
 for(const [file,target] of aliases){const html=read(file),dest='https://farazansari1701.com'+target;if(!html.includes('content="0;url='+dest+'"')||!html.includes('href="'+dest+'"')||!html.includes('noindex,follow'))fail('Invalid redirect '+file);}
 
+// Guard approved essay source URLs against regressing on future builds.
+const essaySources=JSON.parse(read('blog/content/who-owns-the-words-we-speak.json')).sources;
+const essayHtml=read('blog/who-owns-the-words-we-speak/index.html');
+for(const url of [
+ 'https://www.lib.uchicago.edu/collex/exhibits/james-baldwin-among-philosophers/the-welcome-table-1970s-1980s/',
+ 'https://rajbhasha.gov.in/en/bharat-samhita-code-of-india-'
+]){
+ if(!essaySources.some(s=>s.url===url)||!essayHtml.includes('href="'+url+'"'))
+   fail('Missing corrected language essay source '+url);
+}
+for(const old of [
+ 'https://digfir-published.macmillanusa.com/readwrite/readwrite_ch52_3.html',
+ 'https://rajbhasha.gov.in/en/official-language-policy-union'
+]){
+ if(essaySources.some(s=>s.url===old)||essayHtml.includes(old))
+   fail('Broken language essay source reintroduced '+old);
+}
+
 const pages = [...new Set([
   'index.html',
   'faraz-site/index.html',
