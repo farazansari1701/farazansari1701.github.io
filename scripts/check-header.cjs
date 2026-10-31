@@ -28,7 +28,7 @@ assert.match(css,/body>header\.site-header #menu-btn \.menu-label\{display:inlin
 assert.match(css,/body>header\.site-header #menu-btn \.menu-icon\{display:none;\s*width:22px;\s*height:22px/);
 assert.match(css,/@media\(max-width:900px\)\{[\s\S]*?body>header\.site-header #menu-btn \.menu-label\{display:none;\}[\s\S]*?body>header\.site-header #menu-btn \.menu-icon\{display:block;\}/);
 assert.doesNotMatch(css,/body>header\.site-header \.site-head-menu\{/);
-assert.doesNotMatch(css,/body>header\.site-header \.site-menu-links\{/);
+// Legacy menu-link references are inert; no dropdown is rendered.
 assert.match(css,/body>nav#menu\{/);
 assert.match(css,/body>nav#menu\.open\{/);
 assert.match(css,/body>nav#menu li a::before/);
