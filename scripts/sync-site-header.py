@@ -80,20 +80,18 @@ font-family:var(--font);text-transform:none;
 }}
 body>header.site-header .site-nav a:hover,
 body>header.site-header .site-nav a:focus-visible,
-body>header.site-header .site-menu-links a:hover,
-body>header.site-header .site-menu-links a:focus-visible{{{from_homepage(".blog-nav:hover")}}}
+
+body>header.site-header .site-nav a:focus-visible{{{from_homepage(".blog-nav:hover")}}}
 body>header.site-header .site-nav a[aria-current="page"]{{border-bottom-color:var(--cyan)}}
 body>header.site-header a:focus-visible{{outline:2px solid var(--cyan);outline-offset:3px}}
 /* The homepage uses an overlaying fixed header. A full-screen <nav id="menu">
    sits between the site header and <main> on secondary pages, so '+main'
    does not match. The general sibling selector deliberately includes it. */
 body>header.site-header~main{{padding-top:0!important}}
-/* Reserve clearance for BREADCRUMBS, not every blog wrapper. Otherwise the
-   breadcrumb sits underneath the logo; padding the whole wrapper also shifts
-   the standalone blog homepage unnecessarily. */
-body>header.site-header~main>.wrap>.breadcrumbs{{
-padding-top:calc(env(safe-area-inset-top,0px) + 94px)!important;
-position:relative;
+/* Breadcrumbs are now given reliable in-flow space in generated HTML.
+   This rule also works for new pages before the next publishing run. */
+body>main>.wrap>.breadcrumbs{{
+position:relative;padding-top:16px!important;
 }}
 /* Dark case-study heroes retain their own background behind the header.
    Place the breadcrumb and title below the fixed header. */
@@ -117,7 +115,6 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
  body>header.site-header .brand svg{{width:18px;height:18px;flex-basis:18px}}
  body>header.site-header .site-nav{{display:none}}
  body>header.site-header .site-head-actions{{gap:8px}}
- body>header.site-header~main>.wrap>.breadcrumbs{{padding-top:calc(env(safe-area-inset-top,0px) + 86px)!important}}
  body>header.site-header~main>.hero:not(.sec){{padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}}
  body>header.site-header~main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 80px)!important}}
  body>header.site-header .site-menu-links{{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}}
@@ -285,6 +282,43 @@ for page in sorted(ROOT.rglob("*.html")):
             # Future pages get a valid homepage-style brand even when their
             # author forgot to include a site-wide header component.
             html = original[:main.start()] + build_header([], "") + "\n" + original[main.start():]
+
+    # Reserve actual in-flow clearance on blog pages with breadcrumbs.
+    # CSS-only selectors have proved fragile across cached page-theme styles:
+    # an inline rule stays with the generated HTML and moves both breadcrumb
+    # and the content below it, while preserving the fixed homepage header.
+    has_breadcrumbs = '<div class="breadcrumbs"' in html
+    if has_breadcrumbs:
+        wrap = re.compile(r'(<main\b[^>]*>\s*<div class="wrap")(?:\s+style="[^"]*")?(\s*>)', re.I)
+        html, wrap_count = wrap.subn(
+            lambda m: (m.group(1)
+                       + ' style="padding-top:clamp(72px,6vw,90px)!important"'
+                       + m.group(2)),
+            html, count=1
+        )
+        if wrap_count != 1:
+            raise ValueError(f"Cannot place breadcrumb clearance in {relative}")
+        crumb = re.compile(r'<div class="breadcrumbs"(?:\s+style="[^"]*")?\s*>', re.I)
+        html, crumb_count = crumb.subn(
+            '<div class="breadcrumbs" style="padding-top:16px!important">',
+            html, count=1
+        )
+        if crumb_count != 1:
+            raise ValueError(f"Cannot normalise breadcrumb spacing in {relative}")
+
+    # Case-study breadcrumbs sit inside a dark hero, not a blog wrapper.
+    # Keep the hero's background behind the overlaying header instead of
+    # creating an empty strip with padding on MAIN itself.
+    if '<nav class="crumb"' in html:
+        hero = re.compile(r'(<main\b[^>]*>\s*<section class="hero"[^>]*?)\s*(>)', re.I)
+        def set_hero_padding(m):
+            opening = re.sub(r'\s+style="[^"]*"', '', m.group(1))
+            return (opening
+                    + ' style="padding-top:clamp(116px,9vw,148px)!important"'
+                    + m.group(2))
+        html, count = hero.subn(set_hero_padding, html, count=1)
+        if count != 1:
+            raise ValueError(f"Cannot place case-study header clearance in {relative}")
 
     # Replace any prior shared overlay instead of duplicating it on rebuild.
     html, removed_menus = old_menu.subn("", html)

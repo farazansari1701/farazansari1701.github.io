@@ -1,7 +1,29 @@
 // Execute the shipped footer handlers in isolation; this is not a browser test.
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.resolve(__dirname,'..');
+const canonicalHome=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const canonicalFoot=canonicalHome.match(/<footer\b[^>]*>[\s\S]*?<\/footer>/)?.[0];
+assert(canonicalFoot && canonicalFoot.includes('<svg class="skyline sky3"'),'Canonical homepage footer artwork missing');
+
 function element(){const values=new Map(),classes=new Set();return {listeners:{},style:{getPropertyValue:k=>values.get(k)||'',setProperty:(k,v)=>values.set(k,v),removeProperty:k=>values.delete(k)},classList:{add:k=>classes.add(k),remove:k=>classes.delete(k),contains:k=>classes.has(k)},addEventListener(k,f){this.listeners[k]=f;},focus(){this.focused=true;},getBoundingClientRect:()=>({width:1800}),clientWidth:390,scrollWidth:390};}
+// Every published HTML file, including 404s and new blog pages, must retain the
+// exact homepage footer markup, not an equivalent-looking but divergent copy.
+const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
+function publishedHtml(dir,relative=''){
+ return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>{
+  const next=path.join(dir,entry.name),r=path.posix.join(relative,entry.name);
+  return entry.isDirectory()&&!excluded.has(entry.name)?publishedHtml(next,r)
+      :entry.isFile()&&entry.name.endsWith('.html')?[r]:[];
+ });
+}
+for(const item of publishedHtml(root)){
+ const html=fs.readFileSync(path.join(root,item),'utf8');
+ const footers=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/g)];
+ assert.equal(footers.length,1,item+' must contain exactly one footer');
+ assert.equal(footers[0][0],canonicalFoot,item+' footer differs from the homepage');
+ assert.equal((html.match(/\/assets\/site-footer\.css\?v=[0-9a-f]{12}/g)||[]).length,1,item+' missing shared footer CSS');
+}
+
 async function check(file,mode){
  const nodes=Object.fromEntries(['#yr','#cookie-reset','#to-top','.wordmark','.pano','.sky3','#sk-route','.sk-plane','.sk-far','.sk-mid','.sk-sun'].map(s=>[s,element()]));
  const foot=element();foot.querySelector=s=>nodes[s];const first=element(),banner={hidden:true,querySelector:()=>first};
