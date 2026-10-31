@@ -157,7 +157,7 @@
       const certIntro = document.querySelector('#certifications .c-head>p');
       certIntro?.childNodes.forEach(node => {
         if (node.nodeType !== Node.TEXT_NODE || !node.textContent.includes('Eight featured credentials')) return;
-        setText(node, node.textContent.replace('Eight featured credentials appear below, with the other 57 in the drawer.', 'Four featured credentials appear below, with the other 61 in the drawer.'));
+        setText(node, node.textContent.replace('Eight featured credentials appear below; 53 further courses are in the drawer, and four older awards are kept separately in Historical certifications.', 'Four featured credentials appear below; four more featured credentials and 53 further courses are in the drawer. Four historical awards are listed separately.'));
       });
     }
     refresh();

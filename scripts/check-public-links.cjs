@@ -151,7 +151,7 @@ for (const page of ['index.html']) {
   if (!html.includes('href="/assets/certificates/microsoft-advertising-certified-professional-2021.pdf"')) {
     fail(page + ' must link to the original December 2021 Microsoft certificate PDF.');
   }
-  if (!html.includes('data-to="65">65') || !html.includes('data-to="57">57')) {
+  if (!html.includes('data-to="65">65') || !html.includes('data-to="53">53')) {
     fail(page + ' has out-of-date certification counters.');
   }
 }
