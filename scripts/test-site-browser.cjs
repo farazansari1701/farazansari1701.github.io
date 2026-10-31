@@ -9,6 +9,7 @@ const output = path.resolve(process.env.QA_OUTPUT || 'audit-output');
 fs.mkdirSync(output, { recursive: true });
 const cases = [
   { engine: 'chromium', name: 'Chrome-320', width: 320, height: 568, mobile: true, paths: ['/', '/blog/', '/projects/'] },
+  { engine: 'chromium', name: 'Chrome-414', width: 414, height: 896, mobile: true, paths: ['/', '/blog/', '/projects/'] },
   { engine: 'chromium', name: 'Chrome-390', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/', '/blog/about/', '/projects/myoki-localised-campaigns/', '/projects/b433-b513-product-launch/', '/projects/soldiering-on-awards/', '/projects/oki-brandfolder-digital-asset-management/', '/projects/oki-consumables-recycling/', '/projects/oki-warranty-services/'] },
   { engine: 'chromium', name: 'Chrome-desktop', width: 1440, height: 900, mobile: false, paths: ['/', '/blog/', '/projects/', '/privacy/'] },
   { engine: 'webkit', name: 'WebKit-iPhone', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/'] },
@@ -42,6 +43,7 @@ async function main(){
       });
       return {viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,
         header:rect('header.site-header,header.top'),logo:rect('header.site-header .brand,header.top .logo'),menuButton:rect('#menu-btn'),
+        blogLink:rect('header.site-header .site-nav a[href="/blog/"]'),cvLink:rect('header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]'),
         heroTitle:rect('.hero-name,main h1'),main:rect('main'),badAboveFoldImages:imgs.filter(x=>x.complete&&x.naturalWidth===0).map(x=>x.currentSrc||x.src).slice(0,12),
         menuInitialInert:document.getElementById('menu')?.inert,menuInitialAria:document.getElementById('menu')?.getAttribute('aria-hidden')};
     });
@@ -54,6 +56,18 @@ async function main(){
       if(l.right>m.left+1)record.problems.push('Logo and Menu overlap ('+l.right+' > '+m.left+')');
       if(m.right>conf.width+3||l.left< -3)record.problems.push('Header control outside viewport');
       if(Math.min(m.height,m.width)<30)record.warnings.push('Menu has a visual hit target below 30px');
+    }
+    if(conf.mobile){
+      const b=layout.blogLink,c=layout.cvLink;
+      if(!b||b.display==='none'||b.visibility==='hidden'||b.width<20)
+        record.problems.push('Blog is hidden from the mobile header');
+      else if(l&&m){
+        if(b.left<l.right-1)record.problems.push('Blog overlaps header logo');
+        if(b.right>m.left+1)record.problems.push('Blog overlaps Menu button');
+        if(b.right>conf.width+2)record.problems.push('Blog extends beyond viewport');
+      }
+      if(c&&c.display!=='none'&&c.width>0&&b&&b.width>0&&c.left<b.right-1)
+        record.problems.push('Blog and View CV overlap');
     }
     if(layout.badAboveFoldImages.length)record.problems.push('Broken above-fold images: '+layout.badAboveFoldImages.join('; '));
     // Exercise real consent handlers and click instrumentation without

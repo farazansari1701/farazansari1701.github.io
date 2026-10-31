@@ -9,6 +9,7 @@ assert(mark&&original&&button,'Canonical homepage header/menu missing');
 assert.match(home, /<header class="top site-header">/, 'Homepage must adopt the shared header');
 assert.match(home, /<button class="logo brand" id="logo"/, 'Homepage logo must use shared brand classes');
 assert.match(home, /<nav class="header-links site-nav" aria-label="Blog and CV">/, 'Homepage must use shared navigation classes');
+assert.match(home, /<a class="blog-nav" href="\/blog\/">Blog/, 'Homepage Blog must be a direct header link');
 assert.match(home, /<div class="top-actions site-head-actions">/, 'Homepage actions must use shared classes');
 assert(home.includes(mark), 'Homepage logo must contain the canonical registration-mark paths');
 const expected=original.replace(/href="#([A-Za-z][\w-]*)"/g,'href="/#$1"')
@@ -33,6 +34,11 @@ assert.match(portfolioJS,/site-menu:toggle/,
 assert.match(js,/site-menu:toggle/,
  'Shared menu must emit a state change for homepage effects');
 assert.match(css,/body>header\.site-header/);
+assert.match(css,/body>header\.site-header \.site-nav a\[href="\/blog\/"\]\{display:inline-flex\}/,
+ 'Mobile shared header must visibly include Blog');
+const mobileCSS=fs.readFileSync(path.join(root,'assets/portfolio-responsive.css'),'utf8');
+assert.doesNotMatch(mobileCSS,/\.top \.header-links a\[href="\/blog\/"\]\s*\{\s*display:none/,
+ 'Mobile portfolio CSS must never hide Blog');
 // All secondary pages must use the homepage's Menu button styling, not a
 // differently sized button or an old drop-down summary.
 const homepageCSS=fs.readFileSync(path.join(root,'assets/portfolio.css'),'utf8');
@@ -82,6 +88,7 @@ for(const p of allHtml(root)){
  const headers=[...before.matchAll(/<header class="site-header">[\s\S]*?<\/header>/g)];
  assert.equal(headers.length,1,p+' site header count');
  const h=headers[0][0];
+ assert(h.includes('href="/blog/"'),p+' direct Blog header link missing');
  assert(h.includes(mark),p+' wrong logo');
  assert(h.includes(button),p+' wrong menu button');
  assert.equal((h.match(/id="menu-btn"/g)||[]).length,1,p+' menu trigger duplicated');

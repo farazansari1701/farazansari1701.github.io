@@ -177,7 +177,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
 }
 
 /* Small-screen header containment and accessible motion handling.
-   The Blog link remains available in the full-screen menu at narrow widths. */
+   The direct Blog link must stay visible beside View CV and the Menu button. */
 @media(max-width:760px){
   .top{min-width:0;gap:8px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
   .top .logo{min-width:0;max-width:100%;flex:0 1 auto}
@@ -189,9 +189,6 @@ html.menu-open,html.menu-open body{overflow:hidden}
   .menu li a{overflow-wrap:anywhere;word-break:normal}
   .hero-name{max-width:100%;font-size:clamp(48px,15.5vw,115px)}
   .history-item,.icard,.dr-card,.flip .back{overflow-wrap:anywhere}
-}
-@media(max-width:390px){
-  .top .header-links a[href="/blog/"]{display:none}
 }
 @media(prefers-reduced-motion:reduce){
   .menu,.menu.open{transition:none!important}

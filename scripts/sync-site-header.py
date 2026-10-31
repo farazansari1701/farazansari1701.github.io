@@ -109,13 +109,16 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
  body>header.site-header .site-menu-icon{{display:block}}
 }}
 @media(max-width:760px){{
- body>header.site-header{{gap:8px;padding-left:20px;padding-right:20px}}
- body>header.site-header .brand{{font-size:clamp(13px,3.5vw,15px);gap:6px}}
+ /* Keep Blog and CV accessible in the mobile header at 320px and above. */
+ body>header.site-header{{gap:6px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}}
+ body>header.site-header .brand{{font-size:clamp(12px,3.5vw,15px);gap:6px;min-width:0;flex:0 1 auto}}
+ body>header.site-header .brand span{{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
  body>header.site-header .brand svg{{width:18px;height:18px;flex-basis:18px}}
- body>header.site-header .site-nav{{display:flex;gap:0}}
- body>header.site-header .site-nav a{{display:none}}
+ body>header.site-header .site-nav{{display:flex;gap:clamp(6px,2vw,10px);flex-shrink:0}}
+ body>header.site-header .site-nav a{{display:none;font-size:clamp(12px,3.4vw,13px);padding-inline:0}}
+ body>header.site-header .site-nav a[href="/blog/"]{{display:inline-flex}}
  body>header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]{{display:inline-flex}}
- body>header.site-header .site-head-actions{{gap:8px}}
+ body>header.site-header .site-head-actions{{gap:6px;flex-shrink:0}}
  body>header.site-header~main>.hero:not(.sec){{padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}}
  body>header.site-header~main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 80px)!important}}
  body>header.site-header .site-menu-links{{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}}
@@ -227,6 +230,10 @@ old_js = re.compile(r'<script\b(?=[^>]*\bsrc="/assets/site-menu(?:\.min)?\.js(?:
 
 
 def build_header(links, label):
+    # A direct Blog link is part of the site-wide header on every page.
+    # Keep existing labels/navigation otherwise; rebuilds must be idempotent.
+    if not any('href="/blog/"' in link for link in links):
+        links = [*links, '<a href="/blog/">Blog</a>']
     if links:
         content = "\n      ".join(links)
         attrs = ' aria-label="' + escape(label or "Main navigation", quote=True) + '"'
