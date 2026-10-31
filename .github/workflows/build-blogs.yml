@@ -5,6 +5,7 @@ on:
     paths:
       - "**/*.html"
       - "assets/portfolio.css"
+      - "assets/seo-*.css"
       - "assets/portfolio.js"
       - "assets/portfolio-responsive.js"
       - "assets/portfolio-responsive.css"
@@ -21,6 +22,7 @@ on:
     paths:
       - "**/*.html"
       - "assets/portfolio.css"
+      - "assets/seo-*.css"
       - "assets/portfolio.js"
       - "assets/portfolio-responsive.js"
       - "assets/portfolio-responsive.css"
