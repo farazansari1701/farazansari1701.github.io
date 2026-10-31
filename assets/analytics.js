@@ -22,6 +22,7 @@
     window['ga-disable-' + measurementId] = !granted;
     window.gtag('consent', 'update', {analytics_storage: granted ? 'granted' : 'denied'});
     sendPageView();
+    if(granted && typeof Event !== 'undefined')window.dispatchEvent(new Event('fa:consent-granted'));
   }
   window.farazAnalytics = {applyConsent};
   let consent = null;

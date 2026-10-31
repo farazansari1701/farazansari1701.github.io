@@ -9,7 +9,7 @@ const output = path.resolve(process.env.QA_OUTPUT || 'audit-output');
 fs.mkdirSync(output, { recursive: true });
 const cases = [
   { engine: 'chromium', name: 'Chrome-320', width: 320, height: 568, mobile: true, paths: ['/', '/blog/', '/projects/'] },
-  { engine: 'chromium', name: 'Chrome-390', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/', '/blog/about/'] },
+  { engine: 'chromium', name: 'Chrome-390', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/', '/blog/about/', '/projects/myoki-localised-campaigns/', '/projects/b433-b513-product-launch/', '/projects/soldiering-on-awards/', '/projects/oki-brandfolder-digital-asset-management/', '/projects/oki-consumables-recycling/', '/projects/oki-warranty-services/'] },
   { engine: 'chromium', name: 'Chrome-desktop', width: 1440, height: 900, mobile: false, paths: ['/', '/blog/', '/projects/', '/privacy/'] },
   { engine: 'webkit', name: 'WebKit-iPhone', width: 390, height: 844, mobile: true, paths: ['/', '/blog/', '/projects/'] },
   { engine: 'webkit', name: 'WebKit-desktop', width: 1280, height: 800, mobile: false, paths: ['/', '/projects/'] }
@@ -93,9 +93,30 @@ async function main(){
       });
       record.analyticsAudit=audit;
       if(audit.before.length)record.problems.push('Tracking events fired without consent: '+audit.before.join(','));
-      for(const name of ['project_visit','booking_intent','cv_open','contact_click']){
+      for(const name of ['project_click','booking_intent','cv_open','contact_click']){
         if(!audit.after.includes(name))record.problems.push('Consented analytics event missing: '+name);
       }
+    }
+    if(pathname==='/blog/'){
+      const input=page.locator('#blog-search');
+      if(await input.count()!==1)record.problems.push('Blog search input missing');
+      else {
+        await input.fill('zzzznoresultszzzz');
+        if(!await page.locator('#blog-empty').isVisible())record.problems.push('Blog empty state missing');
+        await input.fill('marketing');
+        const count=await page.locator('#blog-post-list .post-card:visible').count();
+        if(count<1)record.problems.push('Blog keyword search did not return results');
+        const personal=page.locator('[data-blog-filter="Personal perspectives"]');
+        if(await personal.count()){await personal.click();if(await personal.getAttribute('aria-pressed')!=='true')record.problems.push('Blog topic filter did not activate');}
+        const clear=page.locator('[data-blog-filter="all"]');
+        if(await clear.count()){await clear.click();await input.fill('');}
+      }
+    }
+    if(pathname.startsWith('/projects/')){
+      const control=page.locator('#project-cookie [data-project-consent]');
+      if(await control.count()!==2)record.problems.push('Projects analytics consent controls missing');
+      const ga=await page.evaluate(()=>Boolean(window.farazAnalytics&&document.querySelector('script[data-container="GTM-57BRSKXB"]')));
+      if(!ga)record.problems.push('Project page GTM/GA4 bootstrap missing');
     }
     const menuButton=page.locator('#menu-btn');
     if(await menuButton.count()){
