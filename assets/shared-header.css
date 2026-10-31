@@ -18,10 +18,10 @@ font-family:var(--font);text-transform:none;outline-offset:3px;
 body>header.site-header .brand svg{width:22px; height:22px;flex:0 0 22px;display:block}
 body>header.site-header .brand span{display:inline}
 body>header.site-header .site-head-actions{display:flex; gap:22px; align-items:center; font-size:15px;min-width:0}
-body>header.site-header .site-nav{display:flex;align-items:center;gap:22pxjustify-content:flex-end;margin:0;padding:0;border:0;background:none;min-width:0}
+body>header.site-header .site-nav{display:flex;align-items:center;gap:22px;justify-content:flex-end;margin:0;padding:0;border:0;background:none;min-width:0}
 body>header.site-header .site-nav a,
 body>header.site-header .site-menu-links a{
-font-size:13px;font-weight:650;text-decoration:none;white-space:nowrap;padding:8px 0;border-bottom:2px solid var(--cyan);cursor:pointer!important
+font-size:13px;font-weight:650;text-decoration:none;white-space:nowrap;padding:8px 0;border-bottom:2px solid var(--cyan);cursor:pointer!important;
 min-height:44px;display:inline-flex;align-items:center;justify-content:center;
 margin:0;background:transparent;color:inherit;line-height:1.2;letter-spacing:0;
 font-family:var(--font);text-transform:none;
@@ -29,7 +29,7 @@ font-family:var(--font);text-transform:none;
 body>header.site-header .site-nav a:hover,
 body>header.site-header .site-nav a:focus-visible,
 body>header.site-header .site-menu-links a:hover,
-body>header.site-header .site-menu-links a:focus-visible{border-color:var(--magenta)}
+body>header.site-header .site-menu-links a:focus-visible{border-color:var(--magenta);}
 body>header.site-header .site-nav a[aria-current="page"]{border-bottom-color:var(--cyan)}
 body>header.site-header .site-head-menu{position:relative;flex-shrink:0;color:inherit}
 body>header.site-header .site-head-menu summary{
@@ -55,8 +55,15 @@ mix-blend-mode:normal;background:#141414;color:#EDEDE9;
 }
 body>header.site-header a:focus-visible,
 body>header.site-header summary:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
-/* Keep the same fixed-header clearance as the existing website. */
-body>header.site-header+main{padding-top:76px!important}
+/* The homepage header overlays its hero. Padding MAIN introduced a
+   contrasting 76px strip above dark case-study heroes. */
+body>header.site-header+main{padding-top:0!important}
+/* Blog pages: make room INSIDE the wrapper so the header overlays the page. */
+body>header.site-header+main>.wrap{padding-top:calc(env(safe-area-inset-top,0px) + 88px)!important}
+/* Case-study heroes extend their background behind the fixed header. */
+body>header.site-header+main>.hero:not(.sec){padding-top:calc(env(safe-area-inset-top,0px) + 122px)!important}
+/* Other pages (privacy and 404) keep readable top spacing. */
+body>header.site-header+main:not(:has(>.hero,>.wrap)){padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important}
 @media(max-width:900px){
  body>header.site-header{gap:12px}
  body>header.site-header .site-head-actions{gap:12px;flex-shrink:0}
@@ -70,7 +77,9 @@ body>header.site-header+main{padding-top:76px!important}
  body>header.site-header .brand svg{width:18px;height:18px;flex-basis:18px}
  body>header.site-header .site-nav{display:none}
  body>header.site-header .site-head-actions{gap:8px}
- body>header.site-header+main{padding-top:68px!important}
+ body>header.site-header+main>.wrap{padding-top:calc(env(safe-area-inset-top,0px) + 78px)!important}
+ body>header.site-header+main>.hero:not(.sec){padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}
+ body>header.site-header+main:not(:has(>.hero,>.wrap)){padding-top:calc(env(safe-area-inset-top,0px) + 80px)!important}
  body>header.site-header .site-menu-links{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}
 }
 @media(prefers-reduced-motion:reduce){
