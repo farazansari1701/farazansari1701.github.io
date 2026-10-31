@@ -177,29 +177,35 @@ body>header nav a[aria-current="page"]{position:relative}
 /* Prevent legacy header borders/backgrounds from bleeding through. */
 body>header.site-header,body>header.header,body>header.top,body>header:not([class]){backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 
-/* Keep breadcrumbs and first content block clear of the fixed header. */
-body>header.site-header + main .breadcrumbs,
-body>header.header + main .breadcrumbs,
+
+/* Site-wide fixed-header clearance for all non-home templates. */
+body>header.top + main,
+body>header.header + main,
+body>header.site-header + main,
+body>header:not([class]) + main{
+  padding-top:76px!important;
+}
 body>header.top + main .breadcrumbs,
+body>header.header + main .breadcrumbs,
+body>header.site-header + main .breadcrumbs,
 body>header:not([class]) + main .breadcrumbs{
-  padding-top:96px!important;
+  padding-top:28px!important;
   margin-top:0!important;
   position:relative!important;
   z-index:1!important;
 }
-body>header.site-header + main:not(:has(.breadcrumbs)),
-body>header.header + main:not(:has(.breadcrumbs)),
-body>header.top + main:not(:has(.breadcrumbs)),
-body>header:not([class]) + main:not(:has(.breadcrumbs)){
-  padding-top:76px!important;
+body>header .brand,
+body>header .brand *{
+  text-shadow:none!important;
+  filter:none!important;
 }
 @media(max-width:600px){
-  body>header.site-header + main .breadcrumbs,
-  body>header.header + main .breadcrumbs,
+  body>header.top + main,
+  body>header.header + main,
+  body>header.site-header + main,
+  body>header:not([class]) + main{padding-top:68px!important}
   body>header.top + main .breadcrumbs,
-  body>header:not([class]) + main .breadcrumbs{padding-top:82px!important}
-  body>header.site-header + main:not(:has(.breadcrumbs)),
-  body>header.header + main:not(:has(.breadcrumbs)),
-  body>header.top + main:not(:has(.breadcrumbs)),
-  body>header:not([class]) + main:not(:has(.breadcrumbs)){padding-top:68px!important}
+  body>header.header + main .breadcrumbs,
+  body>header.site-header + main .breadcrumbs,
+  body>header:not([class]) + main .breadcrumbs{padding-top:20px!important}
 }
