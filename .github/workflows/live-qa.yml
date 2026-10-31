@@ -1,0 +1,43 @@
+name: Live browser and Lighthouse QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-qa.yml'
+      - 'scripts/test-site-browser.cjs'
+      - 'scripts/report-lighthouse.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-site-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser QA dependencies
+        run: |
+          npm ci
+          npm install --no-save playwright@1.56.1 @axe-core/playwright@4.11.0 lighthouse@12.8.2
+          npx playwright install --with-deps chromium webkit
+      - name: Test live pages in Chromium and WebKit
+        run: |
+          node scripts/test-site-browser.cjs
+      - name: Lighthouse mobile and desktop
+        if: always()
+        run: |
+          mkdir -p audit-output
+          export CHROME_PATH="$(node -p "require('playwright').chromium.executablePath()")"
+          npx lighthouse https://farazansari1701.com/ --output=json --output-path=audit-output/lighthouse-mobile.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet || true
+          npx lighthouse https://farazansari1701.com/ --preset=desktop --output=json --output-path=audit-output/lighthouse-desktop.json --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --quiet || true
+          node scripts/report-lighthouse.cjs audit-output/lighthouse-mobile.json audit-output/lighthouse-desktop.json
+      - name: Upload screenshots and audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-site-audit
+          path: audit-output/
+          retention-days: 7
