@@ -29,10 +29,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 <link rel="stylesheet" href="/assets/portfolio-responsive.min.css?v=cf3ac8d37ec6">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script>
+/* Desktop keeps the original animation stack. Phones load only on first
+   interaction; static content and navigation work without these libraries. */
+(function(){
+  var motion=[
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js'
+  ];
+  if(!window.matchMedia('(max-width:760px)').matches){
+    motion.concat('https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js')
+      .forEach(function(url){document.write('<scr'+'ipt src="'+url+'" defer><'+'/script>');});
+    return;
+  }
+  var started=false;
+  function start(){
+    if(started)return;started=true;
+    removeEventListener('touchstart',start);removeEventListener('pointerdown',start);
+    removeEventListener('scroll',start);
+    function next(i){
+      if(i>=motion.length)return;
+      var script=document.createElement('script');
+      script.src=motion[i];script.async=false;
+      script.onload=function(){next(i+1);};
+      script.onerror=function(){next(i+1);};
+      document.head.appendChild(script);
+    }
+    next(0);
+  }
+  addEventListener('touchstart',start,{once:true,passive:true});
+  addEventListener('pointerdown',start,{once:true,passive:true});
+  addEventListener('scroll',start,{once:true,passive:true});
+  // Enable the optional effects during longer reading sessions as well.
+  addEventListener('load',function(){setTimeout(start,10000);},{once:true});
+})();
+</script>
 <script src="/assets/portfolio.min.js?v=a02f8d9ea011" defer></script>
 <script src="/assets/portfolio-responsive.min.js?v=b8c2161158bf" defer></script>
 <link rel="alternate" type="application/rss+xml" title="Faraz Ansari — Field notes" href="/blog/feed.xml">

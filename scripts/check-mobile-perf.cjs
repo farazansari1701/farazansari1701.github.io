@@ -32,6 +32,9 @@ assert.match(css,/@media\(max-width:390px\)/,'Narrow-screen header guard missing
 assert.match(css,/\.top \.logo span\{[^}]*text-overflow:ellipsis/,'Brand overflow guard missing');
 assert.match(css,/\.hero-name\{[^}]*font-size:clamp\(/,'Responsive hero font missing');
 assert.match(css,/prefers-reduced-motion:reduce/,'Reduced-motion CSS missing');
+assert(html.includes("Phones load only on first"),'Mobile animation bootstrapping missing');
+assert(!html.includes('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer>'),'GSAP should not be parser-loaded on phones');
+assert(html.includes("setTimeout(start,10000)"),'Deferred animations must retain a long-read fallback');
 const images=[...html.matchAll(/<img\b[^>]*>/gi)].map(x=>x[0]);
 assert(images.length>=30,'Homepage images unexpectedly removed');
 assert(images.every(img=>/\balt=/.test(img)),'Image missing alt');
