@@ -8,6 +8,10 @@ on:
       - 'scripts/report-lighthouse.cjs'
       - 'assets/seo-*.css'
       - 'assets/portfolio.css'
+      - 'assets/portfolio.js'
+      - 'blog/assets/blog.css'
+      - 'scripts/sync-site-header.py'
+      - 'assets/shared-header.css'
       - 'assets/portfolio-responsive.css'
       - 'index.html'
   workflow_dispatch:
@@ -27,25 +31,30 @@ jobs:
           npm ci
           npm install --no-save playwright@1.56.1 @axe-core/playwright@4.11.0 lighthouse@12.8.2
           npx playwright install --with-deps chromium webkit
-      - name: Wait for the updated Projects CSS to be live
+      - name: Wait for the accessibility assets to be published
         run: |
-          EXPECTED="$(node - <<'JS'
+          python3 scripts/sync-site-header.py
+          node - <<'JS' > /tmp/expected-assets.txt
           const fs=require('fs'),crypto=require('crypto'),esbuild=require('esbuild');
-          const css=esbuild.transformSync(fs.readFileSync('assets/seo-projects.css','utf8'),{
-            loader:'css',minify:true,legalComments:'none',charset:'utf8'
-          }).code;
-          console.log(crypto.createHash('sha256').update(css).digest('hex').slice(0,12));
+          for (const [key,file] of [['PROJECTS','assets/seo-projects.css'],['PORTFOLIO','assets/portfolio.css'],['HEADER','assets/shared-header.css']]) {
+            const output=esbuild.transformSync(fs.readFileSync(file,'utf8'),{loader:'css',minify:true,legalComments:'none',charset:'utf8'}).code;
+            console.log(key+'='+crypto.createHash('sha256').update(output).digest('hex').slice(0,12));
+          }
           JS
-          )"
-          echo "Looking for deployed Projects stylesheet hash ${EXPECTED}"
+          source /tmp/expected-assets.txt
+          echo "Waiting for deployed stylesheet versions: Projects=${PROJECTS}, Portfolio=${PORTFOLIO}, Header=${HEADER}"
           for attempt in $(seq 1 36); do
-            if curl -fsSL --max-time 15 "https://farazansari1701.com/projects/?qa-check=${GITHUB_SHA}" | grep -q "seo-projects.min.css?v=${EXPECTED}"; then
-              echo "Correct stylesheet is deployed."
+            HOME="$(curl -fsSL --max-time 15 "https://farazansari1701.com/?qa-check=${GITHUB_SHA}" || true)"
+            PROJ="$(curl -fsSL --max-time 15 "https://farazansari1701.com/projects/?qa-check=${GITHUB_SHA}" || true)"
+            if printf "%s" "$HOME" | grep -Fq "portfolio.min.css?v=${PORTFOLIO}" \
+              && printf "%s" "$HOME" | grep -Fq "shared-header.min.css?v=${HEADER}" \
+              && printf "%s" "$PROJ" | grep -Fq "seo-projects.min.css?v=${PROJECTS}"; then
+              echo "Updated accessibility CSS is live."
               exit 0
             fi
             sleep 10
           done
-          echo "Timed out waiting for the deployed stylesheet."
+          echo "Timed out waiting for matching deployed assets."
           exit 1
       - name: Test live pages in Chromium and WebKit
         run: |

@@ -590,7 +590,7 @@ document.documentElement.classList.add('js');
         const k = (p[2] + 1) / 2, sc = W < 900 ? .72 + .5 * k : .58 + .62 * k, el = words[i];
         let X = p[0] * R; const lim = W / 2 - (hw[i] || 0) * sc - 2; if (lim > 0) X = Math.max(-lim, Math.min(lim, X));
         el.style.transform = `translate(-50%,-50%) translate3d(${X.toFixed(1)}px,${(p[1] * R).toFixed(1)}px,0) scale(${sc.toFixed(3)})`;
-        el.style.opacity = (.16 + .84 * k * k).toFixed(3);
+        el.style.opacity = (.82 + .18 * k * k).toFixed(3);
         el.style.zIndex = Math.round(k * 100);
         if (p[2] > best) { best = p[2]; bi = i; }
       });
