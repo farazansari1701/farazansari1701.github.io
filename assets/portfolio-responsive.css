@@ -195,3 +195,17 @@ html.menu-open,html.menu-open body{overflow:hidden}
   .js .glide,.js .glide.in{opacity:1!important;transform:none!important;transition:none!important}
   .ld-roll{animation:none!important}
 }
+
+
+/* Keep the UK education heading's two thoughts on separate mobile lines.
+   Use a fluid font size to keep the full second phrase on one line at 320px. */
+@media(max-width:760px){
+  #study .op-story .story h3{
+    font-size:clamp(18px,5.8vw,26px);
+    line-height:1.12;
+    text-wrap:initial;
+  }
+  #study .op-story .story h3 .study-title-lead,
+  #study .op-story .story h3 .study-title-follow{display:block}
+  #study .op-story .story h3 .study-title-follow{white-space:nowrap}
+}

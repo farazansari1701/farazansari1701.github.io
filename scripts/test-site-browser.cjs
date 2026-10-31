@@ -106,6 +106,29 @@ async function main(){
       if(layout.mobileNav&&layout.mobileNav.display!=='none')
         record.problems.push('Mobile nav is visible on desktop');
     }
+    // The UK education story must break *before* "Making My Mark in London",
+    // rather than leaving "Making" stranded at the end of the first line.
+    if(pathname==='/' && conf.mobile){
+      const study=await page.evaluate(()=>{
+        const title=document.querySelector('#study .op-story .story h3');
+        const lead=title?.querySelector('.study-title-lead');
+        const follow=title?.querySelector('.study-title-follow');
+        if(!lead||!follow)return null;
+        const a=lead.getBoundingClientRect(),b=follow.getBoundingClientRect();
+        return {
+          first:lead.textContent.trim(),second:follow.textContent.trim(),
+          firstBottom:a.bottom,nextTop:b.top,nextRight:b.right,
+          phraseFits:b.right<=innerWidth+1&&b.left>=-1,
+          nextLine:b.top>=a.bottom-1,
+          nowrap:getComputedStyle(follow).whiteSpace==='nowrap'
+        };
+      });
+      record.studyHeading=study;
+      if(!study||study.first!=='The Next Chapter:'||study.second!=='Making My Mark in London')
+        record.problems.push('UK education heading structure or text is incorrect');
+      else if(!study.nextLine||!study.nowrap||!study.phraseFits)
+        record.problems.push('UK education heading fails mobile line break/fit');
+    }
     if(layout.badAboveFoldImages.length)record.problems.push('Broken above-fold images: '+layout.badAboveFoldImages.join('; '));
     // Exercise real consent handlers and click instrumentation without
     // producing test traffic in GA4 or navigating away from the page.
