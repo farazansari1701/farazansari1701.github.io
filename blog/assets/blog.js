@@ -48,6 +48,52 @@
     links.forEach(link => { const target = document.getElementById(link.hash.slice(1)); if (target) observer.observe(target); });
   }
 
+
+  /* Search title, topic and excerpt; all cards remain available without JS. */
+  const discovery = document.getElementById('blog-discovery');
+  const archive = document.getElementById('blog-post-list');
+  const search = document.getElementById('blog-search');
+  if (discovery && archive && search) {
+    const entries = [...archive.querySelectorAll('.post-card')].map(card => {
+      const topic = (card.querySelector('.eyebrow')?.textContent || '').trim();
+      const title = (card.querySelector('h2')?.textContent || '').trim();
+      const description = (card.querySelector('h2 + p')?.textContent || '').trim();
+      return {card, topic, haystack: (title + ' ' + description + ' ' + topic)
+        .normalize('NFKD').toLocaleLowerCase('en-GB')};
+    });
+    const filters = [...discovery.querySelectorAll('[data-blog-filter]')];
+    const status = document.getElementById('blog-result-count');
+    const empty = document.getElementById('blog-empty');
+    const clear = document.getElementById('blog-clear');
+    let selected = 'all';
+    const update = () => {
+      const query = search.value.trim().normalize('NFKD').toLocaleLowerCase('en-GB');
+      let shown = 0;
+      entries.forEach(({card,topic,haystack}) => {
+        const visible = (selected === 'all' || topic === selected) && haystack.includes(query);
+        card.hidden = !visible;
+        if (visible) {
+          shown++;
+          // Don't leave newly unhidden cards concealed by the reveal animation.
+          card.dataset.reveal = 'visible';
+        }
+      });
+      filters.forEach(button => button.setAttribute('aria-pressed',
+        String(button.dataset.blogFilter === selected)));
+      if (empty) empty.hidden = shown !== 0;
+      if (status) status.textContent = shown + ' of ' + entries.length + ' articles shown';
+      if (clear) clear.hidden = query.length === 0;
+    };
+    search.addEventListener('input', update);
+    filters.forEach(button => button.addEventListener('click', () => {
+      selected = button.dataset.blogFilter || 'all';
+      update();
+    }));
+    clear?.addEventListener('click', () => { search.value = ''; update(); search.focus(); });
+    discovery.hidden = false;
+    update();
+  }
+
   // One reveal per archive card. The document remains a normal readable list.
   const cards = [...document.querySelectorAll('.post-list .post-card')];
   const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)');

@@ -1,82 +1,66 @@
-"""Refresh XML sitemap lastmod dates from actual page changes.
+"""Update sitemap dates only for substantive page content changes.
 
-Run after rendering/minification, not before: newly generated or modified HTML
-gets today's date in Europe/London; unchanged HTML uses its latest Git commit.
-This leaves dates of untouched pages alone when new articles are published.
+Shared header/footer scripts, asset hashes, consent bootstrap and site chrome
+must not make all URLs look freshly edited. Use persisted semantic fingerprints
+and the existing lastmod for baseline; never retroactively invent dates.
 """
 from datetime import datetime
 from pathlib import Path
-import subprocess
 from urllib.parse import urlsplit
 from xml.etree import ElementTree as ET
 from zoneinfo import ZoneInfo
+import hashlib, json, re
 
-ROOT = Path(__file__).resolve().parents[1]
-SITEMAP = ROOT / "sitemap.xml"
-SITE = "farazansari1701.com"
-NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
-LONDON = ZoneInfo("Europe/London")
-TODAY = datetime.now(LONDON).date().isoformat()
+ROOT=Path(__file__).resolve().parents[1]
+SITEMAP=ROOT/'sitemap.xml'
+STATE=ROOT/'scripts/sitemap-content-fingerprints.json'
+NS='http://www.sitemaps.org/schemas/sitemap/0.9'
+ET.register_namespace('',NS)
+today=datetime.now(ZoneInfo('Europe/London')).date().isoformat()
 
-ET.register_namespace("", NS)
+def meaningful(page):
+    source=page.read_text(encoding='utf-8')
+    # Only content within main is relevant to search engines. Exclude global
+    # scripts, the common footer, and asset version query parameters.
+    main=re.search(r'<main\b[^>]*>([\s\S]*?)</main>',source,re.I)
+    body=main.group(1) if main else source
+    body=re.sub(r'<!--[\s\S]*?-->','',body)
+    body=re.sub(r'<(?:script|style|svg)\b[^>]*>[\s\S]*?</(?:script|style|svg)>','',body,flags=re.I)
+    body=re.sub(r'\?v=[a-zA-Z0-9]+','',body)
+    body=re.sub(r'\s+(?:loading|decoding|fetchpriority)="[^"]*"','',body)
+    body=re.sub(r'\s+',' ',body).strip()
+    return hashlib.sha256(body.encode('utf-8')).hexdigest()
 
-
-def git(*args: str) -> bytes:
-    """Return Git output or empty bytes when repository metadata is unavailable."""
-    try:
-        return subprocess.check_output(
-            ("git", *args), cwd=ROOT, stderr=subprocess.DEVNULL
-        )
-    except (OSError, subprocess.CalledProcessError):
-        return b""
-
-
-# Include staged/unstaged modifications and new generated pages. In GitHub
-# Actions the checkout uses fetch-depth: 0, so path history is available.
-dirty = {
-    p.decode("utf-8", errors="surrogateescape")
-    for p in git("ls-files", "-m", "-o", "--exclude-standard", "-z").split(b"\0")
-    if p
-}
-
-
-def last_changed_date(relative: str) -> str | None:
-    if relative in dirty:
-        return TODAY
-    commit_date = git("log", "-1", "--format=%cI", "--", relative).decode().strip()
-    if not commit_date:
-        return None
-    return datetime.fromisoformat(commit_date).astimezone(LONDON).date().isoformat()
-
-
-tree = ET.parse(SITEMAP)
-updated = 0
-checked = 0
-for url in tree.getroot().findall(f"{{{NS}}}url"):
-    loc = url.find(f"{{{NS}}}loc")
-    if loc is None or not loc.text:
-        continue
-    parsed = urlsplit(loc.text)
-    if parsed.scheme != "https" or parsed.netloc != SITE or not parsed.path.endswith("/"):
-        continue
-    relative = parsed.path.lstrip("/") + "index.html"
-    if not (ROOT / relative).is_file():
-        raise FileNotFoundError(f"Sitemap points to missing page: {relative}")
-    checked += 1
-    changed = last_changed_date(relative)
-    lastmod = url.find(f"{{{NS}}}lastmod")
-    if lastmod is None:
-        if not changed:
-            raise ValueError(f"Cannot determine lastmod for {relative}")
-        lastmod = ET.SubElement(url, f"{{{NS}}}lastmod")
-        lastmod.text = changed
-        updated += 1
-    elif changed and (not lastmod.text or changed > lastmod.text):
-        lastmod.text = changed
-        updated += 1
-    if not lastmod.text:
-        raise ValueError(f"Missing lastmod for {relative}")
-
-if updated:
-    tree.write(SITEMAP, encoding="utf-8", xml_declaration=True)
-print(f"Sitemap lastmod: verified {checked} pages, updated {updated}")
+old={}
+if STATE.exists():
+    old=json.loads(STATE.read_text(encoding='utf-8'))
+tree=ET.parse(SITEMAP)
+state={}
+updated=0
+total=0
+for item in tree.getroot().findall(f'{{{NS}}}url'):
+    node=item.find(f'{{{NS}}}loc')
+    if node is None or not node.text: continue
+    url=urlsplit(node.text)
+    if url.netloc!='farazansari1701.com' or not url.path.endswith('/'): continue
+    relative=url.path.lstrip('/')+'index.html'
+    target=ROOT/relative
+    if not target.is_file(): raise FileNotFoundError(relative)
+    total+=1
+    fingerprint=meaningful(target)
+    state[relative]=fingerprint
+    existing=item.find(f'{{{NS}}}lastmod')
+    if existing is None:
+        existing=ET.SubElement(item,f'{{{NS}}}lastmod')
+        existing.text=today
+        updated+=1
+    elif relative in old and old[relative]!=fingerprint and (not existing.text or existing.text<today):
+        existing.text=today
+        updated+=1
+    elif not existing.text:
+        existing.text=today
+        updated+=1
+# Preserve existing dates for all pages on first run; thereafter only content changes.
+if updated: tree.write(SITEMAP,encoding='utf-8',xml_declaration=True)
+if state!=old: STATE.write_text(json.dumps(state,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+print(f'Sitemap semantic lastmod: verified {total}, updated {updated}, fingerprints {len(state)}')

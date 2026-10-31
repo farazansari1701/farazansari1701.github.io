@@ -54,6 +54,28 @@ def card(p):
     post_class='post-card post-card--text-only' if p.get('heroDisabled') else 'post-card'
     return f'<article class="{post_class}">{picture(p)}<div><div class="eyebrow">{e(p["category"])}</div><h2><a href="{p["url"]}">{e(p["title"])}</a></h2><p>{e(p.get("deck",p["description"]))}</p><p class="small-meta">{date_label(p.get("publishedAt",p["date"]))} · {read_time(p)} minute read</p><a class="button" href="{p["url"]}">Read the article <span aria-hidden="true">↗</span></a></div></article>'
 
+def featured_writing(items):
+    """Highlight current approved posts without manually maintained links."""
+    chosen = []
+    for category in ('Personal perspectives', 'SEO, AEO and GEO', 'Marketing automation'):
+        match = next((p for p in items if p['category'] == category and p['url'] not in {c['url'] for c in chosen}), None)
+        if match:
+            chosen.append(match)
+    for p in items:
+        if len(chosen) >= 3: break
+        if p['url'] not in {c['url'] for c in chosen}: chosen.append(p)
+    cards = []
+    for p in chosen[:3]:
+        cards.append('<article class="featured-writing-card"><span class="feature-category">'+e(p['category'])
+          +'</span><h3><a href="'+e(p['url'])+'">'+e(p['title'])+'</a></h3><p>'
+          +e(p.get('deck',p['description']))+'</p><span class="feature-meta">'
+          +date_label(p.get('publishedAt',p['date']))+'</span></article>')
+    return ('<section class="featured-writing" aria-labelledby="featured-writing-title">'
+      '<div class="feature-heading"><div><p class="feature-eyebrow">An introduction to the notebook</p>'
+      '<h2 id="featured-writing-title">Featured writing</h2></div>'
+      '<p>Selected starting points across work and personal reflection.</p></div>'
+      '<div class="featured-writing-grid">'+''.join(cards)+'</div></section>')
+
 posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts), 'Duplicate article URLs'
 for source in sorted((ROOT/'blog/content').glob('*.json')):
@@ -138,8 +160,13 @@ for rel,archive_posts in archives.items():
     path=ROOT/rel;s=path.read_text()
     if rel=='blog/about/index.html':block=compact_reading_list(archive_posts)
     elif rel=='blog/topics/personal-perspectives/index.html' and not archive_posts:block=personal_notebook_start()
-    else:block='<div class="post-list">'+'\n'.join(card(p) for p in archive_posts)+'</div>'
+    else:block='<div class="post-list"'+(' id="blog-post-list"' if rel=='blog/index.html' else '')+'>'+'\n'.join(card(p) for p in archive_posts)+'</div>'
     mark=r'<!-- managed-post-cards:start -->[\s\S]*?<!-- managed-post-cards:end -->'
+    if rel=='blog/index.html':
+        if not re.search(r'<!-- managed-featured-posts:start -->[\s\S]*?<!-- managed-featured-posts:end -->',s):
+            raise ValueError('Homepage featured writing markers missing')
+        s=re.sub(r'<!-- managed-featured-posts:start -->[\s\S]*?<!-- managed-featured-posts:end -->',
+            lambda _: '<!-- managed-featured-posts:start -->'+featured_writing(archive_posts)+'<!-- managed-featured-posts:end -->',s)
     if re.search(mark,s):s=re.sub(mark,lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s)
     else:s=re.sub(r'<article class="post-card">[\s\S]*?</article>',lambda m:'<!-- managed-post-cards:start -->'+block+'<!-- managed-post-cards:end -->',s,count=1)
     count=len(archive_posts)
