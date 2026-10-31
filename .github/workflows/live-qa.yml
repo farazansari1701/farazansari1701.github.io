@@ -27,6 +27,26 @@ jobs:
           npm ci
           npm install --no-save playwright@1.56.1 @axe-core/playwright@4.11.0 lighthouse@12.8.2
           npx playwright install --with-deps chromium webkit
+      - name: Wait for the updated Projects CSS to be live
+        run: |
+          EXPECTED="$(node - <<'JS'
+          const fs=require('fs'),crypto=require('crypto'),esbuild=require('esbuild');
+          const css=esbuild.transformSync(fs.readFileSync('assets/seo-projects.css','utf8'),{
+            loader:'css',minify:true,legalComments:'none',charset:'utf8'
+          }).code;
+          console.log(crypto.createHash('sha256').update(css).digest('hex').slice(0,12));
+          JS
+          )"
+          echo "Looking for deployed Projects stylesheet hash ${EXPECTED}"
+          for attempt in $(seq 1 36); do
+            if curl -fsSL --max-time 15 "https://farazansari1701.com/projects/?qa-check=${GITHUB_SHA}" | grep -q "seo-projects.min.css?v=${EXPECTED}"; then
+              echo "Correct stylesheet is deployed."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Timed out waiting for the deployed stylesheet."
+          exit 1
       - name: Test live pages in Chromium and WebKit
         run: |
           node scripts/test-site-browser.cjs
