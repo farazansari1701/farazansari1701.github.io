@@ -6,12 +6,32 @@ const mark=home.match(/<symbol id="reg" viewBox="0 0 24 24">([\s\S]*?)<\/symbol>
 const original=home.match(/<nav class="menu" id="menu"[\s\S]*?<\/nav>\s*<\/div>\s*<\/nav>/)?.[0];
 const button=home.match(/<button class="tbtn" id="menu-btn"[\s\S]*?<\/button>/)?.[0];
 assert(mark&&original&&button,'Canonical homepage header/menu missing');
+assert.match(home, /<header class="top site-header">/, 'Homepage must adopt the shared header');
+assert.match(home, /<button class="logo brand" id="logo"/, 'Homepage logo must use shared brand classes');
+assert.match(home, /<nav class="header-links site-nav" aria-label="Blog and CV">/, 'Homepage must use shared navigation classes');
+assert.match(home, /<div class="top-actions site-head-actions">/, 'Homepage actions must use shared classes');
+assert(home.includes(mark), 'Homepage logo must contain the canonical registration-mark paths');
 const expected=original.replace(/href="#([A-Za-z][\w-]*)"/g,'href="/#$1"')
   .replace('id="menu" data-lenis-prevent','id="menu" aria-hidden="true" inert data-lenis-prevent');
 const css=fs.readFileSync(path.join(root,'assets/shared-header.css'),'utf8');
 const cssVersion=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/shared-header.min.css'))).digest('hex').slice(0,12);
 const js=fs.readFileSync(path.join(root,'assets/site-menu.js'),'utf8');
 const jsVersion=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/site-menu.min.js'))).digest('hex').slice(0,12);
+assert.equal(home.split('/assets/shared-header.min.css?v='+cssVersion).length-1,1,
+ 'Homepage must load exactly one shared header stylesheet');
+assert.equal(home.split('/assets/site-menu.min.js?v='+jsVersion).length-1,1,
+ 'Homepage must load exactly one shared menu controller');
+assert.match(home, /<nav class="menu" id="menu" aria-hidden="true" inert /,
+ 'Homepage menu must be inert before JavaScript loads');
+assert.equal((home.match(/id="menu-btn"/g)||[]).length,1,
+ 'Homepage menu trigger must not be duplicated');
+const portfolioJS=fs.readFileSync(path.join(root,'assets/portfolio.js'),'utf8');
+assert.doesNotMatch(portfolioJS,/function setMenu\(/,
+ 'Remove the redundant homepage menu controller');
+assert.match(portfolioJS,/site-menu:toggle/,
+ 'Homepage animation hooks must subscribe to the shared controller');
+assert.match(js,/site-menu:toggle/,
+ 'Shared menu must emit a state change for homepage effects');
 assert.match(css,/body>header\.site-header/);
 // All secondary pages must use the homepage's Menu button styling, not a
 // differently sized button or an old drop-down summary.

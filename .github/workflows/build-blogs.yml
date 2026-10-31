@@ -5,6 +5,8 @@ on:
     paths:
       - "**/*.html"
       - "assets/portfolio.css"
+      - "assets/portfolio.js"
+      - "assets/portfolio-responsive.js"
       - "assets/portfolio-responsive.css"
       - "assets/site-menu.js"
       - "blog/assets/footer.js"
@@ -19,6 +21,8 @@ on:
     paths:
       - "**/*.html"
       - "assets/portfolio.css"
+      - "assets/portfolio.js"
+      - "assets/portfolio-responsive.js"
       - "assets/portfolio-responsive.css"
       - "assets/site-menu.js"
       - "blog/assets/footer.js"

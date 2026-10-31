@@ -15,11 +15,19 @@ assert(build.includes('portfolioCssUrl'),'Build must preserve external CSS');
 assert.match(html,/<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">/);
 assert.match(html,/<nav class="menu" id="menu" aria-hidden="true" inert /,
  'Closed overlay must be inert before JS initialises');
-assert.match(js,/menu\.inert = false/,'Opening overlay must remove inert');
-assert.match(js,/menu\.inert = true/,'Closing overlay must restore inert');
-assert.match(js,/menuBtn\.setAttribute\('aria-expanded'/,'Menu must expose expanded state');
-assert.match(js,/e\.key === 'Escape'/,'Escape should close menu');
-assert.match(js,/e\.key === 'Tab'/,'Menu should trap keyboard focus');
+assert.match(fs.readFileSync(path.join(root,'assets/site-menu.js'),'utf8'),/site-menu:toggle/,
+ 'Shared menu controller must emit the state event');
+assert.match(js,/site-menu:toggle/,
+ 'Homepage smooth-scroll effects must subscribe to shared menu state');
+assert.doesNotMatch(js,/function setMenu\(/,
+ 'Homepage must not own an independent menu controller');
+assert.match(js,/lenis\.stop\(\)/,
+ 'Homepage must stop smooth scrolling while menu is open');
+const sharedMenu=fs.readFileSync(path.join(root,'assets/site-menu.js'),'utf8');
+assert.match(sharedMenu,/menu\.inert=!next/,'Shared menu must control inert state');
+assert.match(sharedMenu,/button\.setAttribute\('aria-expanded'/,'Shared menu must expose expanded state');
+assert.match(sharedMenu,/event\.key==='Escape'/,'Escape should close menu');
+assert.match(sharedMenu,/event\.key!=='Tab'/,'Menu should trap keyboard focus');
 assert.match(css,/@media\(max-width:390px\)/,'Narrow-screen header guard missing');
 assert.match(css,/\.top \.logo span\{[^}]*text-overflow:ellipsis/,'Brand overflow guard missing');
 assert.match(css,/\.hero-name\{[^}]*font-size:clamp\(/,'Responsive hero font missing');

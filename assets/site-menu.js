@@ -1,4 +1,4 @@
-/* Homepage-style full-screen menu on secondary pages. */
+/* One accessible full-screen menu controller for every page, including home. */
 (() => {
   'use strict';
   const menu=document.getElementById('menu');
@@ -14,6 +14,8 @@
     menu.classList.toggle('open',next);
     document.documentElement.classList.toggle('menu-open',next);
     button.setAttribute('aria-expanded',String(next));
+    // Homepage Lenis and other optional effects subscribe without duplicating control logic.
+    document.dispatchEvent(new CustomEvent('site-menu:toggle',{detail:{open:next}}));
     if(next){
       const scroll=menu.querySelector('.menu-scroll');
       if(scroll)scroll.scrollTop=0;
@@ -41,7 +43,14 @@
     }
   });
   menu.addEventListener('click',event=>{
-    if(event.target.closest?.('a[href]'))toggle(false,false);
+    const link=event.target.closest?.('a[href]');
+    if(!link)return;
+    // Retain keyboard focus on same-document anchor navigation.
+    // Other pages navigate naturally and should not regain focus on this document.
+    const samePage=link.origin===location.origin &&
+      link.pathname===location.pathname && link.search===location.search &&
+      Boolean(link.hash);
+    toggle(false,samePage);
   });
   window.addEventListener('pageshow',()=>{if(open)toggle(false,false)});
 })();

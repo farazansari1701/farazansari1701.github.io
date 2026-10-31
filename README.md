@@ -28,6 +28,7 @@ The `.github/workflows/build-blogs.yml` workflow builds and validates source cha
 ## Editorial and technical safeguards
 
 - Root `index.html` is the only canonical homepage. Do not restore `faraz-site/` or publish ZIP archives in the root.
+- The homepage and secondary pages use the same generated `assets/shared-header.css` and `assets/site-menu.js`. Edit the canonical header sources, then run the full build; avoid independent page-specific menu controllers.
 - Publish personal essays only after explicit approval; never commit private interviews or drafts.
 - Process diagrams in project pages are **editorial reconstructions**, not internal campaign screenshots, measurements or proof of results.
 - Preserve public citations, accessible navigation, consent, document links and canonical URLs.

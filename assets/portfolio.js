@@ -185,50 +185,26 @@ document.documentElement.classList.add('js');
     else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   }
 
-  /* ---- menu ---- */
-  const menu = $('#menu'), menuBtn = $('#menu-btn');
-  function setMenu(open){
-    if (!menu || !menuBtn) return;
-    // Keep the full-screen overlay out of keyboard navigation when closed.
-    if (open) {
-      menu.inert = false;
-      menu.removeAttribute('aria-hidden');
-    } else {
-      if (menu.contains(document.activeElement)) menuBtn.focus();
-      menu.setAttribute('aria-hidden', 'true');
-      menu.inert = true;
-    }
-    menu.classList.toggle('open', open);
-    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.documentElement.classList.toggle('menu-open', open);
-    if (open) $('.menu-scroll', menu).scrollTop = 0;
-    if (open) {
-      lenis && lenis.stop();
-      setTimeout(() => { const a = $('a', menu); a && a.focus(); }, 80);
-    } else {
-      lenis && lenis.start();
-      menuBtn.focus();
+  /* ---- shared site menu ----
+     site-menu.js owns focus, Escape, aria-expanded, inert and the overlay.
+     Homepage-only smooth-scrolling effects listen for its state changes. */
+  const menu = $('#menu');
+  document.addEventListener('site-menu:toggle', event => {
+    if (lenis) {
+      if (event.detail && event.detail.open) lenis.stop();
+      else lenis.start();
     }
     tick(900, .06);
-  }
-  menuBtn && menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
-  $('#menu-close') && $('#menu-close').addEventListener('click', () => setMenu(false));
-  document.addEventListener('keydown', e => {
-    if (!menu || !menu.classList.contains('open')) return;
-    if (e.key === 'Escape') setMenu(false);
-    if (e.key === 'Tab') {
-      const items = $$('a[href],button:not([disabled])', menu), first = items[0], last = items[items.length - 1];
-      if (e.shiftKey && (document.activeElement === first || !menu.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && (document.activeElement === last || !menu.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
-    }
   });
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-    const id = a.getAttribute('href'); if (id.length < 2 || a.classList.contains('skip') || a.closest('.desk') || a.id.startsWith('plain-')) return;
-    const t = document.querySelector(id); if (!t) return;
+    const id = a.getAttribute('href');
+    if (id.length < 2 || a.classList.contains('skip') || a.closest('.desk') || a.id.startsWith('plain-')) return;
+    const t = document.querySelector(id);
+    if (!t) return;
     e.preventDefault();
-    const wasMenu = menu && menu.classList.contains('open');
-    if (wasMenu) setMenu(false);
-    setTimeout(() => scrollToEl(t), wasMenu ? 350 : 0);
+    // The common controller handles overlay closure as the click bubbles.
+    const fromMenu = Boolean(a.closest('#menu'));
+    setTimeout(() => scrollToEl(t), fromMenu ? 350 : 0);
   }));
 
   /* ---- hero intro ---- */

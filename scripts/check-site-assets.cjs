@@ -61,12 +61,10 @@ for(const {file,relative} of pages){
  }
  assert(html.includes('/assets/site-footer.min.css?v='),
   relative+' missing minified footer CSS');
- if(relative!=='index.html'&&relative!=='faraz-site/index.html'){
-  assert(html.includes('/assets/shared-header.min.css?v='),
-   relative+' missing minified header CSS');
-  assert(html.includes('/assets/site-menu.min.js?v='),
-   relative+' missing minified menu JS');
- }
+ assert(html.includes('/assets/shared-header.min.css?v='),
+  relative+' missing minified shared header CSS');
+ assert(html.includes('/assets/site-menu.min.js?v='),
+  relative+' missing minified shared menu JS');
 }
 assert(references>pages.length*2,'Insufficient versioned asset references');
 console.log('PASS '+records.length+' minified assets, '+references+

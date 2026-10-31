@@ -1,9 +1,9 @@
 """Keep every page's site header visually consistent with the homepage.
 
-The homepage owns the registration mark and the CSS declarations for the fixed
-header, brand, navigation and Menu control. Page-specific link text and
-destinations are preserved; native details provides a working accessible menu
-on smaller screens without relying on JavaScript. Run after blog generation.
+The homepage owns the brand symbol and the canonical CSS design values.
+Every page (including the homepage) loads the same generated header stylesheet
+and the same menu controller, preserving page-specific top navigation links.
+Run after blog generation, before minification.
 """
 from pathlib import Path
 from hashlib import sha256
@@ -257,7 +257,7 @@ for page in sorted(ROOT.rglob("*.html")):
     relative = page.relative_to(ROOT)
     if any(part in excluded for part in relative.parts):
         continue
-    # Preserve the canonical homepage header, menu, social links and JS intact.
+    # Preserve homepage-specific content; the shared CSS/JS are attached below.
     if str(relative) == "index.html":
         continue
 
@@ -345,4 +345,29 @@ for page in sorted(ROOT.rglob("*.html")):
         changed += 1
     scanned += 1
 
-print(f"Synced homepage-style navigation across {scanned} published pages ({changed} updated).")
+# The homepage uses exactly the same generated stylesheet and accessible menu
+# controller as secondary pages. Remove earlier minified/unminified references
+# first, then inject one fresh copy of each into stable document positions.
+home_path = ROOT / "index.html"
+home_before = home_path.read_text(encoding="utf-8")
+if '<header class="top site-header">' not in home_before:
+    raise ValueError("Homepage header must use the site-header design system")
+if '<button class="logo brand" id="logo"' not in home_before:
+    raise ValueError("Homepage logo must share canonical brand classes")
+if '<nav class="header-links site-nav"' not in home_before:
+    raise ValueError("Homepage navigation must share canonical classes")
+if home_before.count("</head>") != 1 or home_before.count("</body>") != 1:
+    raise ValueError("Homepage document structure is invalid")
+home_after = old_css.sub("", home_before)
+home_after = old_js.sub("", home_after)
+home_after = home_after.replace("</head>", css_tag + "\n</head>", 1)
+home_after = home_after.replace("</body>", js_tag + "\n</body>", 1)
+if home_after.count("/assets/shared-header.css?v=") != 1:
+    raise ValueError("Homepage must load one shared header stylesheet")
+if home_after.count("/assets/site-menu.js?v=") != 1:
+    raise ValueError("Homepage must load one shared menu controller")
+if home_after != home_before:
+    home_path.write_text(home_after, encoding="utf-8")
+    changed += 1
+
+print(f"Synced common header styling and menu on {scanned + 1} published pages ({changed} updated).")
