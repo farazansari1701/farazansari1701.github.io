@@ -3,6 +3,11 @@ on:
   push:
     branches: [main]
     paths:
+      - "**/*.html"
+      - "assets/portfolio.css"
+      - "assets/portfolio-responsive.css"
+      - "blog/assets/footer.js"
+      - "package.json"
       - "blog/content/**"
       - "blog/topics/**"
       - "scripts/**"
@@ -11,6 +16,11 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - "**/*.html"
+      - "assets/portfolio.css"
+      - "assets/portfolio-responsive.css"
+      - "blog/assets/footer.js"
+      - "package.json"
       - "blog/content/**"
       - "blog/topics/**"
       - "scripts/**"
@@ -47,7 +57,7 @@ jobs:
       - name: Commit generated HTML and media
         if: github.event_name != 'pull_request'
         run: |
-          git add -A -- blog/ assets/ sitemap.xml llms.txt index.html faraz-site/index.html 404.html faraz-site/404.html site.webmanifest templates/
+          git add -A -- .
           if git diff --cached --quiet; then
             echo "No generated changes."
             exit 0

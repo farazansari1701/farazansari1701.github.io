@@ -5,8 +5,17 @@
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const year=$('#yr');if(year)year.textContent=new Date().getFullYear();
   $('#cookie-reset')?.addEventListener('click',()=>{
-    const banner=document.getElementById('blog-cookie');
-    if(banner){banner.hidden=false;banner.querySelector('button')?.focus();}
+    const banner=document.getElementById('blog-cookie')
+      || document.getElementById('cookie')
+      || document.querySelector('.cookie,[data-cookie-dialog]');
+    if(banner){
+      banner.hidden=false;
+      banner.classList?.add('show');
+      if(banner.showModal&&!banner.open)banner.showModal();
+      banner.querySelector('button')?.focus();
+    }else if(window.location){
+      window.location.href='/privacy/';
+    }
   });
   $('#to-top')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
   const fit=()=>{

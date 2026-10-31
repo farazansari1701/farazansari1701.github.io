@@ -23,8 +23,31 @@ async function check(file,mode){
 }
 (async()=>{
  const home=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<footer\b[\s\S]*?<\/footer>/)[0];
- const pages=['blog/index.html','blog/about/index.html','blog/topics/marketing-automation/index.html','blog/topics/personal-perspectives/index.html',...JSON.parse(fs.readFileSync(path.join(root,'blog/posts.json'),'utf8')).map(p=>p.url.slice(1)+'index.html')];
- for(const page of pages){const html=fs.readFileSync(path.join(root,page),'utf8');assert.equal(html.match(/<footer\b[\s\S]*?<\/footer>/)[0],home,page+' must contain the exact portfolio footer');assert(!html.includes('data-footer-art='));}
- console.log('PASS original portfolio markup, artwork, links and controls on every blog page');
- for(const file of ['blog/assets/footer.js','blog/assets/footer.min.js'])for(const mode of ['normal','reduced','blocked','optional-blocked','setup-failure'])await check(file,mode);
+ const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
+ const allPages=(dir,rel='')=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(ent=>{
+  if(ent.isDirectory()&&!excluded.has(ent.name))return allPages(path.join(dir,ent.name),path.posix.join(rel,ent.name));
+  return ent.isFile()&&ent.name.endsWith('.html')?[path.posix.join(rel,ent.name)]:[];
+ });
+ const pages=allPages(root).sort();
+ for(const page of pages){
+  const html=fs.readFileSync(path.join(root,page),'utf8');
+  const footers=[...html.matchAll(/<footer\b[\s\S]*?<\/footer>/g)];
+  assert.equal(footers.length,1,page+' must have exactly one footer');
+  assert.equal(footers[0][0],home,page+' must contain the exact homepage footer, including the SVG');
+  assert(!html.includes('data-footer-art='),page+' has a legacy footer loader');
+  assert(!html.includes('footer-skyline-dark.svg'),page+' has a static footer instead of the homepage artwork');
+  const links=html.match(/href="\/assets\/site-footer\.css\?v=[0-9a-f]{12}"/g)||[];
+  assert.equal(links.length,1,page+' must load the same generated footer stylesheet');
+  const isHome=page==='index.html'||page==='faraz-site/index.html';
+  const isBlog=page.startsWith('blog/');
+  if(!isHome&&!isBlog)assert.match(html,/src="\/assets\/site-footer\.js\?v=[0-9a-f]{12}"/,page+' missing the shared footer behaviour');
+  if(isBlog){
+   assert.match(html,/src="\/blog\/assets\/footer\.min\.js\?v=/,page+' missing blog footer behaviour');
+   assert(!html.includes('src="/assets/site-footer.js'),page+' loads duplicate footer handlers');
+  }
+ }
+ assert(fs.readFileSync(path.join(root,'assets/site-footer.css'),'utf8').includes('#footer{'));
+ assert.equal(fs.readFileSync(path.join(root,'assets/site-footer.js'),'utf8'),fs.readFileSync(path.join(root,'blog/assets/footer.js'),'utf8'));
+ console.log('PASS canonical homepage footer, CSS and behaviour on all '+pages.length+' published HTML pages');
+ for(const file of ['blog/assets/footer.js','blog/assets/footer.min.js','assets/site-footer.js'])for(const mode of ['normal','reduced','blocked','optional-blocked','setup-failure'])await check(file,mode);
 })().catch(error=>{console.error(error);process.exitCode=1;});
