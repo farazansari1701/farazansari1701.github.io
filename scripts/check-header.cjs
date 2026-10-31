@@ -35,7 +35,14 @@ assert.match(css,/body>nav#menu li a::before/);
 assert.match(css,/\.menu-scroll/);
 assert.match(css,/\.site-nav\{[^}]*gap:\s*22px\s*;\s*justify-content:flex-end/s);
 assert.match(css,/cursor:pointer!important\s*;\s*min-height:44px/s);
-assert.match(css,/body>header\.site-header\+main\{padding-top:0!important\}/);
+// The fixed header and <main> are SEPARATED by the full-screen menu <nav>.
+// Adjacent '+main' matches nothing and allows breadcrumbs to overlap the logo.
+assert.match(css,/body>header\.site-header~main\{padding-top:0!important\}/);
+assert.match(css,/body>header\.site-header~main>\.wrap>\.breadcrumbs\{[^}]*padding-top:calc\(env\(safe-area-inset-top,0px\) \+ 94px\)!important/s);
+assert.match(css,/@media\(max-width:760px\)\{[\s\S]*?body>header\.site-header~main>\.wrap>\.breadcrumbs\{padding-top:calc\(env\(safe-area-inset-top,0px\) \+ 86px\)!important\}/);
+assert.match(css,/body>header\.site-header~main>\.hero:not\(\.sec\)\{/);
+assert.match(css,/body>header\.site-header~main:not\(:has\(>\.hero,>\.wrap\)\)\{/);
+assert.doesNotMatch(css,/body>header\.site-header\+main/);
 const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
 function allHtml(dir,rel=''){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(item=>{
  const full=path.join(dir,item.name),part=path.posix.join(rel,item.name);
@@ -63,6 +70,17 @@ for(const p of allHtml(root)){
  assert(!h.includes('<details')&&!h.includes('site-menu-links'),p+' legacy dropdown remains');
  const menus=[...before.matchAll(/<nav class="menu" id="menu"[\s\S]*?<\/nav>\s*<\/div>\s*<\/nav>/g)];
  assert.equal(menus.length,1,p+' menu overlay count');
+ // Physical structure is header -> menu -> main, so all clearance rules
+ // must use the general-sibling selector. Check breadcrumb containers too.
+ const start=before.indexOf('<header class="site-header">');
+ const menuAt=before.indexOf('<nav class="menu" id="menu"');
+ assert(start>=0&&menuAt>start&&before.includes('</nav>',menuAt),p+' overlay must follow the fixed header');
+ if(/<div class="breadcrumbs">/.test(html)){
+  assert.match(html,/<main\b[^>]*>\s*<div class="wrap">\s*<div class="breadcrumbs">/,p+' blog breadcrumb is not a direct child of the primary wrapper');
+ }
+ if(/<nav class="crumb" aria-label="Breadcrumb">/.test(html)){
+  assert.match(html,/<main\b[^>]*>\s*<section class="hero"[^>]*>\s*<div class="wrap">\s*<nav class="crumb"/,p+' project breadcrumb is outside the hero');
+ }
  assert.equal(menus[0][0],expected,p+' overlay differs from homepage');
  for(const href of required[p]||[])assert(h.includes('href="'+href+'"'),p+' missing top header link '+href);
  count++;
