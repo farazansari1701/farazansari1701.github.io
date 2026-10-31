@@ -24,7 +24,9 @@ def from_homepage(selector):
     rule = re.search(expr, PORTFOLIO_CSS)
     if not rule:
         raise ValueError(f"Missing homepage CSS rule {selector}")
-    return rule.group(1).strip()
+    # Homepage rules may omit a final semicolon. Concatenating declarations
+    # without one produced "gap:22pxjustify-content" and cramped navigation.
+    return rule.group(1).strip().rstrip(";") + ";"
 
 root_css = re.search(r':root\s*\{([^{}]+)\}', PORTFOLIO_CSS)
 if not root_css:
@@ -93,8 +95,15 @@ mix-blend-mode:normal;background:#141414;color:#EDEDE9;
 }}
 body>header.site-header a:focus-visible,
 body>header.site-header summary:focus-visible{{outline:2px solid var(--cyan);outline-offset:4px}}
-/* Keep the same fixed-header clearance as the existing website. */
-body>header.site-header+main{{padding-top:76px!important}}
+/* The homepage header overlays its hero. Padding MAIN introduced a
+   contrasting 76px strip above dark case-study heroes. */
+body>header.site-header+main{{padding-top:0!important}}
+/* Blog pages: make room INSIDE the wrapper so the header overlays the page. */
+body>header.site-header+main>.wrap{{padding-top:calc(env(safe-area-inset-top,0px) + 88px)!important}}
+/* Case-study heroes extend their background behind the fixed header. */
+body>header.site-header+main>.hero:not(.sec){{padding-top:calc(env(safe-area-inset-top,0px) + 122px)!important}}
+/* Other pages (privacy and 404) keep readable top spacing. */
+body>header.site-header+main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important}}
 @media(max-width:900px){{
  body>header.site-header{{gap:12px}}
  body>header.site-header .site-head-actions{{gap:12px;flex-shrink:0}}
@@ -108,7 +117,9 @@ body>header.site-header+main{{padding-top:76px!important}}
  body>header.site-header .brand svg{{width:18px;height:18px;flex-basis:18px}}
  body>header.site-header .site-nav{{display:none}}
  body>header.site-header .site-head-actions{{gap:8px}}
- body>header.site-header+main{{padding-top:68px!important}}
+ body>header.site-header+main>.wrap{{padding-top:calc(env(safe-area-inset-top,0px) + 78px)!important}}
+ body>header.site-header+main>.hero:not(.sec){{padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}}
+ body>header.site-header+main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 80px)!important}}
  body>header.site-header .site-menu-links{{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}}
 }}
 @media(prefers-reduced-motion:reduce){{

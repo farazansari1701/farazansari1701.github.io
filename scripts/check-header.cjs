@@ -12,6 +12,15 @@ assert.match(css,/body>header\.site-header/);
 assert.match(css,/site-menu-icon/);
 assert.match(css,/@media\(max-width:760px\)/);
 assert.match(css,/mix-blend-mode:normal/);
+// Regression: missing semicolons collapsed the desktop nav links together.
+assert.match(css,/\.site-nav\{[^}]*gap:\s*22px\s*;\s*justify-content:flex-end/s);
+assert.match(css,/cursor:pointer!important\s*;\s*min-height:44px/s);
+assert.doesNotMatch(css,/22pxjustify-content|important\s*\nmin-height/);
+// Regression: padding on main created a white strip above dark case studies.
+assert.match(css,/body>header\.site-header\+main\{padding-top:0!important\}/);
+assert.match(css,/body>header\.site-header\+main>\.hero:not\(\.sec\)/);
+assert.match(css,/body>header\.site-header\+main>\.wrap/);
+assert.doesNotMatch(css,/body>header\.site-header\+main\{padding-top:76px!important\}/);
 const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
 function allHtml(dir,rel=''){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(item=>{
  const full=path.join(dir,item.name),part=path.posix.join(rel,item.name);
