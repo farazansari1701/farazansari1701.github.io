@@ -36,7 +36,7 @@ The installation checker previously missed the delayed external GTM bootstrap. T
 
 ## Portfolio responsive layer and CV
 
-`assets/portfolio-responsive.css` and `.js` provide progressive mobile disclosures at the existing 760px breakpoint. Without JavaScript all text and cards remain available. Desktop shows the complete original content; phones initially show four core skills and four featured certificates. Keep all cards and text in the original HTML. The build generates versioned minified assets for both portfolio entry points and copies the applicable footer rules to every blog page.
+`assets/portfolio-responsive.css` and `.js` provide progressive mobile disclosures at the existing 760px breakpoint. Without JavaScript all text and cards remain available. Desktop shows the complete original content; phones initially show four core skills and four featured certificates. Keep all cards and text in the original HTML. The build generates versioned minified assets for the canonical homepage and copies the applicable footer rules to every blog page.
 
 The section menu has a bounded internal scroll area and a keyboard focus loop. Mobile/tablet flight animation plays the existing boarding-pass and flight sequence once on viewport entry, without the desktop pin. Desktop retains its pinned scroll timeline. Touch rotation uses pointer capture and yields vertical gestures to page scrolling; reduced motion keeps manual rotation available without automatic spinning.
 

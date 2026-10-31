@@ -95,5 +95,5 @@ for post in posts:
     else:
         assert 1000<=post['wordCount']<=1200,post['url']+' professional word count'
 for name in ['sitemap.xml','blog/feed.xml','blog/assets/portfolio-skyline.svg']:ET.parse(ROOT/name)
-assert (ROOT/'index.html').read_bytes()==(ROOT/'faraz-site/index.html').read_bytes(),'Homepage copies differ'
+assert not (ROOT/'faraz-site').exists(), 'Legacy nested website directory must not exist'
 print(json.dumps({'status':'PASS','pages':results,'posts':len(posts)},indent=2))

@@ -44,7 +44,7 @@ update(path.join(root,'blog'));
 const measurement=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/measurement.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
 fs.writeFileSync(path.join(root,'assets/measurement.min.js'),measurement);
 const measurementUrl='/assets/measurement.min.js?v='+crypto.createHash('sha256').update(measurement).digest('hex').slice(0,12);
-for(const file of [path.join(root,'index.html'),path.join(root,'faraz-site/index.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blog'))]){
+for(const file of [path.join(root,'index.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blog'))]){
  let html=fs.readFileSync(file,'utf8');
  html=html.replace(/\/assets\/measurement\.min\.js(?:\?[^"\s<>]*)?/g,measurementUrl);
  fs.writeFileSync(file,html);
@@ -57,7 +57,7 @@ for(const ext of ['css','js']){
  const output=esbuild.transformSync(fs.readFileSync(path.join(root,'assets',source),'utf8'),{loader:ext,minify:true,target:ext==='js'?'es2020':undefined,legalComments:'none',charset:'utf8'}).code;
  fs.writeFileSync(path.join(root,'assets',name),output);
  const url='/assets/'+name+'?v='+crypto.createHash('sha256').update(output).digest('hex').slice(0,12);
- for(const file of ['index.html','faraz-site/index.html']){
+ for(const file of ['index.html']){
   const target=path.join(root,file),pattern=new RegExp('/assets/portfolio-responsive(?:\\.min)?\\.'+ext+'(?:\\?[^"\\s<>]*)?','g');
   fs.writeFileSync(target,fs.readFileSync(target,'utf8').replace(pattern,url));
  }
@@ -87,7 +87,7 @@ const faviconLinks=`<!-- Shared favicons -->
 <link rel="apple-touch-icon" sizes="180x180" href="${iconUrl('apple-touch-icon.png')}">
 <link rel="manifest" href="${iconUrl('site.webmanifest')}">
 <!-- End shared favicons -->`;
-for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),path.join(root,'faraz-site/index.html'),path.join(root,'faraz-site/404.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blog'))]){
+for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),...function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):e.name.endsWith('.html')?[path.join(dir,e.name)]:[])}(path.join(root,'blog'))]){
  let html=fs.readFileSync(file,'utf8').replace(/<script src="\/assets\/analytics\.min\.js(?:\?[^"\s<>]*)?" data-container="GTM-57BRSKXB"><\/script>\s*/g,'');
  html=html.replace(/<!-- Google consent defaults -->.*?<!-- End Google Tag Manager -->\s*/gs,'');
  html=html.replace(/(<meta charset="utf-8">)\s*/i,'$1\n'+tagHead+'\n<script src="'+analyticsUrl+'" data-container="GTM-57BRSKXB"></script>');
@@ -109,7 +109,7 @@ const portfolioCss=esbuild.transformSync(portfolio,{loader:'css',minify:true,leg
 const portfolioJs=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/portfolio.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
 fs.writeFileSync(path.join(root,'assets/portfolio.min.js'),portfolioJs);
 const portfolioJsUrl='/assets/portfolio.min.js?v='+crypto.createHash('sha256').update(portfolioJs).digest('hex').slice(0,12);
-for(const rel of ['index.html','faraz-site/index.html']){
+for(const rel of ['index.html']){
  const file=path.join(root,rel);
  let html=fs.readFileSync(file,'utf8');
  if(!/<style data-portfolio>/.test(html))throw new Error('Missing portfolio CSS build slot: '+rel);
@@ -119,7 +119,4 @@ for(const rel of ['index.html','faraz-site/index.html']){
 }
 
 
-// The deployed homepage and the legacy nested copy must be byte-identical.
-// Build both for shared assets first, then mirror the canonical root page
-// so validation and direct nested visits cannot serve stale content.
-fs.copyFileSync(path.join(root,'index.html'),path.join(root,'faraz-site/index.html'));
+// Root index.html is the canonical homepage; no mirrored build is published.

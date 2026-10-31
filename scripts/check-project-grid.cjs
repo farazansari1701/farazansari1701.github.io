@@ -13,7 +13,7 @@ assert.match(css, /@media\s*\(max-width:\s*1099px\)[\s\S]*?repeat\(2,\s*minmax\(
 assert.match(css, /@media\s*\(max-width:\s*767px\)[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)/);
 assert.match(css, /#projects\s*>\s*\.proj-grid\s*>\s*\.proj\s*\{[^}]*grid-column:\s*auto/);
 assert.doesNotMatch(css, /\.face\.back\s*\{[^}]*position:\s*absolute/);
-const pages = ['index.html', 'faraz-site/index.html'];
+const pages = ['index.html'];
 const signatures = [];
 for (const page of pages) {
   const content = fs.readFileSync(path.join(root, page), 'utf8');
@@ -31,5 +31,5 @@ for (const page of pages) {
   }
   signatures.push(primary);
 }
-assert.equal(signatures[0], signatures[1], 'The two published homepages have different primary project markup');
+assert.equal(signatures.length,1,'The canonical homepage must be the only project grid entry point');
 console.log('Project grid checks passed: 6 original cards + details preserved; both homepages use 3/2/1 responsive styling.');

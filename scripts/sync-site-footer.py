@@ -2,7 +2,7 @@
 
 Run after blog generation and asset minification. Existing pages and new project,
 blog, privacy, and other pages all receive the same source markup and footer CSS.
-The homepage remains the canonical owner; the two homepage copies must agree.
+The root homepage is the sole canonical owner.
 """
 from hashlib import sha256
 from pathlib import Path
@@ -115,7 +115,7 @@ for page in sorted(ROOT.rglob("*.html")):
         continue
     scanned += 1
     initial = page.read_text(encoding="utf-8")
-    is_home = str(relative) in ("index.html", "faraz-site/index.html")
+    is_home = str(relative) == "index.html"
     page_footer = footer if is_home else secondary_footer
     matches = list(footer_pattern.finditer(initial))
     if len(matches) == 1:
@@ -144,7 +144,4 @@ for page in sorted(ROOT.rglob("*.html")):
         page.write_text(html, encoding="utf-8")
         updated += 1
 
-mirror = ROOT / "faraz-site/index.html"
-if mirror.exists() and mirror.read_bytes() != HOME.read_bytes():
-    raise ValueError("The mirrored homepage must remain identical to index.html.")
 print(f"Synced canonical homepage footer on {scanned} HTML pages ({updated} updated).")

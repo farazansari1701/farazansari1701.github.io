@@ -41,9 +41,6 @@ for(const file of published(root)){
   after=after.replace(item.re,()=>{rewritten++;return item.url;});
  if(after!==before){fs.writeFileSync(file,after);changed++;}
 }
-if(!fs.readFileSync(path.join(root,'index.html')).equals(
- fs.readFileSync(path.join(root,'faraz-site/index.html'))))
- throw Error('Homepage mirrors diverged');
 console.log('Minified '+sources.length+' shared assets, updated '+changed
  +' pages and '+rewritten+' hashed references');
 for(const item of replacements)

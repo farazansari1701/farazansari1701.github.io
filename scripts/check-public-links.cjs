@@ -57,9 +57,7 @@ for(const old of [
 
 const pages = [...new Set([
   'index.html',
-  'faraz-site/index.html',
   '404.html',
-  'faraz-site/404.html',
   'privacy/index.html',
   ...htmlPathsIn('blog')
 ])];
@@ -82,7 +80,7 @@ for (const page of pages) {
   const refs = [...content.matchAll(/\b(?:href|src)\s*=\s*(["'])(.*?)\1/gi)]
     .map(match => match[2]);
 
-  if (page === 'index.html' || page === 'faraz-site/index.html') {
+  if (page === 'index.html') {
     for (const href of requiredHomeLinks) {
       if (!refs.includes(href)) fail(page + ' is missing primary link ' + href);
     }
@@ -148,7 +146,7 @@ for (const relative of ['blog/posts.json', 'sitemap.xml']) {
   }
 }
 
-for (const page of ['index.html', 'faraz-site/index.html']) {
+for (const page of ['index.html']) {
   const html = read(page);
   if (!html.includes('href="/assets/certificates/microsoft-advertising-certified-professional-2021.pdf"')) {
     fail(page + ' must link to the original December 2021 Microsoft certificate PDF.');

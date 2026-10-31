@@ -1,10 +1,10 @@
-"""Set approved homepage social card metadata on both mirrored homepages."""
+"""Set approved homepage social card metadata on the canonical homepage."""
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 IMAGE="https://farazansari1701.com/assets/faraz-home-social-2026.jpg"
 OLD="https://farazansari1701.com/blog/assets/marketing-journey-social.jpg"
 ALT="Faraz Ansari personal website cover illustrating his journey from Varanasi and Mussoorie through Cambridge to London, alongside digital marketing, AI and storytelling."
-for rel in ("index.html","faraz-site/index.html"):
+for rel in ("index.html",):
     path=ROOT/rel
     text=path.read_text(encoding="utf-8")
     if OLD in text:

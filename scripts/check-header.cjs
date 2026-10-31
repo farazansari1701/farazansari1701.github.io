@@ -55,7 +55,7 @@ const required={
 let count=0;
 for(const p of allHtml(root)){
  const html=fs.readFileSync(path.join(root,p),'utf8');
- if(p==='index.html'||p==='faraz-site/index.html')continue;
+ if(p==='index.html')continue;
  assert.equal(html.split('/assets/shared-header.min.css?v='+cssVersion).length-1,1,p+' CSS missing/duplicate');
  assert.equal(html.split('/assets/site-menu.min.js?v='+jsVersion).length-1,1,p+' menu JS missing/duplicate');
  const before=html.slice(0,html.indexOf('<main'));
@@ -83,5 +83,5 @@ for(const p of allHtml(root)){
  for(const href of required[p]||[])assert(h.includes('href="'+href+'"'),p+' missing top header link '+href);
  count++;
 }
-assert.equal(fs.readFileSync(path.join(root,'index.html'),'utf8'),fs.readFileSync(path.join(root,'faraz-site/index.html'),'utf8'));
+assert(!fs.existsSync(path.join(root,'faraz-site')),'Legacy site directory should not be published');
 console.log('Full-screen homepage menu verified on '+count+' secondary pages.');

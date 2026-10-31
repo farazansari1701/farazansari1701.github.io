@@ -26,5 +26,4 @@ const css = esbuild.transformSync(read('assets/portfolio.css'), {
 if (!/<style data-portfolio>/.test(html)) throw new Error('Missing portfolio CSS build slot');
 html = html.replace(/<style data-portfolio>[\s\S]*?<\/style>/, () => '<style data-portfolio>' + css + '</style>');
 write('index.html', html);
-write('faraz-site/index.html', html);
-console.log('Rebuilt portfolio assets with esbuild; mirrored the canonical homepage.');
+console.log('Rebuilt canonical portfolio homepage and minified assets with esbuild.');

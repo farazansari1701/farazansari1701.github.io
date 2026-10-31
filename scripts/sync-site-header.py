@@ -258,7 +258,7 @@ for page in sorted(ROOT.rglob("*.html")):
     if any(part in excluded for part in relative.parts):
         continue
     # Preserve the canonical homepage header, menu, social links and JS intact.
-    if str(relative) in ("index.html", "faraz-site/index.html"):
+    if str(relative) == "index.html":
         continue
 
     original = page.read_text(encoding="utf-8")
@@ -345,7 +345,4 @@ for page in sorted(ROOT.rglob("*.html")):
         changed += 1
     scanned += 1
 
-mirror = ROOT / "faraz-site/index.html"
-if mirror.exists() and mirror.read_bytes() != (ROOT/"index.html").read_bytes():
-    raise ValueError("The mirrored homepage must remain identical")
 print(f"Synced homepage-style navigation across {scanned} published pages ({changed} updated).")
