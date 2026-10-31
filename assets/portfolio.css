@@ -448,7 +448,7 @@ details > summary{ cursor:pointer; }
 .ukc{ background:var(--fg); color:var(--bg); padding:clamp(20px,2.4vw,30px); position:relative; }
 .ukc-main{ grid-row:span 2; }
 .ukc-top{ display:flex; justify-content:space-between; gap:12px; align-items:center; }
-.ukc .when{ font-size:14px; font-weight:700; color:#0089BD; }
+.ukc .when{ font-size:14px; font-weight:700; color:#00658C; }
 .pill{ font-size:12px; font-weight:700; padding:4px 10px; border:1px solid currentColor; border-radius:99px; }
 .ukc h4{ margin:16px 0 4px; font-size:clamp(26px,2.8vw,40px); line-height:1; font-weight:830; font-variation-settings:"wdth" 80; }
 .ukc .org{ display:block; font-size:15px; font-weight:650; }
@@ -1057,7 +1057,7 @@ html.dlg-open a, html.dlg-open button, html.dlg-open summary, html.dlg-open labe
 .svc-i input:focus-visible + .svc-box{ outline:2px solid var(--cyan); outline-offset:3px; }
 .svc-t b{ display:block; font-size:clamp(18px,1.6vw,22px); font-weight:800; line-height:1.15; }
 .svc-t small{ display:block; margin-top:3px; font-size:13.5px; line-height:1.4; color:color-mix(in srgb,var(--fg) 66%,transparent); }
-.svc-n{ font-size:13px; font-weight:800; color:color-mix(in srgb,var(--fg) 45%,transparent); }
+.svc-n{ font-size:13px; font-weight:800; color:color-mix(in srgb,var(--fg) 78%,transparent); }
 .svc-i:hover .svc-t b{ text-decoration:underline; text-decoration-color:var(--cyan); text-underline-offset:4px; }
 .ticket{ position:sticky; top:96px; background:#fbfaf5; color:#151515; padding:22px 22px 18px; box-shadow:0 26px 50px -28px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.08);
   --hole:radial-gradient(circle at 50% 0, transparent 7px, #fbfaf5 7.5px); }
