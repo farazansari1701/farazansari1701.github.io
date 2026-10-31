@@ -58,5 +58,11 @@ asset = svg.replace('><defs>', '><defs>', 1)
 position = asset.index('>') + 1
 asset = asset[:position] + '<style>' + palette + css + '</style>' + asset[position:]
 (ROOT/'blog/assets/portfolio-skyline.svg').write_text(asset)
+# Preserve the homepage artwork and colours on secondary project pages while
+# avoiding a large, repeated inline SVG in each page's HTML.
+fixed_dark = asset.replace('@media(prefers-color-scheme:dark){:root{--paper:#141414;--ink:#EDEDE9}}', '')
+if fixed_dark == asset:
+ raise ValueError('Expected source SVG theme rule was not found')
+(ROOT/'assets/footer-skyline-dark.svg').write_text(fixed_dark)
 (ROOT/'templates/blog-footer.html').write_text(footer+'\n')
 print('Synced portfolio footer, shared SVG artwork and styles')
