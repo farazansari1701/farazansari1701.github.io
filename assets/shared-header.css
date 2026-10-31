@@ -1,196 +1,79 @@
+/* Generated from the canonical homepage header, not another theme. */
 @font-face{font-family:Archivo;font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-roman-latin.woff2?v=f18b05b319a8) format("woff2")}
-:root{--shared-header-gutter:clamp(20px,5vw,72px);--shared-header-cyan:#00AEEF;--shared-header-magenta:#EC008C;--shared-header-ease:cubic-bezier(.2,.7,.1,1)}
-body>header.top,
-body>header.header,
-body>header.site-header,
-body>header:not([class]){
-  position:fixed!important;
-  z-index:50!important;
-  left:0!important;
-  right:0!important;
-  top:0!important;
-  width:100%!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:calc(env(safe-area-inset-top,0px) + 16px) var(--shared-header-gutter) 14px!important;
-  display:flex!important;
-  justify-content:space-between!important;
-  align-items:center!important;
-  gap:22px!important;
-  color:#fff!important;
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  mix-blend-mode:difference!important;
-  pointer-events:none!important;
-  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
+body>header.site-header{
+--gutter:clamp(20px,5vw,72px);--cyan:#00AEEF;--magenta:#EC008C;--ease:cubic-bezier(.2,.7,.1,1);
+--font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+position:fixed; z-index:50; left:0; right:0; top:0; padding:calc(env(safe-area-inset-top,0px) + 16px) var(--gutter) 14px;
+  display:flex; justify-content:space-between; align-items:center; color:#fff; mix-blend-mode:difference; pointer-events:none;
+width:100%;min-height:0;margin:0;box-sizing:border-box;flex-wrap:nowrap;gap:22px;
+background:transparent;border:0;box-shadow:none;font-family:var(--font);
 }
-body>header.top>*,
-body>header.header>*,
-body>header.site-header>*,
-body>header:not([class])>*{pointer-events:auto!important}
-body>header.header>.wrap,
-body>header:not([class])>nav{
-  width:100%!important;
-  max-width:none!important;
-  min-height:44px!important;
-  margin:0!important;
-  padding:0!important;
-  display:flex!important;
-  justify-content:space-between!important;
-  align-items:center!important;
-  gap:22px!important;
-  background:transparent!important;
-  border:0!important;
+body>header.site-header>*{pointer-events:auto}
+body>header.site-header .brand{
+display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:760; font-size:15px; letter-spacing:.01em; background:none; border:0; padding:0; cursor:pointer;
+min-height:44px;display:inline-flex;justify-content:flex-start;flex-shrink:0;
+margin:0;color:inherit;white-space:nowrap;line-height:1;
+font-family:var(--font);text-transform:none;outline-offset:3px;
 }
-body>header .brand{
-  min-height:44px!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:10px!important;
-  margin:0!important;
-  padding:0!important;
-  background:none!important;
-  border:0!important;
-  color:inherit!important;
-  text-decoration:none!important;
-  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
-  font-weight:760!important;
-  font-size:15px!important;
-  line-height:1!important;
-  letter-spacing:.01em!important;
-  text-transform:none!important;
-  white-space:nowrap!important;
-  text-shadow:none!important;
-  filter:none!important;
+body>header.site-header .brand svg{width:22px; height:22px;flex:0 0 22px;display:block}
+body>header.site-header .brand span{display:inline}
+body>header.site-header .site-head-actions{display:flex; gap:22px; align-items:center; font-size:15px;min-width:0}
+body>header.site-header .site-nav{display:flex;align-items:center;gap:22pxjustify-content:flex-end;margin:0;padding:0;border:0;background:none;min-width:0}
+body>header.site-header .site-nav a,
+body>header.site-header .site-menu-links a{
+font-size:13px;font-weight:650;text-decoration:none;white-space:nowrap;padding:8px 0;border-bottom:2px solid var(--cyan);cursor:pointer!important
+min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+margin:0;background:transparent;color:inherit;line-height:1.2;letter-spacing:0;
+font-family:var(--font);text-transform:none;
 }
-body>header .brand>svg{
-  width:22px!important;height:22px!important;flex:0 0 22px!important;display:block!important;
+body>header.site-header .site-nav a:hover,
+body>header.site-header .site-nav a:focus-visible,
+body>header.site-header .site-menu-links a:hover,
+body>header.site-header .site-menu-links a:focus-visible{border-color:var(--magenta)}
+body>header.site-header .site-nav a[aria-current="page"]{border-bottom-color:var(--cyan)}
+body>header.site-header .site-head-menu{position:relative;flex-shrink:0;color:inherit}
+body>header.site-header .site-head-menu summary{
+display:inline-flex;align-items:center;justify-content:center;gap:8px;
+min-height:44px;min-width:44px;padding:6px 0;border:0;background:none;
+font:inherit;font-size:15px;font-weight:600;color:inherit;cursor:pointer;
+list-style:none;user-select:none;
 }
-body>header .brand .mark{
-  position:relative!important;display:block!important;width:22px!important;height:22px!important;flex:0 0 22px!important;
-  border:1.6px solid currentColor!important;border-radius:50%!important;
+body>header.site-header .site-head-menu summary::-webkit-details-marker{display:none}
+body>header.site-header .site-menu-icon{display:none;width:22px;height:22px;flex:0 0 22px}
+body>header.site-header .site-head-menu[open] summary{color:var(--cyan)}
+body>header.site-header .site-menu-links{
+position:absolute;right:0;top:calc(100% + 10px);z-index:5;
+display:flex;flex-direction:column;align-items:stretch;gap:2px;
+width:max-content;min-width:210px;max-width:min(90vw,350px);
+padding:15px 20px;background:#141414;color:#EDEDE9;
+border:1px solid rgba(237,237,233,.18);border-radius:8px;
+box-shadow:0 18px 55px rgba(0,0,0,.3);
 }
-body>header .brand .mark:before,
-body>header .brand .mark:after{content:""!important;position:absolute!important;background:currentColor!important}
-body>header .brand .mark:before{width:1.5px!important;top:2px!important;bottom:2px!important;left:50%!important;transform:translateX(-50%)!important}
-body>header .brand .mark:after{height:1.5px!important;left:2px!important;right:2px!important;top:50%!important;transform:translateY(-50%)!important}
-body>header .brand:not(:has(svg)):not(:has(.mark)):before{
-  content:"";display:block;width:22px;height:22px;flex:0 0 22px;border:1.6px solid currentColor;border-radius:50%;
-  background:
-    linear-gradient(currentColor,currentColor) center/1.5px calc(100% - 4px) no-repeat,
-    linear-gradient(currentColor,currentColor) center/calc(100% - 4px) 1.5px no-repeat;
+body>header.site-header .site-menu-links a{justify-content:flex-start;white-space:normal;overflow-wrap:anywhere}
+body>header.site-header:has(.site-head-menu[open]){
+mix-blend-mode:normal;background:#141414;color:#EDEDE9;
 }
-body>header nav,
-body>header .nav,
-body>header .site-nav,
-body>header .links{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:flex-end!important;
-  gap:22px!important;
-  margin:0!important;
-  padding:0!important;
-  background:none!important;
-  border:0!important;
-  color:inherit!important;
-}
-body>header nav a,
-body>header .nav a,
-body>header .site-nav a,
-body>header .links a{
-  min-height:44px!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  margin:0!important;
-  padding:8px 0!important;
-  color:inherit!important;
-  background:none!important;
-  border:0!important;
-  border-bottom:2px solid var(--shared-header-cyan)!important;
-  text-decoration:none!important;
-  white-space:nowrap!important;
-  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
-  font-size:13px!important;
-  font-weight:650!important;
-  line-height:1!important;
-  letter-spacing:0!important;
-  text-transform:none!important;
-  opacity:1!important;
-  transition:border-color .2s ease,color .2s ease!important;
-}
-body>header nav a:hover,
-body>header nav a:focus-visible,
-body>header .nav a:hover,
-body>header .site-nav a:hover,
-body>header .links a:hover{border-color:var(--shared-header-magenta)!important;color:inherit!important}
-body>header nav a[aria-current="page"]{color:inherit!important;border-bottom-color:var(--shared-header-cyan)!important}
-body>header .socials{display:flex!important;align-items:center!important;gap:0!important}
-body>header .socials a{
-  display:grid!important;place-items:center!important;width:40px!important;height:44px!important;padding:0!important;
-  border:0!important;color:inherit!important;opacity:.9!important;transition:transform .25s var(--shared-header-ease),opacity .2s!important
-}
-body>header .socials svg{width:19px!important;height:19px!important;display:block!important}
-body>header .socials a:hover,body>header .socials a:focus-visible{opacity:1!important;transform:translateY(-2px)!important}
-body>header .socials a:focus-visible{outline:2px solid var(--shared-header-cyan)!important;outline-offset:-3px!important;border-radius:6px!important}
-/* Keep the fixed homepage-style header clear of page content. */
-body>header.top + main,
-body>header.header + main,
-body>header.site-header + main,
-body>header:not([class]) + main{padding-top:76px!important}
-body>header.top + main .breadcrumbs,
-body>header.header + main .breadcrumbs,
-body>header.site-header + main .breadcrumbs,
-body>header:not([class]) + main .breadcrumbs{
-  padding-top:28px!important;margin-top:0!important;position:relative!important;z-index:1!important;
-}
+body>header.site-header a:focus-visible,
+body>header.site-header summary:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+/* Keep the same fixed-header clearance as the existing website. */
+body>header.site-header+main{padding-top:76px!important}
 @media(max-width:900px){
-  body>header.top,
-  body>header.header,
-  body>header.site-header,
-  body>header:not([class]){gap:12px!important}
-  body>header.header>.wrap,
-  body>header:not([class])>nav{gap:12px!important}
-  body>header nav,
-  body>header .nav,
-  body>header .site-nav,
-  body>header .links{gap:16px!important;flex-shrink:0!important}
-  body>header .socials{display:none!important}
+ body>header.site-header{gap:12px}
+ body>header.site-header .site-head-actions{gap:12px;flex-shrink:0}
+ body>header.site-header .site-nav{gap:16px;flex-shrink:0}
+ body>header.site-header .site-menu-label{display:none}
+ body>header.site-header .site-menu-icon{display:block}
 }
-@media(max-width:600px){
-  body>header.top,
-  body>header.header,
-  body>header.site-header,
-  body>header:not([class]){
-    padding-left:20px!important;padding-right:20px!important;gap:8px!important;
-  }
-  body>header.header>.wrap,
-  body>header:not([class])>nav{gap:8px!important}
-  body>header .brand{font-size:clamp(13px,3.5vw,15px)!important;gap:6px!important}
-  body>header .brand>svg,
-  body>header .brand .mark,
-  body>header .brand:not(:has(svg)):not(:has(.mark)):before{
-    width:18px!important;height:18px!important;flex-basis:18px!important;
-  }
-  body>header nav,
-  body>header .nav,
-  body>header .site-nav,
-  body>header .links{gap:12px!important}
-  body>header nav a,
-  body>header .nav a,
-  body>header .site-nav a,
-  body>header .links a{font-size:12px!important}
-  body>header.top + main,
-  body>header.header + main,
-  body>header.site-header + main,
-  body>header:not([class]) + main{padding-top:68px!important}
-  body>header.top + main .breadcrumbs,
-  body>header.header + main .breadcrumbs,
-  body>header.site-header + main .breadcrumbs,
-  body>header:not([class]) + main .breadcrumbs{padding-top:20px!important}
+@media(max-width:760px){
+ body>header.site-header{gap:8px;padding-left:20px;padding-right:20px}
+ body>header.site-header .brand{font-size:clamp(13px,3.5vw,15px);gap:6px}
+ body>header.site-header .brand svg{width:18px;height:18px;flex-basis:18px}
+ body>header.site-header .site-nav{display:none}
+ body>header.site-header .site-head-actions{gap:8px}
+ body>header.site-header+main{padding-top:68px!important}
+ body>header.site-header .site-menu-links{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}
 }
 @media(prefers-reduced-motion:reduce){
-  body>header nav a,body>header .socials a{transition:none!important}
+ body>header.site-header .site-nav a,
+ body>header.site-header .site-menu-links a{transition:none}
 }
