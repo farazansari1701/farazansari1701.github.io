@@ -1,5 +1,5 @@
 @font-face{font-family:Archivo;font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-roman-latin.woff2?v=f18b05b319a8) format("woff2")}
-:root{--shared-header-gutter:clamp(20px,5vw,72px);--shared-header-cyan:#00AEEF;--shared-header-ease:cubic-bezier(.2,.7,.1,1)}
+:root{--shared-header-gutter:clamp(20px,5vw,72px);--shared-header-cyan:#00AEEF;--shared-header-magenta:#EC008C;--shared-header-ease:cubic-bezier(.2,.7,.1,1)}
 body>header.top,
 body>header.header,
 body>header.site-header,
@@ -13,13 +13,22 @@ body>header:not([class]){
   min-height:0!important;
   margin:0!important;
   padding:calc(env(safe-area-inset-top,0px) + 16px) var(--shared-header-gutter) 14px!important;
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  gap:22px!important;
+  color:#fff!important;
   background:transparent!important;
   border:0!important;
   box-shadow:none!important;
-  color:var(--ink,#fff)!important;
-  mix-blend-mode:normal!important;
+  mix-blend-mode:difference!important;
+  pointer-events:none!important;
   font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
 }
+body>header.top>*,
+body>header.header>*,
+body>header.site-header>*,
+body>header:not([class])>*{pointer-events:auto!important}
 body>header.header>.wrap,
 body>header:not([class])>nav{
   width:100%!important;
@@ -28,71 +37,47 @@ body>header:not([class])>nav{
   margin:0!important;
   padding:0!important;
   display:flex!important;
-  align-items:center!important;
   justify-content:space-between!important;
-  gap:22px!important;
-}
-body>header.top{
-  display:flex!important;
   align-items:center!important;
-  justify-content:space-between!important;
   gap:22px!important;
-}
-body>header.site-header{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:space-between!important;
-  gap:22px!important;
+  background:transparent!important;
+  border:0!important;
 }
 body>header .brand{
+  min-height:44px!important;
   display:inline-flex!important;
   align-items:center!important;
+  justify-content:center!important;
   gap:10px!important;
-  min-height:44px!important;
   margin:0!important;
   padding:0!important;
-  color:inherit!important;
   background:none!important;
   border:0!important;
+  color:inherit!important;
   text-decoration:none!important;
   font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
-  font-size:15px!important;
   font-weight:760!important;
+  font-size:15px!important;
   line-height:1!important;
   letter-spacing:.01em!important;
-  white-space:nowrap;
+  text-transform:none!important;
+  white-space:nowrap!important;
+  text-shadow:none!important;
+  filter:none!important;
 }
 body>header .brand>svg{
-  display:block!important;
-  width:22px!important;
-  height:22px!important;
-  flex:0 0 22px!important;
+  width:22px!important;height:22px!important;flex:0 0 22px!important;display:block!important;
 }
 body>header .brand .mark{
-  position:relative!important;
-  display:block!important;
-  width:22px!important;
-  height:22px!important;
-  flex:0 0 22px!important;
-  border:1.6px solid currentColor!important;
-  border-radius:50%!important;
+  position:relative!important;display:block!important;width:22px!important;height:22px!important;flex:0 0 22px!important;
+  border:1.6px solid currentColor!important;border-radius:50%!important;
 }
 body>header .brand .mark:before,
-body>header .brand .mark:after{
-  content:""!important;
-  position:absolute!important;
-  background:currentColor!important;
-}
+body>header .brand .mark:after{content:""!important;position:absolute!important;background:currentColor!important}
 body>header .brand .mark:before{width:1.5px!important;top:2px!important;bottom:2px!important;left:50%!important;transform:translateX(-50%)!important}
 body>header .brand .mark:after{height:1.5px!important;left:2px!important;right:2px!important;top:50%!important;transform:translateY(-50%)!important}
 body>header .brand:not(:has(svg)):not(:has(.mark)):before{
-  content:"";
-  display:block;
-  width:22px;
-  height:22px;
-  flex:0 0 22px;
-  border:1.6px solid currentColor;
-  border-radius:50%;
+  content:"";display:block;width:22px;height:22px;flex:0 0 22px;border:1.6px solid currentColor;border-radius:50%;
   background:
     linear-gradient(currentColor,currentColor) center/1.5px calc(100% - 4px) no-repeat,
     linear-gradient(currentColor,currentColor) center/calc(100% - 4px) 1.5px no-repeat;
@@ -109,97 +94,94 @@ body>header .links{
   padding:0!important;
   background:none!important;
   border:0!important;
+  color:inherit!important;
 }
 body>header nav a,
 body>header .nav a,
 body>header .site-nav a,
 body>header .links a{
+  min-height:44px!important;
   display:inline-flex!important;
   align-items:center!important;
   justify-content:center!important;
-  min-height:44px!important;
   margin:0!important;
-  padding:0!important;
+  padding:8px 0!important;
   color:inherit!important;
   background:none!important;
   border:0!important;
+  border-bottom:2px solid var(--shared-header-cyan)!important;
   text-decoration:none!important;
+  white-space:nowrap!important;
   font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
-  font-size:15px!important;
-  font-weight:600!important;
+  font-size:13px!important;
+  font-weight:650!important;
   line-height:1!important;
   letter-spacing:0!important;
   text-transform:none!important;
   opacity:1!important;
-  transition:color .2s ease,opacity .2s ease!important;
+  transition:border-color .2s ease,color .2s ease!important;
 }
 body>header nav a:hover,
 body>header nav a:focus-visible,
 body>header .nav a:hover,
 body>header .site-nav a:hover,
-body>header .links a:hover{color:var(--shared-header-cyan)!important}
-body>header nav a[aria-current="page"]{color:inherit!important}
-body>header nav a[aria-current="page"]:after{content:"";position:absolute;height:1px;background:currentColor;left:0;right:0;bottom:7px}
-body>header nav a[aria-current="page"]{position:relative}
-@media(max-width:900px){
-  body>header.top,
-  body>header.header,
-  body>header.site-header,
-  body>header:not([class]){padding-left:20px!important;padding-right:20px!important}
-  body>header .brand{font-size:clamp(13px,3.5vw,15px)!important;gap:6px!important}
-  body>header .brand>svg,
-  body>header .brand .mark,
-  body>header .brand:not(:has(svg)):not(:has(.mark)):before{width:18px!important;height:18px!important;flex-basis:18px!important}
-  body>header nav,
-  body>header .nav,
-  body>header .site-nav,
-  body>header .links{gap:14px!important}
-  body>header nav a,
-  body>header .nav a,
-  body>header .site-nav a,
-  body>header .links a{font-size:13px!important}
+body>header .links a:hover{border-color:var(--shared-header-magenta)!important;color:inherit!important}
+body>header nav a[aria-current="page"]{color:inherit!important;border-bottom-color:var(--shared-header-cyan)!important}
+body>header .socials{display:flex!important;align-items:center!important;gap:0!important}
+body>header .socials a{
+  display:grid!important;place-items:center!important;width:40px!important;height:44px!important;padding:0!important;
+  border:0!important;color:inherit!important;opacity:.9!important;transition:transform .25s var(--shared-header-ease),opacity .2s!important
 }
-@media(max-width:600px){
-  body>header.top,
-  body>header.header,
-  body>header.site-header,
-  body>header:not([class]){gap:10px!important}
-  body>header.header>.wrap,
-  body>header:not([class])>nav{gap:10px!important}
-  body>header nav,
-  body>header .nav,
-  body>header .site-nav,
-  body>header .links{gap:10px!important}
-}
-@media(prefers-reduced-motion:reduce){body>header nav a{transition:none!important}}
-/* Keep fixed homepage-style header clear of page content on blog/editorial templates. */
-
-/* Prevent legacy header borders/backgrounds from bleeding through. */
-body>header.site-header,body>header.header,body>header.top,body>header:not([class]){backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-
-
-/* Site-wide fixed-header clearance for all non-home templates. */
+body>header .socials svg{width:19px!important;height:19px!important;display:block!important}
+body>header .socials a:hover,body>header .socials a:focus-visible{opacity:1!important;transform:translateY(-2px)!important}
+body>header .socials a:focus-visible{outline:2px solid var(--shared-header-cyan)!important;outline-offset:-3px!important;border-radius:6px!important}
+/* Keep the fixed homepage-style header clear of page content. */
 body>header.top + main,
 body>header.header + main,
 body>header.site-header + main,
-body>header:not([class]) + main{
-  padding-top:76px!important;
-}
+body>header:not([class]) + main{padding-top:76px!important}
 body>header.top + main .breadcrumbs,
 body>header.header + main .breadcrumbs,
 body>header.site-header + main .breadcrumbs,
 body>header:not([class]) + main .breadcrumbs{
-  padding-top:28px!important;
-  margin-top:0!important;
-  position:relative!important;
-  z-index:1!important;
+  padding-top:28px!important;margin-top:0!important;position:relative!important;z-index:1!important;
 }
-body>header .brand,
-body>header .brand *{
-  text-shadow:none!important;
-  filter:none!important;
+@media(max-width:900px){
+  body>header.top,
+  body>header.header,
+  body>header.site-header,
+  body>header:not([class]){gap:12px!important}
+  body>header.header>.wrap,
+  body>header:not([class])>nav{gap:12px!important}
+  body>header nav,
+  body>header .nav,
+  body>header .site-nav,
+  body>header .links{gap:16px!important;flex-shrink:0!important}
+  body>header .socials{display:none!important}
 }
 @media(max-width:600px){
+  body>header.top,
+  body>header.header,
+  body>header.site-header,
+  body>header:not([class]){
+    padding-left:20px!important;padding-right:20px!important;gap:8px!important;
+  }
+  body>header.header>.wrap,
+  body>header:not([class])>nav{gap:8px!important}
+  body>header .brand{font-size:clamp(13px,3.5vw,15px)!important;gap:6px!important}
+  body>header .brand>svg,
+  body>header .brand .mark,
+  body>header .brand:not(:has(svg)):not(:has(.mark)):before{
+    width:18px!important;height:18px!important;flex-basis:18px!important;
+  }
+  body>header nav,
+  body>header .nav,
+  body>header .site-nav,
+  body>header .links{gap:12px!important}
+  body>header nav a,
+  body>header .nav a,
+  body>header .site-nav a,
+  body>header .links a{font-size:12px!important}
   body>header.top + main,
   body>header.header + main,
   body>header.site-header + main,
@@ -208,4 +190,7 @@ body>header .brand *{
   body>header.header + main .breadcrumbs,
   body>header.site-header + main .breadcrumbs,
   body>header:not([class]) + main .breadcrumbs{padding-top:20px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body>header nav a,body>header .socials a{transition:none!important}
 }
