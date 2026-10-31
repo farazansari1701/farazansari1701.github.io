@@ -4,9 +4,10 @@ body>header.site-header{
 --gutter:clamp(20px,5vw,72px);--cyan:#00AEEF;--magenta:#EC008C;--ease:cubic-bezier(.2,.7,.1,1);
 --font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
 position:fixed; z-index:50; left:0; right:0; top:0; padding:calc(env(safe-area-inset-top,0px) + 16px) var(--gutter) 14px;
-  display:flex; justify-content:space-between; align-items:center; color:#fff; mix-blend-mode:difference; pointer-events:none;
+  display:flex; justify-content:space-between; align-items:center; color:#F6F6F3; mix-blend-mode:normal; background:#141414; border-bottom:1px solid #383838; pointer-events:none;
 width:100%;min-height:0;margin:0;box-sizing:border-box;flex-wrap:nowrap;gap:22px;
-background:transparent;border:0;box-shadow:none;font-family:var(--font);
+background:#141414;border:0;border-bottom:1px solid #383838;box-shadow:none;
+color:#F6F6F3;mix-blend-mode:normal;isolation:isolate;font-family:var(--font);
 font-size:17px;line-height:1.55;
 }
 body>header.site-header>*{pointer-events:auto}
@@ -90,7 +91,7 @@ body>header.site-header #menu-btn .menu-icon{display:none;width:22px;height:22px
 body>header.site-header #menu-btn .menu-label{display:inline}
 body>header.site-header #menu-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 body>nav#menu{
---paper:#F6F6F3;--ink:#1A1A1A;--mute:#8C8C86;
+--paper:#F6F6F3;--ink:#1A1A1A;--mute:#60605E;
 --cyan:#00AEEF;--magenta:#EC008C;
 --gutter:clamp(20px,5vw,72px);--ease:cubic-bezier(.2,.7,.1,1);--font:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
 position:fixed; inset:0; z-index:60; background:var(--ink); color:var(--paper); display:flex; flex-direction:column; justify-content:center;
@@ -135,9 +136,9 @@ color:var(--cyan);border-color:var(--cyan);opacity:1;transform:translateY(-2px);
 body>nav#menu .socials a:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
 html.menu-open,html.menu-open body{overflow:hidden}
 @media(prefers-color-scheme:dark){
- :root:not([data-theme="light"]) body>nav#menu{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}
+ :root:not([data-theme="light"]) body>nav#menu{--paper:#141414;--ink:#EDEDE9;--mute:#B7B7B0}
 }
-:root[data-theme="dark"] body>nav#menu{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}
+:root[data-theme="dark"] body>nav#menu{--paper:#141414;--ink:#EDEDE9;--mute:#B7B7B0}
 @media(max-width:900px){
  body>header.site-header #menu-btn .menu-label{display:none;}
  body>header.site-header #menu-btn .menu-icon{display:block;}
