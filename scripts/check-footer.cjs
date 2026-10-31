@@ -40,7 +40,7 @@ for(const item of publishedHtml(root)){
  assert.equal(normalisedFooter(footers[0][0]),footerSkeleton,item+' footer structure differs from homepage');
  if(item==='index.html'||item==='faraz-site/index.html')assert.equal(footers[0][0],canonicalFoot);
  else {assert.match(footers[0][0],fallbackPattern,item+' cached skyline missing');assert.doesNotMatch(footers[0][0],skylinePattern,item+' repeated inline skyline');}
- assert.equal((html.match(/\/assets\/site-footer\.css\?v=[0-9a-f]{12}/g)||[]).length,1,item+' missing shared footer CSS');
+ assert.equal((html.match(/\/assets\/site-footer\.min\.css\?v=[0-9a-f]{12}/g)||[]).length,1,item+' missing shared footer CSS');
 }
 
 async function check(file,mode){
@@ -78,11 +78,11 @@ async function check(file,mode){
   if(page==='index.html'||page==='faraz-site/index.html')assert.equal(footers[0][0],home);
   else {assert.match(footers[0][0],fallbackPattern,page+' cached SVG fallback missing');assert.doesNotMatch(footers[0][0],skylinePattern,page+' inline artwork bloats HTML');}
   assert(!html.includes('data-footer-art='),page+' has a legacy footer loader');
-  const links=html.match(/href="\/assets\/site-footer\.css\?v=[0-9a-f]{12}"/g)||[];
+  const links=html.match(/href="\/assets\/site-footer\.min\.css\?v=[0-9a-f]{12}"/g)||[];
   assert.equal(links.length,1,page+' must load the same generated footer stylesheet');
   const isHome=page==='index.html'||page==='faraz-site/index.html';
   const isBlog=page.startsWith('blog/');
-  if(!isHome&&!isBlog)assert.match(html,/src="\/assets\/site-footer\.js\?v=[0-9a-f]{12}"/,page+' missing the shared footer behaviour');
+  if(!isHome&&!isBlog)assert.match(html,/src="\/assets\/site-footer\.min\.js\?v=[0-9a-f]{12}"/,page+' missing the shared footer behaviour');
   if(isBlog){
    assert.match(html,/src="\/blog\/assets\/footer\.min\.js\?v=/,page+' missing blog footer behaviour');
    assert(!html.includes('src="/assets/site-footer.js'),page+' loads duplicate footer handlers');

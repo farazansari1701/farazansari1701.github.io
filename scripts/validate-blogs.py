@@ -49,7 +49,7 @@ for p in htmls:
                 assert unquote(url.fragment) in pages[url.path].ids,(path,a['href'],'missing anchor')
         if tag=='img':assert 'alt' in a,(path,'missing alt')
     if path.startswith('/blog/'):
-        assert text.count('/assets/shared-header.css?') == 1, (path, 'homepage-style header CSS missing/duplicated')
+        assert text.count('/assets/shared-header.min.css?') == 1, (path, 'homepage-style header CSS missing/duplicated')
         assert re.search(r'<header class="site-header">\s*<a class="brand" href="/">\s*<svg viewBox="0 0 24 24"', text), (path, 'homepage registration mark missing')
         for asset in ['blog.min.js','footer.min.js','blog.min.css','footer.min.css']:
             assert text.count('/blog/assets/'+asset+'?')==1,(path,asset,'asset duplicate/missing')
@@ -70,7 +70,7 @@ assert about_heading and 'Faraz' in re.sub(r'<[^>]+>','',about_heading[1]) and '
 assert 'class="author-copy"' in about and 'class="author-lead"' in about, 'About personal introduction missing'
 assert 'moved to the UK in 2019' in about, 'About life context missing'
 # The About page's layout CSS is now an external asset to keep page HTML lean.
-assert about.count('href="/assets/seo-about.css?v=20261031-1"') == 1, 'About SEO stylesheet missing or duplicated'
+assert re.search(r'href="/assets/seo-about.min.css\?v=[0-9a-f]{12}"',about), 'About SEO stylesheet missing or duplicated'
 about_css = (ROOT/'assets/seo-about.css').read_text()
 assert 'grid-template-areas:"portrait heading" "portrait copy" "poems poems"' in about_css and 'class="author-heading"' in about, 'About portrait, introduction or full-width poetry layout missing'
 assert '@media(max-width:900px){.author-intro{grid-template-columns:minmax(0,1fr);grid-template-areas:"heading" "portrait" "copy" "poems"' in about_css, 'About mobile reading order missing'

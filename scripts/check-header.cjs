@@ -9,9 +9,9 @@ assert(mark&&original&&button,'Canonical homepage header/menu missing');
 const expected=original.replace(/href="#([A-Za-z][\w-]*)"/g,'href="/#$1"')
   .replace('id="menu" data-lenis-prevent','id="menu" aria-hidden="true" inert data-lenis-prevent');
 const css=fs.readFileSync(path.join(root,'assets/shared-header.css'),'utf8');
-const cssVersion=crypto.createHash('sha256').update(css).digest('hex').slice(0,12);
+const cssVersion=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/shared-header.min.css'))).digest('hex').slice(0,12);
 const js=fs.readFileSync(path.join(root,'assets/site-menu.js'),'utf8');
-const jsVersion=crypto.createHash('sha256').update(js).digest('hex').slice(0,12);
+const jsVersion=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/site-menu.min.js'))).digest('hex').slice(0,12);
 assert.match(css,/body>header\.site-header/);
 // All secondary pages must use the homepage's Menu button styling, not a
 // differently sized button or an old drop-down summary.
@@ -56,8 +56,8 @@ let count=0;
 for(const p of allHtml(root)){
  const html=fs.readFileSync(path.join(root,p),'utf8');
  if(p==='index.html'||p==='faraz-site/index.html')continue;
- assert.equal(html.split('/assets/shared-header.css?v='+cssVersion).length-1,1,p+' CSS missing/duplicate');
- assert.equal(html.split('/assets/site-menu.js?v='+jsVersion).length-1,1,p+' menu JS missing/duplicate');
+ assert.equal(html.split('/assets/shared-header.min.css?v='+cssVersion).length-1,1,p+' CSS missing/duplicate');
+ assert.equal(html.split('/assets/site-menu.min.js?v='+jsVersion).length-1,1,p+' menu JS missing/duplicate');
  const before=html.slice(0,html.indexOf('<main'));
  const headers=[...before.matchAll(/<header class="site-header">[\s\S]*?<\/header>/g)];
  assert.equal(headers.length,1,p+' site header count');
