@@ -4,6 +4,11 @@ const root=path.resolve(__dirname,'..');
 const canonicalHome=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const canonicalFoot=canonicalHome.match(/<footer\b[^>]*>[\s\S]*?<\/footer>/)?.[0];
 assert(canonicalFoot && canonicalFoot.includes('<svg class="skyline sky3"'),'Canonical homepage footer artwork missing');
+// Legacy Projects CSS once forced the canonical mobile footer into a vertical
+// column. All footer layout must come from the shared homepage stylesheet.
+const projectTheme=fs.readFileSync(path.join(root,'assets/seo-projects.css'),'utf8');
+assert.doesNotMatch(projectTheme,/\.foot(?:-row|-nav)?\b/, 'Projects page contains legacy footer layout overrides');
+
 
 function element(){const values=new Map(),classes=new Set();return {listeners:{},style:{getPropertyValue:k=>values.get(k)||'',setProperty:(k,v)=>values.set(k,v),removeProperty:k=>values.delete(k)},classList:{add:k=>classes.add(k),remove:k=>classes.delete(k),contains:k=>classes.has(k)},addEventListener(k,f){this.listeners[k]=f;},focus(){this.focused=true;},getBoundingClientRect:()=>({width:1800}),clientWidth:390,scrollWidth:390};}
 // Every published HTML file, including 404s and new blog pages, must retain the
