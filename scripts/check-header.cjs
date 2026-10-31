@@ -41,7 +41,7 @@ assert.match(css,/body>header\.site-header~main\{padding-top:0!important\}/);
 assert.match(css,/body>main>\.wrap>\.breadcrumbs\{/);
 assert.match(css,/body>header\.site-header~main>\.hero:not\(\.sec\)\{/);
 assert.doesNotMatch(css,/body>header\.site-header\+main/);
-const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
+const excluded=new Set(['.git','node_modules','templates','blogs','.venv','venv']);
 function allHtml(dir,rel=''){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(item=>{
  const full=path.join(dir,item.name),part=path.posix.join(rel,item.name);
  return item.isDirectory()&&!excluded.has(item.name)?allHtml(full,part):item.isFile()&&item.name.endsWith('.html')?[part]:[];

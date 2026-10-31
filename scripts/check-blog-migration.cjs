@@ -13,7 +13,9 @@ for(const file of pages){
  }
 
 }
-assert(!fs.existsSync(path.join(root,'blogs')),'The old plural directory must not exist');
+const aliases=new Map([['blogs/index.html','/blog/'],['blogs/about/index.html','/blog/about/'],['blogs/hubspot-marketing-automation-lessons-oki/index.html','/blog/hubspot-marketing-automation-lessons-oki/'],['blogs/topics/marketing-automation/index.html','/blog/topics/marketing-automation/']]);
+assert.deepEqual(walk(path.join(root,'blogs')).filter(p=>p.endsWith('.html')).map(p=>path.relative(root,p).split(path.sep).join('/')).sort(),[...aliases.keys()].sort());
+for(const [file,to] of aliases){const html=fs.readFileSync(path.join(root,file),'utf8');assert(html.includes('content="0;url='+BASE+to+'"'));assert(html.includes('href="'+BASE+to+'"'));}
 const posts=JSON.parse(fs.readFileSync(path.join(root,'blog/posts.json'),'utf8'));assert(posts.every(p=>p.url.startsWith('/blog/')));
 assert(!fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').includes('/blogs/'));
 assert(!fs.readFileSync(path.join(root,'llms.txt'),'utf8').includes('/blogs/'));

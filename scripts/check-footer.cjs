@@ -25,7 +25,7 @@ assert.doesNotMatch(projectTheme,/\.foot(?:-row|-nav)?\b/, 'Projects page contai
 function element(){const values=new Map(),classes=new Set();return {listeners:{},style:{getPropertyValue:k=>values.get(k)||'',setProperty:(k,v)=>values.set(k,v),removeProperty:k=>values.delete(k)},classList:{add:k=>classes.add(k),remove:k=>classes.delete(k),contains:k=>classes.has(k)},addEventListener(k,f){this.listeners[k]=f;},focus(){this.focused=true;},getBoundingClientRect:()=>({width:1800}),clientWidth:390,scrollWidth:390};}
 // Every published HTML file, including 404s and new blog pages, must retain the
 // exact homepage footer markup, not an equivalent-looking but divergent copy.
-const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
+const excluded=new Set(['.git','node_modules','templates','blogs','.venv','venv']);
 function publishedHtml(dir,relative=''){
  return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>{
   const next=path.join(dir,entry.name),r=path.posix.join(relative,entry.name);
@@ -64,7 +64,7 @@ async function check(file,mode){
 }
 (async()=>{
  const home=fs.readFileSync(path.join(root,'index.html'),'utf8').match(/<footer\b[\s\S]*?<\/footer>/)[0];
- const excluded=new Set(['.git','node_modules','templates','.venv','venv']);
+ const excluded=new Set(['.git','node_modules','templates','blogs','.venv','venv']);
  const allPages=(dir,rel='')=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(ent=>{
   if(ent.isDirectory()&&!excluded.has(ent.name))return allPages(path.join(dir,ent.name),path.posix.join(rel,ent.name));
   return ent.isFile()&&ent.name.endsWith('.html')?[path.posix.join(rel,ent.name)]:[];

@@ -32,9 +32,10 @@ function htmlPathsIn(relative) {
   return found;
 }
 
-if (fs.existsSync(rootPath('blogs'))) {
-  fail('The removed legacy /blogs/ directory has been recreated.');
-}
+const aliases=new Map([['blogs/index.html','/blog/'],['blogs/about/index.html','/blog/about/'],['blogs/hubspot-marketing-automation-lessons-oki/index.html','/blog/hubspot-marketing-automation-lessons-oki/'],['blogs/topics/marketing-automation/index.html','/blog/topics/marketing-automation/']]);
+const found=htmlPathsIn('blogs').sort();
+if(JSON.stringify(found)!==JSON.stringify([...aliases.keys()].sort()))fail('Unexpected plural blog aliases');
+for(const [file,target] of aliases){const html=read(file),dest='https://farazansari1701.com'+target;if(!html.includes('content="0;url='+dest+'"')||!html.includes('href="'+dest+'"')||!html.includes('noindex,follow'))fail('Invalid redirect '+file);}
 
 const pages = [...new Set([
   'index.html',

@@ -250,7 +250,7 @@ def extract_navigation(site_header):
     label = re.search(r'\baria-label\s*=\s*"([^"]+)"', original_nav.group().split(">", 1)[0], re.I)
     return links, (label.group(1) if label else "Main navigation")
 
-excluded = {".git", "node_modules", "templates", ".venv", "venv"}
+excluded = {".git", "node_modules", "templates", "blogs", ".venv", "venv"}
 changed = 0
 scanned = 0
 for page in sorted(ROOT.rglob("*.html")):
