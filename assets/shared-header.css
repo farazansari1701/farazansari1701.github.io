@@ -36,8 +36,16 @@ body>header.site-header a:focus-visible{outline:2px solid var(--cyan);outline-of
    sits between the site header and <main> on secondary pages, so '+main'
    does not match. The general sibling selector deliberately includes it. */
 body>header.site-header~main{padding-top:0!important}
-/* Breadcrumbs are now given reliable in-flow space in generated HTML.
-   This rule also works for new pages before the next publishing run. */
+/* The homepage deliberately has a hero behind the fixed header. Secondary
+   blog and article pages instead need real, safe-area-aware flow clearance;
+   leaving the offset at zero clipped the Blog eyebrow on iPhone Safari. */
+body>header.site-header:not(.top)~main>.wrap{
+padding-top:calc(env(safe-area-inset-top,0px) + 92px)!important;
+}
+/* Anchored sections must also clear the fixed header on notched phones. */
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 98px)}
+/* Breadcrumbs are given a modest local gap *after* the shared header
+   clearance, not an independent hard-coded header offset. */
 body>main>.wrap>.breadcrumbs{
 position:relative;padding-top:16px!important;
 }
@@ -60,6 +68,9 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
 @media(max-width:760px){
  /* Keep Blog and CV accessible in the mobile header at 320px and above. */
  body>header.site-header{gap:6px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+ /* On the Projects index the hero has a dark full-bleed background; move its
+    contents, not the background, below the iPhone safe-area and fixed nav. */
+ body>header.site-header:not(.top)~main>.hero.sec{padding-top:calc(env(safe-area-inset-top,0px) + 112px)!important}
  body>header.site-header .brand{font-size:clamp(12px,3.5vw,15px);gap:6px;min-width:0;flex:0 1 auto}
  body>header.site-header .brand span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
  body>header.site-header .brand svg{width:18px;height:18px;flex-basis:18px}
@@ -69,7 +80,7 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
  body>header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]{display:inline-flex}
  body>header.site-header .site-head-actions{gap:6px;flex-shrink:0}
  body>header.site-header~main>.hero:not(.sec){padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}
- body>header.site-header~main:not(:has(>.hero,>.wrap)){padding-top:calc(env(safe-area-inset-top,0px) + 80px)!important}
+ body>header.site-header~main:not(:has(>.hero,>.wrap)){padding-top:calc(env(safe-area-inset-top,0px) + 94px)!important}
  body>header.site-header .site-menu-links{right:0;min-width:min(260px,calc(100vw - 40px));max-width:calc(100vw - 40px)}
 }
 @media(prefers-reduced-motion:reduce){
