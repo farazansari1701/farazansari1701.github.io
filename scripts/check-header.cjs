@@ -13,6 +13,21 @@ const cssVersion=crypto.createHash('sha256').update(css).digest('hex').slice(0,1
 const js=fs.readFileSync(path.join(root,'assets/site-menu.js'),'utf8');
 const jsVersion=crypto.createHash('sha256').update(js).digest('hex').slice(0,12);
 assert.match(css,/body>header\.site-header/);
+// All secondary pages must use the homepage's Menu button styling, not a
+// differently sized button or an old drop-down summary.
+const homepageCSS=fs.readFileSync(path.join(root,'assets/portfolio.css'),'utf8');
+const homepageButtonRule=homepageCSS.match(/\.tbtn\s*\{([^{}]+)\}/)?.[1]?.trim();
+const secondaryButtonRule=css.match(/body>header\.site-header #menu-btn\.tbtn\{([^{}]+)\}/)?.[1]||'';
+assert(homepageButtonRule&&secondaryButtonRule,'Homepage or shared Menu button CSS missing');
+for(const declaration of homepageButtonRule.split(';').map(s=>s.trim()).filter(Boolean))
+ assert(secondaryButtonRule.includes(declaration), 'Menu button diverged from homepage: '+declaration);
+assert.match(secondaryButtonRule,/min-width:44px;min-height:44px/);
+assert.match(secondaryButtonRule,/font:inherit;font-weight:600/);
+assert.doesNotMatch(secondaryButtonRule,/font:600 15px\/1/);
+assert.match(css,/body>header\.site-header #menu-btn \.menu-label\{display:inline\}/);
+assert.match(css,/body>header\.site-header #menu-btn \.menu-icon\{display:none;\s*width:22px;\s*height:22px/);
+assert.match(css,/@media\(max-width:900px\)\{[\s\S]*?body>header\.site-header #menu-btn \.menu-label\{display:none;\}[\s\S]*?body>header\.site-header #menu-btn \.menu-icon\{display:block;\}/);
+assert.doesNotMatch(css,/body>header\.site-header \.site-head-menu|body>header\.site-header \.site-menu-links/);
 assert.match(css,/body>nav#menu\{/);
 assert.match(css,/body>nav#menu\.open\{/);
 assert.match(css,/body>nav#menu li a::before/);
@@ -43,6 +58,7 @@ for(const p of allHtml(root)){
  const h=headers[0][0];
  assert(h.includes(mark),p+' wrong logo');
  assert(h.includes(button),p+' wrong menu button');
+ assert.equal((h.match(/id="menu-btn"/g)||[]).length,1,p+' menu trigger duplicated');
  assert(!h.includes('<details')&&!h.includes('site-menu-links'),p+' legacy dropdown remains');
  const menus=[...before.matchAll(/<nav class="menu" id="menu"[\s\S]*?<\/nav>\s*<\/div>\s*<\/nav>/g)];
  assert.equal(menus.length,1,p+' menu overlay count');

@@ -58,6 +58,7 @@ body>header.site-header{{
 {from_homepage(".top")}
 width:100%;min-height:0;margin:0;box-sizing:border-box;flex-wrap:nowrap;gap:22px;
 background:transparent;border:0;box-shadow:none;font-family:var(--font);
+font-size:17px;line-height:1.55;
 }}
 body>header.site-header>*{{pointer-events:auto}}
 body>header.site-header .brand{{
@@ -82,30 +83,7 @@ body>header.site-header .site-nav a:focus-visible,
 body>header.site-header .site-menu-links a:hover,
 body>header.site-header .site-menu-links a:focus-visible{{{from_homepage(".blog-nav:hover")}}}
 body>header.site-header .site-nav a[aria-current="page"]{{border-bottom-color:var(--cyan)}}
-body>header.site-header .site-head-menu{{position:relative;flex-shrink:0;color:inherit}}
-body>header.site-header .site-head-menu summary{{
-display:inline-flex;align-items:center;justify-content:center;gap:8px;
-min-height:44px;min-width:44px;padding:6px 0;border:0;background:none;
-font:inherit;font-size:15px;font-weight:600;color:inherit;cursor:pointer;
-list-style:none;user-select:none;
-}}
-body>header.site-header .site-head-menu summary::-webkit-details-marker{{display:none}}
-body>header.site-header .site-menu-icon{{display:none;width:22px;height:22px;flex:0 0 22px}}
-body>header.site-header .site-head-menu[open] summary{{color:var(--cyan)}}
-body>header.site-header .site-menu-links{{
-position:absolute;right:0;top:calc(100% + 10px);z-index:5;
-display:flex;flex-direction:column;align-items:stretch;gap:2px;
-width:max-content;min-width:210px;max-width:min(90vw,350px);
-padding:15px 20px;background:#141414;color:#EDEDE9;
-border:1px solid rgba(237,237,233,.18);border-radius:8px;
-box-shadow:0 18px 55px rgba(0,0,0,.3);
-}}
-body>header.site-header .site-menu-links a{{justify-content:flex-start;white-space:normal;overflow-wrap:anywhere}}
-body>header.site-header:has(.site-head-menu[open]){{
-mix-blend-mode:normal;background:#141414;color:#EDEDE9;
-}}
-body>header.site-header a:focus-visible,
-body>header.site-header summary:focus-visible{{outline:2px solid var(--cyan);outline-offset:4px}}
+body>header.site-header a:focus-visible{{outline:2px solid var(--cyan);outline-offset:3px}}
 /* The homepage header overlays its hero. Padding MAIN introduced a
    contrasting 76px strip above dark case-study heroes. */
 body>header.site-header+main{{padding-top:0!important}}
@@ -142,15 +120,22 @@ body>header.site-header+main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe
 # The homepage menu is full-screen, scrollable and numbered, not a dropdown.
 # Reuse the original homepage rules and theme colours across every page.
 css += f'''
-body>header.site-header .tbtn{{
+/* Copy the homepage Menu button's actual CSS declarations.
+   Its 15px type comes from .top-actions, like the homepage, not a separate
+   hard-coded button font. Focus remains visible for keyboard users. */
+body>header.site-header #menu-btn.tbtn{{
 {from_homepage(".tbtn")}
-min-height:44px;display:inline-flex;align-items:center;justify-content:center;
-margin:0;padding:6px 0;gap:8px;color:inherit;font:600 15px/1 var(--font);
-white-space:nowrap;
+min-width:44px;min-height:44px;display:inline-flex;
+align-items:center;justify-content:center;
+margin:0;padding:6px 0;color:inherit;
+font:inherit;font-weight:600;line-height:inherit;
+appearance:none;-webkit-appearance:none;
+border-radius:0;box-shadow:none;text-decoration:none;
+white-space:nowrap;flex-shrink:0;
 }}
-body>header.site-header .tbtn .menu-icon{{display:none;width:22px;height:22px;flex:none}}
-body>header.site-header .tbtn .menu-label{{display:inline}}
-body>header.site-header .tbtn:focus-visible{{outline:2px solid var(--cyan);outline-offset:4px}}
+body>header.site-header #menu-btn .menu-icon{{{from_homepage(".menu-icon")}flex:none}}
+body>header.site-header #menu-btn .menu-label{{display:inline}}
+body>header.site-header #menu-btn:focus-visible{{outline:2px solid var(--cyan);outline-offset:3px}}
 body>nav#menu{{
 --paper:#F6F6F3;--ink:#1A1A1A;--mute:#8C8C86;
 --cyan:{token("cyan")};--magenta:{token("magenta")};
@@ -199,8 +184,8 @@ html.menu-open,html.menu-open body{{overflow:hidden}}
 }}
 :root[data-theme="dark"] body>nav#menu{{--paper:#141414;--ink:#EDEDE9;--mute:#77776F}}
 @media(max-width:900px){{
- body>header.site-header .tbtn .menu-label{{display:none}}
- body>header.site-header .tbtn .menu-icon{{display:block}}
+ body>header.site-header #menu-btn .menu-label{{{from_homepage(".top .menu-label")}}}
+ body>header.site-header #menu-btn .menu-icon{{{from_homepage(".top .menu-icon")}}}
 }}
 @media(max-width:760px){{
  body>nav#menu{{padding-top:calc(env(safe-area-inset-top,0px) + 70px);padding-bottom:24px}}
