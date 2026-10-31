@@ -6,6 +6,10 @@ on:
       - '.github/workflows/live-qa.yml'
       - 'scripts/test-site-browser.cjs'
       - 'scripts/report-lighthouse.cjs'
+      - 'assets/seo-*.css'
+      - 'assets/portfolio.css'
+      - 'assets/portfolio-responsive.css'
+      - 'index.html'
   workflow_dispatch:
 permissions:
   contents: read
