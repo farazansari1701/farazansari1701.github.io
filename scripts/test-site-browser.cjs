@@ -76,6 +76,7 @@ async function main(){
         click('https://calendly.com/example/consultation');
         click('/assets/Faraz-Ansari-CV.pdf');
         click('mailto:hello@example.com');
+        window.dispatchEvent(new MessageEvent('message',{origin:'https://calendly.com',data:{event:'calendly.event_scheduled'}}));
         const before=events();
         localStorage.setItem('fa-consent','granted');
         window.farazAnalytics?.applyConsent('granted');
@@ -84,16 +85,20 @@ async function main(){
         click('https://calendly.com/example/consultation');
         click('/assets/Faraz-Ansari-CV.pdf');
         click('mailto:hello@example.com');
+        window.dispatchEvent(new MessageEvent('message',{origin:'https://fake.example',data:{event:'calendly.event_scheduled'}}));
+        const afterSpoof=events();
+        window.dispatchEvent(new MessageEvent('message',{origin:'https://calendly.com',data:{event:'calendly.event_scheduled'}}));
         const after=events();
         if(previous===null)localStorage.removeItem('fa-consent');
         else localStorage.setItem('fa-consent',previous);
         window.farazAnalytics?.applyConsent(previous);
         window.gtag=gtag;
-        return {before,after};
+        return {before,after,afterSpoof};
       });
       record.analyticsAudit=audit;
+      if(audit.afterSpoof.includes('booking_confirmed'))record.problems.push('Untrusted Calendly message accepted');
       if(audit.before.length)record.problems.push('Tracking events fired without consent: '+audit.before.join(','));
-      for(const name of ['project_click','booking_intent','cv_open','contact_click']){
+      for(const name of ['project_click','booking_intent','booking_confirmed','cv_open','contact_click']){
         if(!audit.after.includes(name))record.problems.push('Consented analytics event missing: '+name);
       }
     }
