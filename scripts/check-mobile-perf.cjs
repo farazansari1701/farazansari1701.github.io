@@ -28,7 +28,9 @@ assert.match(sharedMenu,/menu\.inert=!next/,'Shared menu must control inert stat
 assert.match(sharedMenu,/button\.setAttribute\('aria-expanded'/,'Shared menu must expose expanded state');
 assert.match(sharedMenu,/event\.key==='Escape'/,'Escape should close menu');
 assert.match(sharedMenu,/event\.key!=='Tab'/,'Menu should trap keyboard focus');
-assert.match(css,/@media\(max-width:390px\)/,'Narrow-screen header guard missing');
+assert.match(css,/@media\(max-width:760px\)/,'Responsive mobile rules missing');
+assert.match(css,/\.top \.header-links a\{[^}]*display:inline-flex/,'Mobile navigation links must remain visible');
+assert.doesNotMatch(css,/\.top \.header-links a\[href="\/blog\/"\]\s*\{\s*display:none/,'Do not hide Blog at narrow widths');
 assert.match(css,/\.top \.logo span\{[^}]*text-overflow:ellipsis/,'Brand overflow guard missing');
 assert.match(css,/\.hero-name\{[^}]*font-size:clamp\(/,'Responsive hero font missing');
 assert.match(css,/prefers-reduced-motion:reduce/,'Reduced-motion CSS missing');
