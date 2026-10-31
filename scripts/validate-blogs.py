@@ -49,6 +49,8 @@ for p in htmls:
                 assert unquote(url.fragment) in pages[url.path].ids,(path,a['href'],'missing anchor')
         if tag=='img':assert 'alt' in a,(path,'missing alt')
     if path.startswith('/blog/'):
+        assert text.count('/assets/shared-header.css?') == 1, (path, 'homepage-style header CSS missing/duplicated')
+        assert re.search(r'<header class="site-header">\s*<a class="brand" href="/">\s*<svg viewBox="0 0 24 24"', text), (path, 'homepage registration mark missing')
         for asset in ['blog.min.js','footer.min.js','blog.min.css','footer.min.css']:
             assert text.count('/blog/assets/'+asset+'?')==1,(path,asset,'asset duplicate/missing')
         footer_svg=re.search(r'<svg class="skyline sky3"[\s\S]*?</svg>',text)
