@@ -16,8 +16,8 @@ body>header:not([class]){
   background:transparent!important;
   border:0!important;
   box-shadow:none!important;
-  color:#fff!important;
-  mix-blend-mode:difference;
+  color:var(--ink,#fff)!important;
+  mix-blend-mode:normal!important;
   font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif!important;
 }
 body>header.header>.wrap,
@@ -172,3 +172,9 @@ body>header nav a[aria-current="page"]{position:relative}
   body>header .links{gap:10px!important}
 }
 @media(prefers-reduced-motion:reduce){body>header nav a{transition:none!important}}
+/* Keep fixed homepage-style header clear of page content on blog/editorial templates. */
+body>header.site-header+main{padding-top:76px!important}
+body>header:not([class])+main{padding-top:76px!important}
+/* Prevent legacy header borders/backgrounds from bleeding through. */
+body>header.site-header,body>header.header,body>header.top,body>header:not([class]){backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+@media(max-width:600px){body>header.site-header+main,body>header:not([class])+main{padding-top:68px!important}}
