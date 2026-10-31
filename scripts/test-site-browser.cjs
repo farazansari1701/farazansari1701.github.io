@@ -56,7 +56,8 @@ async function main(){
       });
       return {viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,
         header:rect('header.site-header,header.top'),logo:rect('header.site-header .brand,header.top .logo'),menuButton:rect('#menu-btn'),
-        blogLink:rect('header.site-header .site-nav a[href="/blog/"]'),cvLink:rect('header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]'),
+        blogLink:rect('header.site-header .site-nav-mobile a[href="/blog/"]'),cvLink:rect('header.site-header .site-nav-mobile a[href*="Faraz-Ansari-CV.pdf"]'),
+        desktopNav:rect('header.site-header .site-nav'),mobileNav:rect('header.site-header .site-nav-mobile'),
         heroTitle:rect('.hero-name,main h1'),main:rect('main'),
         firstContent:rect('main>.wrap>.breadcrumbs,main>.wrap>.index-hero>.eyebrow,main>.hero:not(.sec) .crumb,main>.hero.sec .chapter,main>.hero.sec .hero-meta,main>.kicker,main.page .code'),
         badAboveFoldImages:imgs.filter(x=>x.complete&&x.naturalWidth===0).map(x=>x.currentSrc||x.src).slice(0,12),
@@ -78,6 +79,10 @@ async function main(){
     if(h&&first&&first.display!=='none'&&first.visibility!=='hidden'&&first.top<h.bottom+6)
       record.problems.push('Fixed header overlaps first content ('+first.top+' < '+h.bottom+' + 6)');
     if(conf.mobile){
+      if(!layout.mobileNav||layout.mobileNav.display==='none')
+        record.problems.push('Standard mobile nav is missing or hidden');
+      if(layout.desktopNav&&layout.desktopNav.display!=='none')
+        record.problems.push('Desktop nav is visible beside mobile nav');
       const b=layout.blogLink,c=layout.cvLink;
       if(!b||b.display==='none'||b.visibility==='hidden'||b.width<20)
         record.problems.push('Blog is hidden from the mobile header');
@@ -86,8 +91,14 @@ async function main(){
         if(b.right>m.left+1)record.problems.push('Blog overlaps Menu button');
         if(b.right>conf.width+2)record.problems.push('Blog extends beyond viewport');
       }
+      if(!c||c.display==='none'||c.visibility==='hidden'||c.width<20)
+        record.problems.push('View CV is hidden from the mobile header');
       if(c&&c.display!=='none'&&c.width>0&&b&&b.width>0&&c.left<b.right-1)
         record.problems.push('Blog and View CV overlap');
+      if(c&&m&&c.right>m.left+1)record.problems.push('View CV overlaps Menu button');
+    }else{
+      if(layout.mobileNav&&layout.mobileNav.display!=='none')
+        record.problems.push('Mobile nav is visible on desktop');
     }
     if(layout.badAboveFoldImages.length)record.problems.push('Broken above-fold images: '+layout.badAboveFoldImages.join('; '));
     // Exercise real consent handlers and click instrumentation without

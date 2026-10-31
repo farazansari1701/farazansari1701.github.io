@@ -25,6 +25,14 @@ home_button = re.search(r'<button class="tbtn" id="menu-btn"[\s\S]*?</button>', 
 if not home_menu or not home_button:
     raise ValueError("The homepage menu or toggle is missing")
 menu_button = home_button.group()
+# Identical, compact navigation on every mobile page. Desktop page links
+# remain untouched; the mobile labels never vary by template.
+mobile_nav = ('<nav class="site-nav-mobile" aria-label="Mobile navigation">'
+              '<a href="/blog/">Blog</a>'
+              '<a href="/assets/Faraz-Ansari-CV.pdf" target="_blank" rel="noopener" '
+              'aria-label="View CV (PDF, opens in a new tab)">View CV</a>'
+              '</nav>')
+mobile_nav_pattern = re.compile(r'<nav class="site-nav-mobile"[^>]*>[\s\S]*?</nav>\s*', re.I)
 menu_html = re.sub(r'href="#([A-Za-z][\w-]*)"', r'href="/#\1"', home_menu.group())
 menu_html = menu_html.replace('id="menu" data-lenis-prevent', 'id="menu" aria-hidden="true" inert data-lenis-prevent', 1)
 assert menu_html.count('id="menu"') == menu_html.count('id="menu-close"') == 1
@@ -72,7 +80,9 @@ body>header.site-header .brand svg{{{from_homepage(".logo svg")}flex:0 0 22px;di
 body>header.site-header .brand span{{display:inline}}
 body>header.site-header .site-head-actions{{{from_homepage(".top-actions")}min-width:0}}
 body>header.site-header .site-nav{{{from_homepage(".header-links")}justify-content:flex-end;margin:0;padding:0;border:0;background:none;min-width:0}}
+body>header.site-header .site-nav-mobile{{display:none;align-items:center;gap:10px;justify-content:flex-end;margin:0;padding:0;border:0;background:none;min-width:0}}
 body>header.site-header .site-nav a,
+body>header.site-header .site-nav-mobile a,
 body>header.site-header .site-menu-links a{{
 {from_homepage(".blog-nav")}
 min-height:44px;display:inline-flex;align-items:center;justify-content:center;
@@ -80,7 +90,9 @@ margin:0;background:transparent;color:inherit;line-height:1.2;letter-spacing:0;
 font-family:var(--font);text-transform:none;
 }}
 body>header.site-header .site-nav a:hover,
-body>header.site-header .site-nav a:focus-visible{{{from_homepage(".blog-nav:hover")}}}
+body>header.site-header .site-nav a:focus-visible,
+body>header.site-header .site-nav-mobile a:hover,
+body>header.site-header .site-nav-mobile a:focus-visible{{{from_homepage(".blog-nav:hover")}}}
 body>header.site-header .site-nav a[aria-current="page"]{{border-bottom-color:var(--cyan)}}
 body>header.site-header a:focus-visible{{outline:2px solid var(--cyan);outline-offset:3px}}
 /* The homepage uses an overlaying fixed header. A full-screen <nav id="menu">
@@ -125,10 +137,9 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
  body>header.site-header .brand{{font-size:clamp(12px,3.5vw,15px);gap:6px;min-width:0;flex:0 1 auto}}
  body>header.site-header .brand span{{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
  body>header.site-header .brand svg{{width:18px;height:18px;flex-basis:18px}}
- body>header.site-header .site-nav{{display:flex;gap:clamp(6px,2vw,10px);flex-shrink:0}}
- body>header.site-header .site-nav a{{display:none;font-size:clamp(12px,3.4vw,13px);padding-inline:0}}
- body>header.site-header .site-nav a[href="/blog/"]{{display:inline-flex}}
- body>header.site-header .site-nav a[href*="Faraz-Ansari-CV.pdf"]{{display:inline-flex}}
+ body>header.site-header .site-nav{{display:none}}
+ body>header.site-header .site-nav-mobile{{display:flex;gap:clamp(6px,2vw,10px);flex-shrink:0}}
+ body>header.site-header .site-nav-mobile a{{display:inline-flex;font-size:clamp(12px,3.4vw,13px);padding-inline:0}}
  body>header.site-header .site-head-actions{{gap:6px;flex-shrink:0}}
  body>header.site-header~main>.hero:not(.sec){{padding-top:calc(env(safe-area-inset-top,0px) + 104px)!important}}
  body>header.site-header~main:not(:has(>.hero,>.wrap)){{padding-top:calc(env(safe-area-inset-top,0px) + 94px)!important}}
@@ -136,6 +147,7 @@ padding-top:calc(env(safe-area-inset-top,0px) + 90px)!important;
 }}
 @media(prefers-reduced-motion:reduce){{
  body>header.site-header .site-nav a,
+ body>header.site-header .site-nav-mobile a,
  body>header.site-header .site-menu-links a{{transition:none}}
 }}
 '''
@@ -253,7 +265,7 @@ def build_header(links, label):
         nav = ""
     # Keep the local top-nav links and use the homepage's Menu toggle.
     return ('<header class="site-header">' + brand
-            + '<div class="site-head-actions">' + nav + menu_button
+            + '<div class="site-head-actions">' + nav + mobile_nav + menu_button
             + '</div></header>')
 
 def is_brand_link(html):
@@ -261,7 +273,15 @@ def is_brand_link(html):
     return bool(re.search(r'\bclass\s*=\s*["\x27][^"\x27]*\bbrand\b', tag, re.I))
 
 def extract_navigation(site_header):
-    original_nav = nav_pattern.search(site_header)
+    # Never mistake the standard mobile nav for a page's original desktop
+    # links on subsequent builds (important for 404 and other minimal pages).
+    original_nav = None
+    for candidate in nav_pattern.finditer(site_header):
+        opening = candidate.group().split(">", 1)[0]
+        classes = re.search(r'\bclass="([^"]+)"', opening)
+        if classes and "site-nav" in classes.group(1).split():
+            original_nav = candidate
+            break
     if original_nav is None:
         return [], "Main navigation"
     a = [m.group() for m in anchor.finditer(original_nav.group())]
@@ -380,12 +400,20 @@ if home_before.count("</head>") != 1 or home_before.count("</body>") != 1:
     raise ValueError("Homepage document structure is invalid")
 home_after = old_css.sub("", home_before)
 home_after = old_js.sub("", home_after)
+# Replace existing mobile navigation before injecting so repeated builds
+# cannot accumulate duplicate links or controls.
+home_after = mobile_nav_pattern.sub("", home_after)
+if home_after.count(menu_button) != 1:
+    raise ValueError("Homepage Menu toggle must appear exactly once")
+home_after = home_after.replace(menu_button, mobile_nav + "\n    " + menu_button, 1)
 home_after = home_after.replace("</head>", css_tag + "\n</head>", 1)
 home_after = home_after.replace("</body>", js_tag + "\n</body>", 1)
 if home_after.count("/assets/shared-header.css?v=") != 1:
     raise ValueError("Homepage must load one shared header stylesheet")
 if home_after.count("/assets/site-menu.js?v=") != 1:
     raise ValueError("Homepage must load one shared menu controller")
+if home_after.count('class="site-nav-mobile"') != 1:
+    raise ValueError("Homepage needs exactly one mobile navigation")
 if home_after != home_before:
     home_path.write_text(home_after, encoding="utf-8")
     changed += 1
