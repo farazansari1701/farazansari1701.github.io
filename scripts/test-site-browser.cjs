@@ -57,6 +57,7 @@ async function main(){
       return {viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body.scrollWidth,
         header:rect('header.site-header,header.top'),logo:rect('header.site-header .brand,header.top .logo'),menuButton:rect('#menu-btn'),
         blogLink:rect('header.site-header .site-nav-mobile a[href="/blog/"]'),cvLink:rect('header.site-header .site-nav-mobile a[href*="Faraz-Ansari-CV.pdf"]'),
+        mobileLinkLabels:[...document.querySelectorAll('header.site-header .site-nav-mobile a')].map(a=>a.innerText.trim()),
         desktopNav:rect('header.site-header .site-nav'),mobileNav:rect('header.site-header .site-nav-mobile'),
         heroTitle:rect('.hero-name,main h1'),main:rect('main'),
         firstContent:rect('main>.wrap>.breadcrumbs,main>.wrap>.index-hero>.eyebrow,main>.hero:not(.sec) .crumb,main>.hero.sec .chapter,main>.hero.sec .hero-meta,main>.kicker,main.page .code'),
@@ -79,6 +80,11 @@ async function main(){
     if(h&&first&&first.display!=='none'&&first.visibility!=='hidden'&&first.top<h.bottom+6)
       record.problems.push('Fixed header overlaps first content ('+first.top+' < '+h.bottom+' + 6)');
     if(conf.mobile){
+      // Compare the *rendered labels*, not only the presence of links.
+      // The earlier regression showed "View CV ↗" on Blog but "View CV"
+      // on the homepage despite both navigation elements existing.
+      if(JSON.stringify(layout.mobileLinkLabels)!==JSON.stringify(['Blog','View CV']))
+        record.problems.push('Mobile navigation labels differ: '+JSON.stringify(layout.mobileLinkLabels));
       if(!layout.mobileNav||layout.mobileNav.display==='none')
         record.problems.push('Standard mobile nav is missing or hidden');
       if(layout.desktopNav&&layout.desktopNav.display!=='none')
