@@ -100,6 +100,28 @@ for (const page of pages) {
   }
 }
 
+// Project case studies must never fall out of the sitemap after a new page
+// is published. Verify all canonical, indexable project pages, not a hard-coded
+// list of today's three missing entries.
+const sitemapLocations=[...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
+const projectPages=htmlPathsIn('projects');
+for(const file of projectPages){
+  const html=read(file);
+  const url='https://farazansari1701.com/'+file.replace(/index\.html$/,'');
+  const count=sitemapLocations.filter(loc=>loc===url).length;
+  const noindex=/<meta\b[^>]*\bname=["']robots["'][^>]*\bcontent=["'][^"']*noindex/i.test(html);
+  if(noindex){
+    if(count!==0)fail(file+' is noindex but still appears in the sitemap');
+    continue;
+  }
+  if(!html.includes('<link rel="canonical" href="'+url+'">'))
+    fail(file+' missing self-referencing canonical: '+url);
+  if(count!==1)
+    fail(file+' must appear exactly once in the sitemap (found '+count+'): '+url);
+}
+if(new Set(sitemapLocations).size!==sitemapLocations.length)
+  fail('Duplicate URL entries found in sitemap.xml');
+
 for (const relative of ['blog/posts.json', 'sitemap.xml']) {
   const text = read(relative);
   if (/https?:\/\/farazansari1701\.com\/blogs\/|["']\/blogs\//i.test(text)) {

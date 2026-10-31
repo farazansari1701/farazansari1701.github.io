@@ -165,6 +165,22 @@ for p in posts:
         lastmod=node.find('{'+ns+'}lastmod')
         if lastmod is None:lastmod=ET.SubElement(node,'{'+ns+'}lastmod')
         lastmod.text=p['modifiedAt'][:10]
+# Automatically include every indexable canonical project page, including new
+# case studies published after this build. Keep existing lastmod dates intact;
+# do not invent modification dates for pages without reliable metadata.
+for project_html in sorted((ROOT/'projects').rglob('index.html')):
+    project_path='/' + project_html.parent.relative_to(ROOT).as_posix() + '/'
+    project_url=BASE + project_path
+    project_source=project_html.read_text(encoding='utf-8')
+    if re.search(r'<meta\b[^>]*\bname=["\x27]robots["\x27][^>]*\bcontent=["\x27][^"\x27]*noindex',project_source,re.I):
+        continue
+    canonical=re.search(r'<link\b[^>]*\brel=["\x27]canonical["\x27][^>]*\bhref=["\x27]([^"\x27]+)',project_source,re.I)
+    if canonical is None or canonical.group(1)!=project_url:
+        raise ValueError('Project page is missing its self-referencing canonical URL: '+str(project_html))
+    if project_url not in seen:
+        node=ET.SubElement(tree.getroot(),'{'+ns+'}url')
+        ET.SubElement(node,'{'+ns+'}loc').text=project_url
+        seen.add(project_url)
 tree.write(ROOT/'sitemap.xml',encoding='utf-8',xml_declaration=True)
 ET.register_namespace('atom','http://www.w3.org/2005/Atom')
 rss=ET.Element('rss',{'version':'2.0'});channel=ET.SubElement(rss,'channel')
