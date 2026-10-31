@@ -44,11 +44,11 @@ jobs:
           source /tmp/expected-assets.txt
           echo "Waiting for deployed stylesheet versions: Projects=${PROJECTS}, Portfolio=${PORTFOLIO}, Header=${HEADER}"
           for attempt in $(seq 1 36); do
-            HOME="$(curl -fsSL --max-time 15 "https://farazansari1701.com/?qa-check=${GITHUB_SHA}" || true)"
-            PROJ="$(curl -fsSL --max-time 15 "https://farazansari1701.com/projects/?qa-check=${GITHUB_SHA}" || true)"
-            if printf "%s" "$HOME" | grep -Fq "portfolio.min.css?v=${PORTFOLIO}" \
-              && printf "%s" "$HOME" | grep -Fq "shared-header.min.css?v=${HEADER}" \
-              && printf "%s" "$PROJ" | grep -Fq "seo-projects.min.css?v=${PROJECTS}"; then
+            curl -fsSL --max-time 15 "https://farazansari1701.com/?qa-check=${GITHUB_SHA}" -o /tmp/qa-home.html || true
+            curl -fsSL --max-time 15 "https://farazansari1701.com/projects/?qa-check=${GITHUB_SHA}" -o /tmp/qa-projects.html || true
+            if grep -Fq "portfolio.min.css?v=${PORTFOLIO}" /tmp/qa-home.html \
+              && grep -Fq "shared-header.min.css?v=${HEADER}" /tmp/qa-home.html \
+              && grep -Fq "seo-projects.min.css?v=${PROJECTS}" /tmp/qa-projects.html; then
               echo "Updated accessibility CSS is live."
               exit 0
             fi
