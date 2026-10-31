@@ -104,8 +104,8 @@ js_version = sha256(site_js.encode("utf-8")).hexdigest()[:12]
 
 css_tag = '<link rel="stylesheet" href="/assets/site-footer.css?v=' + css_version + '">'
 js_tag = '<script src="/assets/site-footer.js?v=' + js_version + '" defer></script>'
-old_css = re.compile(r'<link\b(?=[^>]*\bhref="/assets/site-footer\.css(?:\?[^"]*)?")[^>]*>\s*', re.I)
-old_js = re.compile(r'<script\b(?=[^>]*\bsrc="/assets/site-footer\.js(?:\?[^"]*)?")[^>]*>\s*</script>\s*', re.I)
+old_css = re.compile(r'<link\b(?=[^>]*\bhref="/assets/site-footer(?:\.min)?\.css(?:\?[^"]*)?")[^>]*>\s*', re.I)
+old_js = re.compile(r'<script\b(?=[^>]*\bsrc="/assets/site-footer(?:\.min)?\.js(?:\?[^"]*)?")[^>]*>\s*</script>\s*', re.I)
 excluded = {".git", "node_modules", "templates", "blogs", ".venv", "venv"}
 updated = 0
 scanned = 0

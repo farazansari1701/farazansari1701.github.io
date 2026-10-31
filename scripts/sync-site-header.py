@@ -208,7 +208,7 @@ css_path = ROOT / "assets/shared-header.css"
 css_path.write_text(css, encoding="utf-8")
 css_version = sha256(css.encode("utf-8")).hexdigest()[:12]
 css_tag = '<link rel="stylesheet" href="/assets/shared-header.css?v=' + css_version + '">'
-old_css = re.compile(r'<link\b(?=[^>]*\bhref="/assets/shared-header\.css(?:\?[^"]*)?")[^>]*>\s*', re.I)
+old_css = re.compile(r'<link\b(?=[^>]*\bhref="/assets/shared-header(?:\.min)?\.css(?:\?[^"]*)?")[^>]*>\s*', re.I)
 
 brand = '<a class="brand" href="/">' + brand_icon + '<span>Faraz Ansari</span></a>'
 heading = re.compile(r'<header\b[^>]*>[\s\S]*?</header>', re.I)
@@ -222,7 +222,7 @@ old_menu = re.compile(r'<nav class="menu" id="menu"[\s\S]*?</nav>\s*</div>\s*</n
 menu_js = (ROOT / "assets/site-menu.js").read_text(encoding="utf-8")
 menu_js_version = sha256(menu_js.encode("utf-8")).hexdigest()[:12]
 js_tag = '<script src="/assets/site-menu.js?v=' + menu_js_version + '" defer></script>'
-old_js = re.compile(r'<script\b(?=[^>]*\bsrc="/assets/site-menu\.js(?:\?[^"]*)?")[^>]*>\s*</script>\s*', re.I)
+old_js = re.compile(r'<script\b(?=[^>]*\bsrc="/assets/site-menu(?:\.min)?\.js(?:\?[^"]*)?")[^>]*>\s*</script>\s*', re.I)
 
 
 def build_header(links, label):
