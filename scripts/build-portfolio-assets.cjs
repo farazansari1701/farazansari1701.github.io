@@ -23,7 +23,10 @@ for (const source of ['portfolio.js', 'portfolio-responsive.js', 'portfolio-resp
 const css = esbuild.transformSync(read('assets/portfolio.css'), {
   loader: 'css', minify: true, legalComments: 'none', charset: 'utf8'
 }).code;
-if (!/<style data-portfolio>/.test(html)) throw new Error('Missing portfolio CSS build slot');
-html = html.replace(/<style data-portfolio>[\s\S]*?<\/style>/, () => '<style data-portfolio>' + css + '</style>');
+write('assets/portfolio.min.css', css);
+const cssUrl = '/assets/portfolio.min.css?v=' + hash(css);
+const cssSlot = /<style data-portfolio>[\s\S]*?<\/style>|<link\b(?=[^>]*\bdata-portfolio\b)[^>]*>/;
+if (!cssSlot.test(html)) throw new Error('Missing portfolio CSS build slot');
+html = html.replace(cssSlot, () => '<link rel="stylesheet" data-portfolio href="' + cssUrl + '">');
 write('index.html', html);
 console.log('Rebuilt canonical portfolio homepage and minified assets with esbuild.');

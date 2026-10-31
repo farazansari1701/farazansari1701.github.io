@@ -103,17 +103,20 @@ for(const file of [path.join(root,'index.html'),path.join(root,'404.html'),...fu
  fs.writeFileSync(file,html);
 }
 
-// Keep readable portfolio sources, but ship minified inline CSS and deferred JS.
-// Inline CSS avoids adding a new render-blocking stylesheet request.
+// Keep CSS separate from HTML so the browser can cache the 100KB+ stylesheet
+// between pages and visits. Both assets have content-based cache-busting URLs.
 const portfolioCss=esbuild.transformSync(portfolio,{loader:'css',minify:true,legalComments:'none',charset:'utf8'}).code;
+fs.writeFileSync(path.join(root,'assets/portfolio.min.css'),portfolioCss);
+const portfolioCssUrl='/assets/portfolio.min.css?v='+crypto.createHash('sha256').update(portfolioCss).digest('hex').slice(0,12);
+const portfolioStyleSlot=/<style data-portfolio>[\s\S]*?<\/style>|<link\b(?=[^>]*\bdata-portfolio\b)[^>]*>/;
 const portfolioJs=esbuild.transformSync(fs.readFileSync(path.join(root,'assets/portfolio.js'),'utf8'),{loader:'js',minify:true,target:'es2020',legalComments:'none',charset:'utf8'}).code;
 fs.writeFileSync(path.join(root,'assets/portfolio.min.js'),portfolioJs);
 const portfolioJsUrl='/assets/portfolio.min.js?v='+crypto.createHash('sha256').update(portfolioJs).digest('hex').slice(0,12);
 for(const rel of ['index.html']){
  const file=path.join(root,rel);
  let html=fs.readFileSync(file,'utf8');
- if(!/<style data-portfolio>/.test(html))throw new Error('Missing portfolio CSS build slot: '+rel);
- html=html.replace(/<style data-portfolio>[\s\S]*?<\/style>/,()=>'<style data-portfolio>'+portfolioCss+'</style>');
+ if(!portfolioStyleSlot.test(html))throw new Error('Missing portfolio CSS build slot: '+rel);
+ html=html.replace(portfolioStyleSlot,()=>'<link rel="stylesheet" data-portfolio href="'+portfolioCssUrl+'">');
  html=html.replace(/\/assets\/portfolio\.min\.js(?:\?[^"\s<>]*)?/g,portfolioJsUrl);
  fs.writeFileSync(file,html);
 }

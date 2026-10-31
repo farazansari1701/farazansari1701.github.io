@@ -188,12 +188,27 @@ document.documentElement.classList.add('js');
   /* ---- menu ---- */
   const menu = $('#menu'), menuBtn = $('#menu-btn');
   function setMenu(open){
-    if (!menu) return;
-    menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (!menu || !menuBtn) return;
+    // Keep the full-screen overlay out of keyboard navigation when closed.
+    if (open) {
+      menu.inert = false;
+      menu.removeAttribute('aria-hidden');
+    } else {
+      if (menu.contains(document.activeElement)) menuBtn.focus();
+      menu.setAttribute('aria-hidden', 'true');
+      menu.inert = true;
+    }
+    menu.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     document.documentElement.classList.toggle('menu-open', open);
     if (open) $('.menu-scroll', menu).scrollTop = 0;
-    if (open) { lenis && lenis.stop(); setTimeout(() => { const a = $('a', menu); a && a.focus(); }, 80); }
-    else { lenis && lenis.start(); menuBtn.focus(); }
+    if (open) {
+      lenis && lenis.stop();
+      setTimeout(() => { const a = $('a', menu); a && a.focus(); }, 80);
+    } else {
+      lenis && lenis.start();
+      menuBtn.focus();
+    }
     tick(900, .06);
   }
   menuBtn && menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));

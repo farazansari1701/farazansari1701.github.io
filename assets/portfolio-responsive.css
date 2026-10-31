@@ -175,3 +175,26 @@ html.menu-open,html.menu-open body{overflow:hidden}
   .js .glide{transform:translateY(6px);transition-duration:.55s!important}
   .js .glide.in{transform:none}
 }
+
+/* Small-screen header containment and accessible motion handling.
+   The Blog link remains available in the full-screen menu at narrow widths. */
+@media(max-width:760px){
+  .top{min-width:0;gap:8px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+  .top .logo{min-width:0;max-width:100%;flex:0 1 auto}
+  .top .logo span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .top .top-actions,.top .header-links{min-width:0;gap:clamp(6px,2vw,12px)}
+  .top .header-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;white-space:nowrap}
+  .top #menu-btn,.menu-close{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  .menu-scroll{max-height:100%;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+  .menu li a{overflow-wrap:anywhere;word-break:normal}
+  .hero-name{max-width:100%;font-size:clamp(48px,15.5vw,115px)}
+  .history-item,.icard,.dr-card,.flip .back{overflow-wrap:anywhere}
+}
+@media(max-width:390px){
+  .top .header-links a[href="/blog/"]{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .menu,.menu.open{transition:none!important}
+  .js .glide,.js .glide.in{opacity:1!important;transform:none!important;transition:none!important}
+  .ld-roll{animation:none!important}
+}

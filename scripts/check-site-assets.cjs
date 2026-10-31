@@ -10,6 +10,21 @@ const fixed=['site-menu.js','site-footer.js','site-footer.css',
 const seo=fs.readdirSync(assets).filter(n=>/^seo-[a-z0-9-]+\.css$/i.test(n));
 const sources=[...new Set([...fixed,...seo])].sort();
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex').slice(0,12);
+// The homepage's largest CSS asset is versioned, cacheable and not inlined.
+const portfolioCssSource=fs.readFileSync(path.join(assets,'portfolio.css'),'utf8');
+const portfolioCssExpected=esbuild.transformSync(portfolioCssSource,{
+ loader:'css',minify:true,legalComments:'none',charset:'utf8'
+}).code;
+const portfolioCssActual=fs.readFileSync(path.join(assets,'portfolio.min.css'),'utf8');
+assert.equal(portfolioCssActual,portfolioCssExpected,
+ 'External portfolio CSS is stale relative to its source');
+const portfolioCssLink='/assets/portfolio.min.css?v='+hash(portfolioCssActual);
+const canonicalHome=fs.readFileSync(path.join(root,'index.html'),'utf8');
+assert.equal(canonicalHome.split('data-portfolio href="'+portfolioCssLink+'"').length-1,1,
+ 'Homepage must load one versioned external portfolio stylesheet');
+assert(!canonicalHome.includes('<style data-portfolio>'),
+ 'Homepage must not embed the large portfolio CSS payload');
+
 const records=sources.map(source=>{
  const ext=path.extname(source).slice(1),stem=source.slice(0,-ext.length-1);
  assert(/^[a-z0-9-]+$/i.test(stem),'Invalid asset stem: '+stem);
