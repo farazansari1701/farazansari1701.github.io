@@ -1,0 +1,57 @@
+{
+  "slug": "marketing-sales-handover-acceptance",
+  "title": "Marketing-to-sales handover: qualify, assign, accept, learn",
+  "seoTitle": "Marketing-to-Sales Handover: A Practical Checklist | Faraz Ansari",
+  "description": "A practical B2B lead handover framework for qualification, assignment, sales acceptance and feedback, with HubSpot and ICO guidance.",
+  "deck": "A lead is not handed over by changing a CRM field. Define shared qualification, ownership, acceptance, feedback and contact rules first.",
+  "publishedAt": "2026-11-01T08:15:00+00:00",
+  "modifiedAt": "2026-11-01T08:15:00+00:00",
+  "jobKey": "faraz-growth:2026-11-01",
+  "category": "Marketing automation",
+  "categoryUrl": "/blog/topics/marketing-automation/",
+  "keywords": [
+    "marketing to sales handover",
+    "B2B lead handover",
+    "sales accepted lead",
+    "marketing qualified lead",
+    "lead qualification",
+    "CRM lead management"
+  ],
+  "heroPrefix": "marketing-sales-handover",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Original four-stage marketing-to-sales handover diagram: qualify for fit and intent, assign an owner, confirm acceptance, then record the outcome and return path",
+  "heroCaption": "Qualify, assign, accept and learn: four separate handover decisions.",
+  "sources": [
+    {
+      "name": "HubSpot: Use lifecycle stages",
+      "url": "https://knowledge.hubspot.com/records/use-lifecycle-stages",
+      "context": "Default lifecycle stages and distinctions between marketing-qualified and sales-qualified leads. Reviewed 1 November 2026."
+    },
+    {
+      "name": "HubSpot: Default contact properties",
+      "url": "https://knowledge.hubspot.com/properties/hubspots-default-contact-properties",
+      "context": "Contact property definitions and record attribution. Reviewed 1 November 2026."
+    },
+    {
+      "name": "HubSpot: Create leads",
+      "url": "https://knowledge.hubspot.com/records/create-leads",
+      "context": "Lead object, associated records and subscription-dependent configuration. Reviewed 1 November 2026."
+    },
+    {
+      "name": "HubSpot: Manage lifecycle stage sync between objects",
+      "url": "https://knowledge.hubspot.com/object-settings/manage-how-lifecycle-stages-sync-between-objects",
+      "context": "Lifecycle automation scope and sync behaviours. Reviewed 1 November 2026."
+    },
+    {
+      "name": "Salesforce Trailhead: Qualify and route leads",
+      "url": "https://trailhead.salesforce.com/content/learn/modules/opportunity-management/qualify-and-route-leads-to-your-reps",
+      "context": "Public lead qualification and routing educational guidance. Reviewed 1 November 2026."
+    },
+    {
+      "name": "ICO: Business-to-business marketing",
+      "url": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/",
+      "context": "UK B2B communications and personal-data responsibilities. Reviewed 1 November 2026."
+    }
+  ]
+}

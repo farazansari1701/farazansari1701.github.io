@@ -74,3 +74,5 @@ No. Eligibility for a workflow does not automatically establish eligibility for 
 Check whether the trigger still occurs, whether eligibility fields changed, whether records are suppressed and whether re-enrolment is configured as intended. Compare equivalent periods before assuming demand itself fell.
 
 My working principle is simple: automate a clearly documented decision, not an unexplained assumption. When entry, exclusion, re-entry and exit each have a reason, the workflow becomes easier to test, maintain and explain. You can [explore my marketing projects](/#projects) or [get in touch](/#contact) to discuss how I approach marketing operations.
+
+The [marketing-to-sales handover model](/blog/marketing-sales-handover-acceptance/) extends that logic beyond automation: an eligible record still needs a named owner, explicit acceptance and a return route.

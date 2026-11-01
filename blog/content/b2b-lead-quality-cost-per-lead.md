@@ -89,3 +89,5 @@ Start with a reliable lead count, a documented qualification definition, clear o
 
 
 For the reporting step, my [marketing attribution review](/blog/marketing-attribution-measurement-definitions/) explains how to agree outcome definitions, counting rules and reporting windows before comparing channel credit.
+
+When an enquiry needs a person rather than another dashboard stage, my [marketing-to-sales handover checklist](/blog/marketing-sales-handover-acceptance/) explains qualification, ownership, acceptance and feedback.

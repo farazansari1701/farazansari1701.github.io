@@ -72,3 +72,5 @@ Explore the [marketing automation collection](/blog/topics/marketing-automation/
 
 
 Once records are ready for reporting, use clear [marketing attribution definitions](/blog/marketing-attribution-measurement-definitions/) to distinguish the measured action, counting basis and reporting scope.
+
+If the next step is a sales conversation, pair clean data with an explicit [handover and acceptance process](/blog/marketing-sales-handover-acceptance/) rather than assuming assignment means acceptance.
