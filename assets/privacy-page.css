@@ -1,0 +1,17 @@
+@font-face{font-family:Archivo;src:url('/assets/fonts/archivo-roman-latin.woff2') format('woff2');font-display:swap;font-weight:100 900}
+:root{color-scheme:light dark;--bg:#f6f6f3;--fg:#1a1a1a;--muted:#61615b;--rule:#d2d2cb;--accent:#0075af}
+@media(prefers-color-scheme:dark){:root{--bg:#141414;--fg:#edede9;--muted:#b7b7ae;--rule:#43433d;--accent:#54c7f4}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--fg);font:17px/1.65 Archivo,Arial,sans-serif;margin:0}
+a{color:inherit;text-underline-offset:4px}a:hover{color:var(--accent)}a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.skip{position:absolute;left:16px;top:-100px;padding:8px 14px;background:var(--fg);color:var(--bg)}.skip:focus{top:12px}
+header{border-bottom:1px solid var(--rule)}nav,footer>div{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;max-width:1100px;margin:auto;padding:22px clamp(20px,5vw,64px)}
+.brand{font-size:19px;font-weight:800;letter-spacing:-.035em;text-decoration:none}.links{display:flex;gap:22px;font-size:14px;font-weight:650}
+main{max-width:960px;margin:auto;padding:clamp(44px,8vw,90px) clamp(20px,5vw,64px) 84px}
+h1{font-size:clamp(42px,8vw,86px);line-height:1;letter-spacing:-.055em;text-transform:uppercase;margin:10px 0 24px}
+h2{font-size:clamp(24px,3vw,30px);line-height:1.2;margin:46px 0 15px}
+p,li{max-width:72ch}p,ul{margin:0 0 18px}ul{padding-left:23px}li{margin-bottom:10px}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:var(--muted)}.lead{font-size:clamp(19px,2.5vw,24px);line-height:1.48}.small{font-size:13px;color:var(--muted)}
+.note{padding:12px 20px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule)}
+@media(max-width:420px){.links{gap:12px}.brand{font-size:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
