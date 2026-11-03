@@ -1,0 +1,50 @@
+{
+  "slug": "the-years-that-count",
+  "title": "The Years That Count",
+  "seoTitle": "The Years That Count | Faraz Ansari",
+  "description": "On uncertainty, belonging, marriage, children, and the futures we imagine while life keeps changing around us.",
+  "deck": "The future remains a possibility. The present is the part of life we are actually living.",
+  "publishedAt": "2026-11-03T15:10:00+00:00",
+  "modifiedAt": "2026-11-03T15:10:00+00:00",
+  "approvedAt": "2026-11-03T14:57:39+00:00",
+  "entryDate": "2026-11-03",
+  "answerCount": 0,
+  "editorialBasis": "standalone-approved",
+  "standaloneApproved": true,
+  "approvedForPublication": true,
+  "privacyChecked": true,
+  "category": "Personal perspectives",
+  "categoryUrl": "/blog/topics/personal-perspectives/",
+  "keywords": [
+    "uncertainty",
+    "belonging",
+    "marriage",
+    "finding a partner",
+    "children and fatherhood",
+    "meaning of life",
+    "Nida Fazli",
+    "Mirza Ghalib"
+  ],
+  "heroPrefix": "personal-2026-11-03-years-that-count",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "An atmospheric illustrated path towards a distant horizon, representing uncertainty, belonging and an unfinished future.",
+  "heroCaption": "The years we spend waiting are not outside the story. They are the story.",
+  "sources": [
+    {
+      "name": "Nida Fazli — Kabhi kisi ko mukammal jahan nahin milta",
+      "url": "https://www.rekhta.org/poets/nida-fazli/couplets",
+      "context": "Urdu verse and poet attribution."
+    },
+    {
+      "name": "Mirza Ghalib — Rau mein hai rakhsh-e-umr",
+      "url": "https://www.rekhta.org/poets/mirza-ghalib/couplets",
+      "context": "Urdu verse and poet attribution."
+    },
+    {
+      "name": "Qur'an — Surah Al-Kahf, verses 23–24",
+      "url": "https://quran.com/18/23-24",
+      "context": "Referenced reflection on intention and the uncertainty of tomorrow."
+    }
+  ]
+}
