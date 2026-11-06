@@ -81,4 +81,6 @@ Not when the intended outcome is a specific enquiry or confirmation. A generic p
 
 Audit the existing event names and key-event settings before introducing new tracking. Write down what every event proves, run repeatable tests and correct misleading labels. The aim is not to make a dashboard look bigger; it is to make each marketing decision easier to defend.
 
+[B2B form guide](/blog/b2b-form-design-lead-quality/).
+
 I approach measurement as a chain of evidence, from recorded behaviour to confirmed outcomes. When the links are explicit, an analyst can spot a broken assumption before it becomes a confident but inaccurate conclusion. [Explore my work](/#projects) or [get in touch](/#contact) to discuss marketing measurement and operations.

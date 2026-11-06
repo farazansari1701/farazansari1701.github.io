@@ -72,4 +72,6 @@ No. Engagement and conversion measure different behaviour. Review valid downstre
 
 Correct the clearest broken promise or unusable next step, document the change and then observe comparable results. Avoid redesigning everything at once when the evidence does not identify the problem.
 
+My [B2B form review](/blog/b2b-form-design-lead-quality/) covers fields, validation and follow-up.
+
 The useful standard is simple: every page should earn the next request it makes of a visitor. When the promise, proof and action agree, a campaign becomes easier to understand, evaluate and improve. You can [explore my projects](/#projects) or [get in touch](/#contact) to discuss marketing operations and measurement.
