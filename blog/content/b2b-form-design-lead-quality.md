@@ -6,7 +6,7 @@ This guide is a public, practical framework for reviewing a fictional B2B enquir
 
 Start with the information needed to respond to the particular enquiry. For a request to discuss a service, that might mean a name, a usable contact route and a short description of the requirement. An event registration or resource request may need a different set. Avoid automatically collecting job titles, budgets, employee counts or telephone numbers simply because those fields appear in a CRM.
 
-The objective is not to make every response immediately sales-qualified. It is to help the person take the promised next step while collecting enough dependable information to handle that step appropriately. Where a field is optional, label it as optional rather than leaving visitors to guess.
+The aim is to support the promised next step with dependable information. Clearly label optional fields.
 
 ## Begin with the promise on the page
 
