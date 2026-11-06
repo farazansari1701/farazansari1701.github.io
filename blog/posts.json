@@ -1,5 +1,57 @@
 [
   {
+    "slug": "b2b-form-design-lead-quality",
+    "title": "B2B form design: ask for the information you actually need",
+    "seoTitle": "B2B Form Design and Lead Quality | Faraz Ansari",
+    "description": "A practical B2B enquiry form audit covering required fields, accessible labels, marketing permission, CRM handovers and confirmed submissions.",
+    "deck": "Ask for what the next step needs, explain it clearly and measure completed requests rather than button clicks.",
+    "publishedAt": "2026-11-06T12:54:00+00:00",
+    "modifiedAt": "2026-11-06T12:54:00+00:00",
+    "category": "Campaign operations",
+    "categoryUrl": "/blog/",
+    "jobKey": "faraz-growth:2026-11-06",
+    "keywords": [
+      "B2B form design",
+      "B2B lead form",
+      "enquiry form UX",
+      "lead qualification form",
+      "accessible forms",
+      "form conversion measurement"
+    ],
+    "heroPrefix": "b2b-form-purpose",
+    "heroWidth": 1600,
+    "heroHeight": 900,
+    "heroAlt": "Original illustration of a three-field enquiry form with visible completion markers and a separate handover card",
+    "heroCaption": "Make each field serve the promise, and give a completed request a clear next step.",
+    "sources": [
+      {
+        "name": "W3C WAI: Labelling controls",
+        "url": "https://www.w3.org/WAI/tutorials/forms/labels/",
+        "context": "Accessible field labels and form control associations."
+      },
+      {
+        "name": "W3C WAI: Validating input",
+        "url": "https://www.w3.org/WAI/tutorials/forms/validation/",
+        "context": "Accessible and forgiving validation."
+      },
+      {
+        "name": "ICO: Collect information and generate leads",
+        "url": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/direct-marketing-guidance/collect-information-and-generate-leads/",
+        "context": "Transparency and privacy information for lead generation."
+      },
+      {
+        "name": "ICO: Business-to-business marketing",
+        "url": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/",
+        "context": "UK GDPR and PECR considerations for B2B marketing."
+      }
+    ],
+    "url": "/blog/b2b-form-design-lead-quality/",
+    "date": "2026-11-06",
+    "author": "Faraz Ansari",
+    "status": "published",
+    "wordCount": 1158
+  },
+  {
     "slug": "the-years-that-count",
     "title": "The Years That Count",
     "seoTitle": "The Years That Count | Faraz Ansari",
@@ -262,7 +314,7 @@
     "date": "2026-10-29",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1196
+    "wordCount": 1199
   },
   {
     "slug": "the-cost-of-having-a-conscience",
@@ -624,7 +676,7 @@
     "date": "2026-10-25",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1185
+    "wordCount": 1194
   },
   {
     "slug": "more-questions-than-answers-2026-10-24",
@@ -812,7 +864,7 @@
     "date": "2026-10-22",
     "author": "Faraz Ansari",
     "status": "published",
-    "wordCount": 1065
+    "wordCount": 1092
   },
   {
     "slug": "b2b-lead-quality-cost-per-lead",
