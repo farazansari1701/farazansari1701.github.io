@@ -71,4 +71,6 @@ Set the frequency around how quickly the information changes and the consequence
 Explore the [marketing automation collection](/blog/topics/marketing-automation/) for related guidance, or [get in touch](/#contact) to discuss how I approach connected marketing operations.
 
 
+A useful data-quality review starts before records enter the CRM: [review the questions on the B2B enquiry form](/blog/b2b-form-design-lead-quality/) and whether each field supports a meaningful next action.
+
 Once records are ready for reporting, use clear [marketing attribution definitions](/blog/marketing-attribution-measurement-definitions/) to distinguish the measured action, counting basis and reporting scope.
