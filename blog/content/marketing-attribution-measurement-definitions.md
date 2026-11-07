@@ -1,5 +1,7 @@
 Marketing attribution assigns credit for an important action to the touchpoints that preceded it. Before comparing models, define the action, the people or events being counted, the reporting period and the attribution window. My proposed starting point is a short measurement agreement: everyone should understand what the report can answer before using it to change a campaign.
 
+One particular source-of-credit boundary now merits a separate check: [AI Assistant referrals versus Google's generative-search visibility](/blog/ga4-ai-assistant-referrals-search-console/) are not the same unit of reporting.
+
 This is educational guidance, rather than an account of a measured OKI campaign. My [public marketing responsibilities](/#work) provide professional context, but the examples below are hypothetical. They illustrate a review method without presenting employer data or claiming that a particular channel caused an outcome.
 
 Good attribution definitions also depend on a coherent destination. My [landing-page clarity checklist](/blog/landing-page-promise-next-action/) examines the promise, evidence and action awaiting each visitor.

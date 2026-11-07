@@ -1,0 +1,47 @@
+{
+  "slug": "ga4-ai-assistant-referrals-search-console",
+  "title": "AI referral traffic in GA4: separate assistants from Google Search",
+  "seoTitle": "AI Referral Traffic in GA4 | Faraz Ansari",
+  "description": "Learn to measure AI Assistant referrals in GA4 separately from Google Search AI visibility, with defensible metrics, reporting scopes and FAQs.",
+  "deck": "A practical audit for separating assistant referrals, generative-search impressions and verified outcomes.",
+  "publishedAt": "2026-11-07T08:04:00+00:00",
+  "modifiedAt": "2026-11-07T08:04:00+00:00",
+  "category": "SEO, AEO and GEO",
+  "categoryUrl": "/blog/",
+  "jobKey": "faraz-growth:2026-11-07",
+  "keywords": [
+    "AI referral traffic GA4",
+    "AI Assistant channel GA4",
+    "generative AI performance Search Console",
+    "Google AI Overview reporting",
+    "AEO measurement",
+    "GEO reporting"
+  ],
+  "heroPrefix": "ai-referrals-two-lenses",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Original infographic distinguishing AI Assistant sessions in GA4, Google generative-search impressions in Search Console, and verified outcomes",
+  "heroCaption": "Two reporting lenses: visits in Analytics and generative-search visibility in Search Console.",
+  "sources": [
+    {
+      "name": "Google Analytics: Default channel group",
+      "url": "https://support.google.com/analytics/answer/9756891",
+      "context": "Official scope and classification of AI Assistant, Organic Search and session/event dimensions. Reviewed 7 November 2026."
+    },
+    {
+      "name": "Google Search Central: Introducing generative AI performance reports",
+      "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
+      "context": "Dated 3 June 2026; worldwide rollout note dated 31 August 2026. Reports visibility rather than validated business outcomes."
+    },
+    {
+      "name": "Google Search Central: AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "context": "Search reporting and measurement relationship between AI features and overall search. Reviewed 7 November 2026."
+    },
+    {
+      "name": "Google Search Central: Generative AI optimisation guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "context": "Original content and SEO foundations for AI visibility; no outcome guarantee. Reviewed 7 November 2026."
+    }
+  ]
+}
