@@ -1,5 +1,7 @@
 A website can record an event correctly and still answer the wrong marketing question. A page view shows that a page was displayed; a contact-button click suggests interest; a confirmed enquiry requires evidence that somebody actually submitted a request. I would not place all three under one unexplained conversion total.
 
+Before attributing a website outcome to an AI channel, I would also review [how GA4 assistant referrals differ from Search Console generative-search impressions](/blog/ga4-ai-assistant-referrals-search-console/).
+
 My practical approach is to give each action a precise name, test how it is collected and agree which actions deserve attention in a performance review. This is an educational measurement framework, using fictional examples rather than any employer's confidential analytics. It develops the outcome definitions in my [marketing attribution guide](/blog/marketing-attribution-measurement-definitions/).
 
 ## The quick answer: a key event is a chosen event
