@@ -1,0 +1,60 @@
+{
+  "slug": "the-strange-certainty-of-forever",
+  "title": "The Strange Certainty of Forever",
+  "seoTitle": "The Strange Certainty of Forever | Faraz Ansari",
+  "description": "A philosophical reflection on marriage, love, loneliness, memory and social expectations, asking what it means to promise another person forever.",
+  "deck": "On marriage, the reasons we give, and the lives we promise without knowing what they will become.",
+  "publishedAt": "2026-11-11T23:40:00+00:00",
+  "modifiedAt": "2026-11-11T23:40:00+00:00",
+  "approvedAt": "2026-11-11T23:36:09+00:00",
+  "entryDate": "2026-11-11",
+  "answerCount": 0,
+  "editorialBasis": "standalone-approved",
+  "standaloneApproved": true,
+  "approvedForPublication": true,
+  "privacyChecked": true,
+  "category": "Personal perspectives",
+  "categoryUrl": "/blog/topics/personal-perspectives/",
+  "keywords": [
+    "marriage and love",
+    "social expectations",
+    "why people marry",
+    "fear of loneliness",
+    "shared memories",
+    "unconditional love",
+    "personal reflection",
+    "relationships"
+  ],
+  "heroPrefix": "personal-2026-11-11-forever",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Two empty wooden chairs beside a tall window, facing slightly different directions in soft evening light, representing companionship and an uncertain future.",
+  "heroCaption": "Sharing a future does not mean knowing what it will become.",
+  "sources": [
+    {
+      "name": "Mirza Ghalib — Ishq par zor nahin hai ye wo aatish",
+      "url": "https://www.rekhta.org/couplets/ishq-par-zor-nahiin-hai-ye-vo-aatish-gaalib-mirza-ghalib-couplets",
+      "context": "Original Urdu couplet and attribution; English rendering in the essay is original."
+    },
+    {
+      "name": "Allama Iqbal — Apne man mein doob kar pa ja suragh-e-zindagi",
+      "url": "https://www.rekhta.org/couplets/apne-man-men-duub-kar-paa-jaa-suraag-e-zindagii-allama-iqbal-couplets",
+      "context": "Original Urdu couplet and attribution; English rendering in the essay is original."
+    },
+    {
+      "name": "Erich Fromm — The Art of Loving",
+      "url": "https://en.wikipedia.org/wiki/The_Art_of_Loving",
+      "context": "Care, responsibility, respect and knowledge as components of love."
+    },
+    {
+      "name": "Kahlil Gibran — On Marriage, from The Prophet",
+      "url": "https://www.gutenberg.org/ebooks/58585",
+      "context": "Space and individuality within togetherness."
+    },
+    {
+      "name": "Qur'an — Surah Ar-Rum, 30:21",
+      "url": "https://quran.com/30/21",
+      "context": "Tranquillity, affection and mercy between spouses."
+    }
+  ]
+}

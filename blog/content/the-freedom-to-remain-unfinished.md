@@ -139,3 +139,5 @@ I would like to bring that same patience to the way I understand a person—incl
 **I would like to be understood. I am less sure that I would like to be finished.**
 
 Related reflection: [Someone Will Be Disappointed](/blog/someone-will-be-disappointed/) considers how care, expectations and personal freedom can pull in different directions.
+
+Related reflection: [The Strange Certainty of Forever](/blog/the-strange-certainty-of-forever/) asks what we are seeking when we promise someone a lifetime.

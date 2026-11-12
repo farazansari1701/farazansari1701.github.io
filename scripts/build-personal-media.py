@@ -19,6 +19,7 @@ ART_VERSION = 'contextual-v2-2026-10-31'
 
 # Each motif maps to one already-published essay, not to private journal notes.
 SCENES = {
+    'the-strange-certainty-of-forever': ('forever', '#172434', '#41505E', '#E6B78E', '#AFCDC5'),
     'what-someone-trusts-you-with': ('trust', '#111F2D', '#394C58', '#E6B587', '#A4CCC2'),
     'the-freedom-to-remain-unfinished': ('unfinished', '#142538', '#40545E', '#DAB38F', '#AECAC5'),
     'the-cost-of-having-a-conscience': ('conscience', '#172722', '#384B43', '#E7B67E', '#A2C1AC'),
@@ -269,7 +270,33 @@ def draw_questions(img,d,a,s):
         d.line((x-12,y,x+12,y),fill=(*rgb(a),135),width=2)
         d.line((x,y-12,x,y+12),fill=(*rgb(a),135),width=2)
 
+
+def draw_forever(img,d,a,s):
+    glow(img,1308,350,320,a,76)
+    d.rounded_rectangle((973,164,1550,706),radius=13,fill=(17,34,49,75),outline=(*rgb(s),168),width=9)
+    d.polygon([(991,181),(1533,181),(1533,560),(991,628)],fill=(*rgb(a),26))
+    d.line((1236,175,1236,703),fill=(*rgb(s),138),width=9)
+    d.line((980,432,1547,432),fill=(*rgb(s),95),width=6)
+    for x,y,r in ((1082,264,3),(1390,234,4),(1495,332,2)):
+        d.ellipse((x-r,y-r,x+r,y+r),fill=(*rgb(a),175))
+    d.polygon([(1003,606),(1539,557),(1600,780),(910,780)],fill=(*rgb(a),31))
+    d.line((935,770,1592,770),fill=(*rgb(s),135),width=6)
+    shadow_ellipse(img,(987,735,1264,792),fill=(0,0,0,87),blur=24)
+    shadow_ellipse(img,(1263,733,1584,803),fill=(0,0,0,79),blur=25)
+    d.rounded_rectangle((1040,480,1172,646),radius=9,fill='#43515A',outline='#B6B6A5',width=5)
+    d.line((1046,637,1152,637),fill='#D3B38F',width=17)
+    d.line((1060,642,1037,779),fill='#47505A',width=15)
+    d.line((1146,642,1171,779),fill='#47505A',width=15)
+    d.line((1027,576,1006,653),fill='#7F8580',width=8)
+    d.rounded_rectangle((1351,460,1470,629),radius=9,fill='#53676E',outline='#CAD6CB',width=5)
+    d.line((1345,629,1487,625),fill='#E1BC95',width=17)
+    d.line((1360,631,1334,788),fill='#445460',width=15)
+    d.line((1482,629,1504,788),fill='#445460',width=15)
+    d.line((1481,563,1517,634),fill='#83918E',width=8)
+    d.line((1189,744,1331,744),fill=(*rgb(a),95),width=2)
+
 SCENE_FUNCS={
+    'forever':draw_forever,
     'trust':draw_trust,'unfinished':draw_unfinished,'conscience':draw_conscience,
     'words':draw_words,'choice':draw_choice,'cv':draw_cv,
     'timeline':draw_timeline,'questions':draw_questions,
