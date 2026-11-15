@@ -231,3 +231,5 @@ The future, however beautiful we imagine it, remains a possibility.
 The present is the only part of life we are actually living.
 
 *After all, what is a life worth if we spend all of it preparing to begin?*
+
+Related reflection: [Why Is Life?](/blog/why-is-life/) asks why existence matters, how we construct meaning, and what faith asks of us.

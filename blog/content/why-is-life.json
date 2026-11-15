@@ -1,0 +1,61 @@
+{
+  "slug": "why-is-life",
+  "title": "Why Is Life?",
+  "seoTitle": "Why Is Life? | Faraz Ansari",
+  "description": "A philosophical and deeply questioning personal essay on why life exists, the meanings we create, and what the Qur'an says about purpose and faith.",
+  "deck": "We spend our lives searching for meaning. But have we understood what we are trying to give meaning to?",
+  "publishedAt": "2026-11-15T15:55:29+00:00",
+  "modifiedAt": "2026-11-15T15:55:29+00:00",
+  "approvedAt": "2026-11-15T15:29:09+00:00",
+  "entryDate": "2026-11-15",
+  "answerCount": 0,
+  "editorialBasis": "standalone-approved",
+  "standaloneApproved": true,
+  "approvedForPublication": true,
+  "privacyChecked": true,
+  "category": "Personal perspectives",
+  "categoryUrl": "/blog/topics/personal-perspectives/",
+  "keywords": [
+    "why is life",
+    "meaning of life",
+    "purpose of existence",
+    "philosophical questions",
+    "faith and existence",
+    "Quran meaning of life",
+    "Mirza Ghalib",
+    "Albert Camus",
+    "personal reflections"
+  ],
+  "heroPrefix": "personal-2026-11-15-why-is-life",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "An atmospheric original illustration of unanswered questions beneath a vast sky, reflecting on existence, faith and the search for meaning.",
+  "heroCaption": "Questions about why we exist do not always end when we discover what we live for.",
+  "sources": [
+    {
+      "name": "Qur'an — Surah Adh-Dhariyat 51:56",
+      "url": "https://quran.com/51/56",
+      "context": "Allah's statement on the purpose of human and jinn creation."
+    },
+    {
+      "name": "Qur'an — Surah Al-Mulk 67:2",
+      "url": "https://quran.com/67/2",
+      "context": "Life and death described as a test of deeds."
+    },
+    {
+      "name": "Qur'an — Surah Al-Mu'minun 23:115",
+      "url": "https://quran.com/23/115",
+      "context": "A question challenging the assumption of purposeless creation."
+    },
+    {
+      "name": "Mirza Ghalib — Na tha kuchh to Khuda tha",
+      "url": "https://www.rekhta.org/couplets/na-thaa-kuchh-to-khudaa-thaa-kuchh-na-hotaa-to-khudaa-hotaa-mirza-ghalib-couplets",
+      "context": "Verified Urdu couplet and attribution; the English rendering is original."
+    },
+    {
+      "name": "Albert Camus — The Absurd",
+      "url": "https://plato.stanford.edu/entries/camus/",
+      "context": "Philosophical context for the human search for meaning."
+    }
+  ]
+}
