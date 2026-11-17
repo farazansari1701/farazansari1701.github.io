@@ -253,3 +253,5 @@ But because ours matter too.
 Related reflection: [The Cost of Having a Conscience](/blog/the-cost-of-having-a-conscience/) explores the distance between moral principles and everyday choices.
 
 Related reflection: [The Freedom to Remain Unfinished](/blog/the-freedom-to-remain-unfinished/) considers understanding another person without expecting them to remain unchanged.
+
+Related reflection: [What Was Ever Mine?](/blog/what-was-ever-mine/) questions whether care, generosity or sacrifice can ever make another person's choices our property.
