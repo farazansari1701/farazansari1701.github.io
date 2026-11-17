@@ -9,7 +9,6 @@ from xml.etree import ElementTree as ET
 import re, html, json
 
 ROOT=Path(__file__).resolve().parents[1]
-PERSONAL_INLINE_ART=json.loads((ROOT/'scripts'/'personal-inline-art.json').read_text(encoding='utf-8'))
 BASE='https://farazansari1701.com'
 ASSET='/blog/assets/'
 
@@ -24,17 +23,8 @@ def inline(text):
     result=re.sub(r'\*\*([^*\n]+)\*\*',r'<strong>\1</strong>',result)
     return re.sub(r'(?<!\*)\*([^*\n]+)\*(?!\*)',r'<em>\1</em>',result)
 
-def personal_inline_figure(slug, art):
-    assert slug and art and art.get('alt') and art.get('caption'), 'Incomplete personal inline artwork metadata'
-    prefix = ASSET+'personal-inline-'+slug
-    return ('<figure class="essay-inline-art"><picture>'
-      '<source type="image/webp" srcset="'+prefix+'-640.webp 640w, '+prefix+'-1200.webp 1200w" sizes="(max-width:700px) calc(100vw - 32px), 760px">'
-      '<img src="'+prefix+'-1200.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="'+e(art['alt'])+'">'
-      '</picture><figcaption>'+e(art['caption'])+'</figcaption></figure>')
-
-def markdown(text, art=None, slug=None):
+def markdown(text):
     out=[];toc=[];used=set()
-    pending=False;placed=False;matched=0;nonhead=0
     for part in text.strip().split('\n\n'):
         if part.startswith('#'):
             level=3 if part.startswith('### ') else 2
@@ -43,22 +33,8 @@ def markdown(text, art=None, slug=None):
             assert ident not in used;used.add(ident)
             out.append(f'<h{level} id="{ident}">{inline(title)}</h{level}>')
             if level==2:toc.append((ident,title))
-            if art and art['afterHeading'] and title==art['afterHeading']:
-                assert not pending and not placed, 'Repeated inline illustration heading'
-                pending=True;matched+=1
-        else:
-            if part.startswith('- '):
-                out.append('<ul>'+''.join('<li>'+inline(x[2:])+'</li>' for x in part.splitlines())+'</ul>')
-            else:
-                out.append('<p>'+'<br>'.join(inline(line.rstrip()) for line in part.splitlines())+'</p>')
-            nonhead+=1
-            if art and ((pending and art['afterHeading']) or (not art['afterHeading'] and nonhead==4)):
-                assert not placed, 'Duplicate inline illustration'
-                out.append(personal_inline_figure(slug,art))
-                placed=True;pending=False
-    if art:
-        assert placed, 'Personal illustration insertion point not found: '+str(slug)
-        if art['afterHeading']:assert matched==1, 'Unexpected article heading for: '+str(slug)
+        elif part.startswith('- '):out.append('<ul>'+''.join('<li>'+inline(x[2:])+'</li>' for x in part.splitlines())+'</ul>')
+        else:out.append('<p>'+'<br>'.join(inline(line.rstrip()) for line in part.splitlines())+'</p>')
     return '\n'.join(out),toc
 
 def picture(p,eager=False):
@@ -125,7 +101,7 @@ for source in sorted((ROOT/'blog/content').glob('*.json')):
         assert 1000<=p['wordCount']<=1200, f'Professional body words outside range: {p["wordCount"]}'
     for old in posts:
         if old['url']==p['url']:assert old.get('publishedAt',p['publishedAt'])==p['publishedAt'], 'Original publication date changed'
-    body,toc=markdown(text,PERSONAL_INLINE_ART.get(slug) if personal else None,slug);url=BASE+p['url']
+    body,toc=markdown(text);url=BASE+p['url']
     social='' if p.get('heroDisabled') else BASE+ASSET+p['heroPrefix']+'-social.jpg'
     graph={'@context':'https://schema.org','@graph':[
         {'@type':'BlogPosting','@id':url+'#article','headline':p['title'],'description':p['description'],'url':url,'mainEntityOfPage':url,'datePublished':p['publishedAt'],'dateModified':p['modifiedAt'],'inLanguage':'en-GB','wordCount':p['wordCount'],'articleSection':p['category'],'keywords':p['keywords'],'image':social,'author':{'@id':BASE+'/blog/about/#person'},'publisher':{'@id':BASE+'/blog/about/#person'},'isPartOf':{'@type':'Blog','name':('Personal Perspectives' if personal else 'Digital Marketing Insights'),'url':BASE+'/blog/'}},

@@ -78,7 +78,6 @@ assert '@media(max-width:540px){.author-intro{' in about_css, 'About narrow-scre
 assert 'id="author-professional-writing"' in about and 'id="author-personal-writing"' in about, 'About writing categories missing'
 assert '/blog/topics/personal-perspectives/' in about, 'Personal essay path missing on About page'
 assert '<!-- managed-post-cards:start -->' in about and '<!-- managed-post-cards:end -->' in about, 'About article registry missing'
-personal_visuals=json.loads((ROOT/'scripts/personal-inline-art.json').read_text(encoding='utf-8'))
 posts=json.loads((ROOT/'blog/posts.json').read_text())
 assert len({p['url'] for p in posts})==len(posts)
 for post in posts:
@@ -87,16 +86,9 @@ for post in posts:
     assert 'class="context-strip"' not in article_html,post['url']+' forbidden editorial context banner'
     assert 'All insights ↗' not in article_html,post['url']+' forbidden All insights link'
     assert 'context' not in post,post['url']+' public editorial context metadata'
-    if post.get('slug') in personal_visuals:
-        assert post.get('category')=='Personal perspectives',post['url']+' mismatched illustration category'
-        assert not post.get('heroDisabled'),post['url']+' missing hero cover'
-        assert article_html.count('class="essay-inline-art"')==1,post['url']+' missing or duplicated contextual inline illustration'
-        art_prefix='personal-inline-'+post['slug']
-        for ext in ('-640.webp','-1200.webp','-1200.jpg'):
-            art_path=ROOT/'blog/assets'/(art_prefix+ext)
-            assert art_path.is_file() and art_path.stat().st_size>1000,post['url']+' inline image asset missing: '+ext
-        assert '/blog/assets/'+art_prefix+'-1200.jpg' in article_html,post['url']+' inline image path missing'
-        assert 'alt="'+personal_visuals[post['slug']]['alt']+'"' in article_html.replace('&#x27;', "'"),post['url']+' missing descriptive illustration alt'
+    if post.get('category')=='Personal perspectives':
+        assert not post.get('heroDisabled'),post['url']+' personal hero image missing'
+        assert 'class="essay-inline-art"' not in article_html,post['url']+' contains unwanted inline illustration'
     incoming={path for path,page in pages.items() for tag,a in page.tags if tag=='a' and a.get('href')==post['url'] and path!=post['url']}
     assert incoming,post['url']+' orphan'
     if post.get('category')=='Personal perspectives':
