@@ -5,7 +5,7 @@
   "description": "A deeply personal essay questioning consciousness, identity, memory, time, loss, faith and what it means to be truly alive.",
   "deck": "But who is this 'I' that thinks? And why am I conscious of being alive at all?",
   "publishedAt": "2026-11-17T21:17:18.693+00:00",
-  "modifiedAt": "2026-11-17T21:17:18.693+00:00",
+  "modifiedAt": "2026-11-17T21:38:56.585+00:00",
   "approvedAt": "2026-11-17T21:13:17+00:00",
   "entryDate": "2026-11-17",
   "answerCount": 0,
@@ -15,7 +15,7 @@
   "privacyChecked": true,
   "category": "Personal perspectives",
   "categoryUrl": "/blog/topics/personal-perspectives/",
-  "heroDisabled": true,
+  "heroDisabled": false,
   "keywords": [
     "consciousness",
     "what does it mean to be alive",
@@ -54,5 +54,10 @@
       "url": "https://quran.com/23/115",
       "context": "The question of whether humanity was created without purpose."
     }
-  ]
+  ],
+  "heroPrefix": "personal-2026-11-17-consciousness",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Original editorial illustration of a figure surrounded by orbiting thoughts and a luminous night sky, questioning the nature of consciousness.",
+  "heroCaption": "The mind can observe the world while remaining a mystery to itself."
 }
