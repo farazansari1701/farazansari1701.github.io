@@ -146,3 +146,11 @@ details.professional-records{padding:0;margin:30px 0 34px;border-top:1px solid v
 @media(max-width:900px){.featured-writing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.featured-writing-grid{grid-template-columns:1fr}.blog-search-field{width:100%}.blog-filters button{flex:1 1 auto}}
 @media print{.blog-discovery{display:none!important}.post-list .post-card[hidden]{display:grid!important}}
+
+/* Responsive, purposeful supporting illustrations within personal essays. */
+.prose .essay-inline-art{margin:40px 0 48px;padding-top:21px;border-top:1px solid var(--line);max-width:100%}
+.prose .essay-inline-art picture{display:block;overflow:hidden;background:#182a3b;border:1px solid var(--line)}
+.prose .essay-inline-art img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.prose .essay-inline-art figcaption{font-size:12px;line-height:1.55;font-weight:500;letter-spacing:.01em;color:var(--muted);margin-top:12px}
+@media(max-width:680px){.prose .essay-inline-art{margin:30px 0 38px;padding-top:17px}.prose .essay-inline-art figcaption{font-size:12px}}
+@media print{.prose .essay-inline-art{break-inside:avoid}}

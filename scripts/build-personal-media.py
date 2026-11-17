@@ -19,6 +19,7 @@ ART_VERSION = 'contextual-v2-2026-10-31'
 
 # Each motif maps to one already-published essay, not to private journal notes.
 SCENES = {
+    'i-think-i-question-therefore-i-am': ('consciousness', '#152537', '#45576C', '#E7B58D', '#A4CDCC'),
     'the-strange-certainty-of-forever': ('forever', '#172434', '#41505E', '#E6B78E', '#AFCDC5'),
     'what-someone-trusts-you-with': ('trust', '#111F2D', '#394C58', '#E6B587', '#A4CCC2'),
     'the-freedom-to-remain-unfinished': ('unfinished', '#142538', '#40545E', '#DAB38F', '#AECAC5'),
@@ -295,7 +296,22 @@ def draw_forever(img,d,a,s):
     d.line((1481,563,1517,634),fill='#83918E',width=8)
     d.line((1189,744,1331,744),fill=(*rgb(a),95),width=2)
 
+def draw_consciousness(img,d,a,s):
+    # The observing self and a luminous aperture: a distinct, text-safe hero motif.
+    glow(img,1290,376,336,a,75)
+    for radius in (275,219,164,111):
+        x=1282;y=375
+        arc(d,(x-radius,y-radius,x+radius,y+radius),198,352,(*rgb(s),152-radius//5),5)
+        arc(d,(x-radius,y-radius,x+radius,y+radius),18,174,(*rgb(a),120),4)
+    d.ellipse((1226,392,1317,489),fill='#DAB69F',outline=(*rgb(a),120),width=4)
+    d.polygon([(1193,488),(1353,492),(1432,725),(1100,723)],fill='#172B3C')
+    d.line((1100,723,1487,725),fill=(*rgb(s),180),width=5)
+    for x,y in ((1016,245),(1512,234),(1137,190),(1450,560)):
+        d.ellipse((x-5,y-5,x+5,y+5),fill=(*rgb(a),218))
+    dashed(d,(963,576,1586,576),(*rgb(s),88),width=3,dash=25,space=17)
+
 SCENE_FUNCS={
+    'consciousness':draw_consciousness,
     'forever':draw_forever,
     'trust':draw_trust,'unfinished':draw_unfinished,'conscience':draw_conscience,
     'words':draw_words,'choice':draw_choice,'cv':draw_cv,
