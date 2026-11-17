@@ -115,3 +115,5 @@ And for now, I think that's an honest place to begin.
 Further reflection: [The Life I'm Building Doesn't Fit a Simple Timeline](/blog/the-life-im-building-doesnt-fit-a-simple-timeline-2026-10-25/).
 
 Related reflection on language and belonging: [Who Owns the Words We Speak?](/blog/who-owns-the-words-we-speak/).
+
+Related reflection: [I Think, I Question, Therefore I Am](/blog/i-think-i-question-therefore-i-am/) explores consciousness, identity and what it means to be alive.
