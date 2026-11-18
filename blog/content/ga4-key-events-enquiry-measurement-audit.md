@@ -19,7 +19,7 @@ I would separate a fictional professional website's interactions into four level
 - Intent: clicking a contact link, opening a CV or starting a form describes an attempted next step.
 - Confirmation: a successful form response or validated request provides stronger evidence that an enquiry occurred.
 
-These levels are not universally ranked by commercial value. A recruitment portfolio and an online shop have different objectives. Their shared requirement is that a metric's name should not claim more certainty than the event records.
+These levels are not universal: each metric should claim only what its events prove. For AI search, my [impressions-to-outcomes guide](/blog/ai-search-visibility-search-console-measurement-2026/) applies the same principle.
 
 A prominent button might generate many clicks while failing to create any completed requests. That could be a journey problem, a measurement problem or simply a mismatch between the button's purpose and the report's label. My [landing-page review](/blog/landing-page-promise-next-action/) explores the experience between promise and action.
 
