@@ -1,0 +1,42 @@
+{
+  "slug": "multilingual-seo-hreflang-canonical-b2b",
+  "title": "Multilingual SEO for B2B: hreflang, canonicals and page intent",
+  "seoTitle": "Multilingual SEO: Hreflang and Canonicals | Faraz Ansari",
+  "description": "A practical B2B international SEO guide to deciding which language pages need URLs, using hreflang and canonical tags, and checking localised journeys.",
+  "deck": "An evidence-backed international SEO checklist for language versions, canonical decisions and helpful B2B landing-page journeys.",
+  "publishedAt": "2026-11-19T08:00:00+00:00",
+  "modifiedAt": "2026-11-19T08:00:00+00:00",
+  "category": "SEO, AEO and GEO",
+  "categoryUrl": "/blog/",
+  "jobKey": "faraz-growth:2026-11-19",
+  "keywords": [
+    "multilingual SEO",
+    "international SEO",
+    "hreflang",
+    "hreflang tags",
+    "canonical tags",
+    "B2B landing page localisation"
+  ],
+  "heroPrefix": "hreflang-language-routes",
+  "heroWidth": 1600,
+  "heroHeight": 900,
+  "heroAlt": "Original editorial diagram of connected English, French and German pages with hreflang and canonical checks",
+  "heroCaption": "Different language pages: clear URL routes, reciprocal alternatives and consistent canonical signals.",
+  "sources": [
+    {
+      "name": "Google Search Central: Managing multi-regional and multilingual sites",
+      "url": "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites",
+      "context": "Distinct language URLs, content language, navigation and locale targeting. Reviewed 19 November 2026."
+    },
+    {
+      "name": "Google Search Central: Tell Google about localised versions",
+      "url": "https://developers.google.com/search/docs/specialty/international/localized-versions",
+      "context": "Hreflang codes, reciprocal links and x-default examples. Reviewed 19 November 2026."
+    },
+    {
+      "name": "Google Search Central: Consolidate duplicate URLs",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "context": "Canonical signal distinctions and preferred canonical URLs. Reviewed 19 November 2026."
+    }
+  ]
+}

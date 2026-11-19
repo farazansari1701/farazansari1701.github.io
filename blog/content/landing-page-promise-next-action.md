@@ -1,5 +1,7 @@
 A landing page is not merely the place a campaign click ends. It is where a promise meets a decision. A relevant advertisement may earn attention, but the page must explain what was promised, provide enough evidence to make that promise credible and offer a sensible next step. My preferred review question is therefore not simply whether a page looks attractive. It is whether a visitor can complete the journey without having to reinterpret the offer.
 
+Readers planning a multilingual destination can also use my [hreflang and canonical checklist for international B2B pages](/blog/multilingual-seo-hreflang-canonical-b2b/) to make sure the correct language version is both discoverable and useful.
+
 This is a proposed educational framework, not a report on a particular employer campaign or a claim of improved conversion rates. It complements my guide to [UTM naming for campaign reviews](/blog/utm-naming-campaign-reviews/), which covers how visitors reach a page. Here the focus is what happens after arrival.
 
 ## Audit the journey, not only the page

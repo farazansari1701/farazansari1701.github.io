@@ -1,5 +1,7 @@
 An answer-first marketing article should tell readers what they came to learn before asking them to admire a brand, download a guide or scroll through an introduction. My approach is to state a useful answer, show the evidence and limits behind it, then offer the next sensible decision. The opening does not need to explain everything; it needs to make an honest promise about what follows.
 
+If an answer needs to work for readers in different languages, my [multilingual SEO guide](/blog/multilingual-seo-hreflang-canonical-b2b/) explains how distinct local pages, language links and canonical signals fit together.
+
 That is a writing and editorial standard, not a shortcut to appearing in an AI-generated answer. Google's [2026 guidance on generative AI in Search](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) makes the distinction important: useful, original content and sound SEO remain the foundation. I would rather publish one article that answers a real question than several variations written for imagined algorithms.
 
 ## An answer first is not an answer without context
